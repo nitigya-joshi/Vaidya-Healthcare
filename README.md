@@ -13,6 +13,7 @@ This command will download all the dependencies.
 ### `npm start or npm run dev`
 
 This will start the database server.
+Database server will be running on [http://localhost:3000](http://localhost:3000).
 
 ## **STEP 2 _`(Front-End)`_**
 
@@ -29,7 +30,7 @@ This command will download all the dependencies.
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Open [http://localhost:3001](http://localhost:3001) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
