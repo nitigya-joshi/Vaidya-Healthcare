@@ -2,7 +2,7 @@
 
 In the project directory, you can run:
 
-## **STEP 1 Back-End**
+## **STEP 1 _Back-End_**
 
 Open the server directory in terminal and run the following commands.
 
@@ -14,7 +14,7 @@ This command will download all the dependencies.
 
 This will start the database server.
 
-## **STEP 2 Front-End**
+## **STEP 2 _Front-End_**
 
 Open the client directory in terminal and run the following commands.
 
