@@ -1,0 +1,87 @@
+.carousel {
+  height: 60vh;
+}
+
+.carousel img {
+  width: 50%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.carousel > :nth-of-type(2),
+.carousel > :nth-of-type(3) {
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.carousel:hover > :nth-of-type(2),
+.carousel:hover > :nth-of-type(3) {
+  opacity: 1;
+}
+
+.carousel > :last-of-type {
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
+}
+
+.carousel > :last-of-type .line {
+  opacity: 0.6;
+  width: 40px;
+  height: 6px;
+  background-color: var(--gray-text);
+  transition: all 0.3s;
+  margin: 0 10px;
+}
+
+.carousel > :last-of-type .line:hover {
+  transform: scale(1.1);
+}
+
+.carousel > :last-of-type .active .line {
+  background-color: var(--theme-color);
+}
+
+/* @media (max-width: 950px) {
+  .slide p {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 800px) {
+  .carousel .slide {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .slide > :last-of-type {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    bottom: -60px;
+    right: 0;
+  }
+
+  .slide > :first-of-type {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .slide .graytext span {
+    font-size: 14px;
+  }
+
+  .slide img {
+    display: none;
+  }
+} */
+
+@media (max-width: 450px) {
+  .carousel > :nth-of-type(2),
+  .carousel > :nth-of-type(3) {
+    display: none;
+  }
+}

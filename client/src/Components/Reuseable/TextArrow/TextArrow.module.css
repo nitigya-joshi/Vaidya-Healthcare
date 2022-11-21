@@ -1,0 +1,27 @@
+.readmore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.readmore span {
+  transition: all 0.3s;
+  color: var(--second-gray);
+}
+
+.readmore i {
+  margin-left: 10px;
+  color: var(--second-gray);
+  font-size: 17px;
+}
+
+.readmore:hover i {
+  transform: translateX(10px);
+  color: var(--theme-color);
+}
+
+.readmore:hover span {
+  color: var(--theme-color);
+}

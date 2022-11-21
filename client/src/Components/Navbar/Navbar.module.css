@@ -1,0 +1,242 @@
+.navbar {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 20px 9%;
+  position: fixed;
+  top: 0;
+  z-index: 900;
+  transition: all 0.3s;
+}
+
+.navscrolled {
+  background-color: rgb(255, 255, 255);
+  box-shadow: var(--light-shadow);
+  padding: 10px 9%;
+}
+
+.navbar .links {
+  display: flex;
+  align-items: center;
+}
+
+.links > .link-container {
+  margin: 0 15px;
+  color: var(--gray-text);
+}
+
+.links > .link-container::before {
+  content: "";
+  width: 100px;
+  height: 40px;
+  background-color: transparent;
+  position: absolute;
+  display: block;
+}
+
+.links a:hover {
+  color: var(--theme-color);
+}
+
+.links .activelink {
+  color: var(--theme-color);
+}
+
+.dot {
+  width: 5px;
+  height: 5px;
+  background-color: var(--theme-color);
+  position: relative;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  top: 5px;
+  opacity: 0;
+  transition: all 0.3s;
+  left: 0;
+}
+
+.activelink .dot,
+.links a:hover .dot {
+  left: 50%;
+  opacity: 1;
+}
+
+.navbar .burger {
+  display: none;
+  align-items: center;
+  justify-items: center;
+}
+
+.mobbtn {
+  display: none;
+  width: 35px;
+  cursor: pointer;
+}
+
+.mobbtn.open .l1 {
+  transform: rotate(45deg);
+  top: 8px;
+}
+
+.mobbtn.open .l2 {
+  opacity: 0;
+}
+
+.mobbtn.open .l3 {
+  width: 100%;
+  transform: rotate(135deg);
+  top: -10px;
+}
+
+.mobbtn hr {
+  height: 2px;
+  background: rgb(170, 170, 170);
+  border-radius: 10px;
+  transition: all 0.3s;
+  margin: 7px;
+  margin-left: 0;
+}
+
+.mobbtn:hover hr {
+  background: var(--theme-color);
+}
+
+.mobbtn .l1 {
+  width: 100%;
+}
+
+.mobbtn .l2 {
+  width: 100%;
+}
+
+.mobbtn .l3 {
+  width: 100%;
+}
+
+.navbar .fa-bars,
+.navbar .fa-times {
+  font-size: 24px;
+}
+
+.navmenu {
+  position: fixed;
+  background-color: rgb(255, 255, 255);
+  width: 80%;
+  height: 100%;
+  left: -400vh;
+  border-radius: 0 10px 10px 0;
+  box-shadow: var(--light-shadow);
+  top: 0;
+  padding: 40px 60px;
+  z-index: 1;
+  transition: all 0.3s;
+}
+
+.navmenu button {
+  width: 110px;
+  font-size: 11px;
+  background-color: var(--theme-color);
+  color: rgb(255, 255, 255);
+  transition: all 0.3s;
+  text-transform: capitalize;
+  margin-top: 20px;
+}
+
+.navmenu button:hover {
+  background-color: var(--theme-color);
+}
+
+.navmenu-enter {
+  left: 0;
+}
+
+.navmenu .fa-times {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.navmenu a .dot {
+  display: none;
+}
+
+.navmenu a:hover {
+  color: var(--theme-color);
+}
+
+.navmenu .linksmenu {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.linksmenu a {
+  margin: 15px 0;
+  border-bottom: solid 1px rgb(224, 224, 224);
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.linksmenu a::after {
+  font-family: "Font Awesome 5 Pro";
+  content: "\f105";
+}
+
+.linksmenu .activelink {
+  color: var(--theme-color);
+}
+
+@media (max-width: 590px) {
+  .navbar .links {
+    display: none;
+  }
+
+  .navbar .mobbtn {
+    display: block;
+  }
+}
+
+.links > .link-container:hover .dropdown {
+  top: 40px;
+  opacity: 1;
+  pointer-events: initial;
+}
+
+.dropdown {
+  position: absolute;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  box-shadow: var(--light-shadow);
+  gap: 20px;
+  padding: 20px 20px;
+  border-radius: 10px;
+  left: 0;
+  opacity: 0;
+  transition: all 0.3s;
+  top: 80px;
+  pointer-events: none;
+  left: -60px;
+}
+
+.dropdown a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--gray-text);
+}
+
+.dropdown a i {
+  left: -10px;
+  color: var(--gray-text);
+}
+
+.dropdown a:hover {
+  color: var(--theme-color);
+}
+.dropdown a:hover > i {
+  color: var(--theme-color);
+  left: 0;
+}

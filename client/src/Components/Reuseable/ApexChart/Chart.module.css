@@ -1,0 +1,9 @@
+.donut,
+.chart {
+  width: 450px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: space-between;
+}

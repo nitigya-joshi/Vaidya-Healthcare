@@ -1,0 +1,59 @@
+.icon {
+  width: 34px;
+  height: 34px;
+  font-size: 18px;
+  background-color: rgb(255, 255, 255);
+  color: var(--theme-color);
+  border-radius: 50%;
+  box-shadow: var(--light-shadow);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon:hover {
+  background-color: var(--theme-color);
+  color: rgb(255, 255, 255);
+}
+
+.icon:active {
+  transform: scale(0.95);
+}
+
+.iconbox {
+  background-color: rgb(255, 255, 255);
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  box-shadow: 0 3px 15px 5px rgb(49 97 255 / 10%);
+}
+
+.iconbox .icon:hover {
+  background-color: transparent;
+  color: var(--theme-color);
+}
+
+.iconbox i {
+  border-radius: 5px;
+  filter: drop-shadow(0px 10px 5px rgba(1, 203, 152, 0.842));
+  width: 0;
+  height: 0;
+  background-color: rgba(0, 0, 0, 0);
+  cursor: auto;
+}
+
+.iconbox i:active {
+  transform: initial;
+}
+
+@media (max-width: 850px) {
+  .Carousel-buttonWrapper-6 i,
+  .icon {
+    width: 28px;
+    height: 28px;
+    font-size: 15px;
+  }
+}

@@ -1,0 +1,17 @@
+.features-section {
+  padding: 20px 15%;
+  background-color: var(--gray);
+  padding-top: 40px;
+}
+
+.features-section .header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}

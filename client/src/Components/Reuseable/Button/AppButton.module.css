@@ -1,0 +1,26 @@
+.body .button {
+  background-color: var(--theme-color);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
+}
+
+.button i {
+  color: #fff;
+  margin-left: 5px;
+}
+
+.button span {
+  transition: all 0.3s;
+  text-transform: capitalize;
+}
+
+.body .button:hover {
+  background-color: var(--theme-color);
+}
+
+.button:active {
+  transform: scale(0.98);
+}

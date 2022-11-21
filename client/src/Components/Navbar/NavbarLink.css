@@ -1,0 +1,16 @@
+a.active span {
+  color: var(--theme-color);
+}
+
+a.active div {
+  width: 5px;
+  height: 5px;
+  background-color: var(--theme-color);
+  position: relative;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  top: 5px;
+  transition: all 0.3s;
+  left: 50%;
+  opacity: 1;
+}

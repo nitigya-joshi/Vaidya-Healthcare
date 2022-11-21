@@ -1,0 +1,37 @@
+.social-icon.fa-facebook {
+  color: rgb(76, 105, 186);
+}
+
+.social-icon.fa-facebook:hover {
+  background-color: rgb(76, 105, 186);
+  color: rgb(255, 255, 255);
+}
+
+.social-icon.fa-instagram {
+  color: rgb(205, 72, 107);
+}
+
+.social-icon.fa-instagram:hover {
+  background-color: rgb(205, 72, 107);
+  color: rgb(255, 255, 255);
+}
+
+.social-icon.fa-twitter {
+  color: rgb(0, 172, 238);
+}
+
+.social-icon.fa-twitter:hover {
+  background-color: rgb(0, 172, 238);
+  color: rgb(255, 255, 255);
+}
+
+.social-icon.fa-pinterest,
+.social-icon.fa-youtube {
+  color: rgb(230, 0, 35);
+}
+
+.social-icon.fa-pinterest:hover,
+.social-icon.fa-youtube:hover {
+  background-color: rgb(230, 0, 35);
+  color: rgb(255, 255, 255);
+}

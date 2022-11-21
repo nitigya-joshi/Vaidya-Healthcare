@@ -1,0 +1,62 @@
+.services-container {
+  padding: 20px 15%;
+  overflow: hidden;
+}
+
+.services .gridservice img {
+  width: 100%;
+  max-width: 400px;
+}
+
+.services .row-reverse img {
+  filter: drop-shadow(8px 1px 1px rgba(238, 238, 238, 0.933));
+}
+
+.gridservice {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 40px 0;
+  gap: 10px;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.content .iconbox {
+  width: 50px;
+  height: 50px;
+}
+
+.content .iconbox i {
+  font-size: 30px;
+}
+
+.gridservice a:hover {
+  color: var(--theme-color);
+  text-decoration: underline;
+}
+
+.gridservice.row-reverse {
+  flex-direction: row-reverse;
+}
+
+.texts {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.texts small {
+  width: 300px;
+  max-width: 100%;
+}
+
+.texts span {
+  margin-right: 5px;
+  font-weight: bold;
+}

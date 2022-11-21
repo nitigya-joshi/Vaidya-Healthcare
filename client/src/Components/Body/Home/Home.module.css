@@ -1,0 +1,123 @@
+.title h2 {
+  display: flex;
+  flex-direction: column;
+}
+
+.graytext {
+  color: var(--gray-text);
+}
+
+.btns {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.title {
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.title .hr {
+  width: 65px;
+  height: 3px;
+  background-color: var(--theme-color);
+  display: flex;
+  justify-content: flex-start;
+  margin: 10px 0;
+  margin-bottom: 20px;
+}
+
+.title small {
+  font-size: 14px;
+}
+
+.title small > div {
+  margin-top: 5px;
+}
+
+.slide {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+  padding: 30px;
+  height: 60vh;
+}
+
+.slide > div:first-of-type {
+  padding-left: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  z-index: 1;
+}
+
+.slide > div:last-of-type {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.slide h3 {
+  margin-bottom: 20px;
+  display: grid;
+  grid-gap: 25px;
+  grid-template-columns: 34px 1fr;
+  font-size: 29px;
+}
+
+.slide p {
+  font-size: 20px;
+  letter-spacing: 1.2px;
+}
+
+.slide h3 span {
+  display: flex;
+  align-items: center;
+  transition: all 3s;
+}
+
+.slide i {
+  font-size: 23px;
+}
+
+.slide button {
+  width: 140px;
+  height: 30px;
+  border-radius: 10px;
+  margin-top: 20px;
+  background-color: #000;
+}
+
+@media (max-width: 950px) {
+  .slide p {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 800px) {
+  .slide {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .slide > div:last-of-type {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    bottom: -60px;
+    right: 0;
+  }
+
+  .slide > div:first-of-type {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .slide .graytext span {
+    font-size: 14px;
+  }
+
+  .slide img {
+    display: none;
+  }
+}
