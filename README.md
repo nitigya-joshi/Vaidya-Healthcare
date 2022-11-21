@@ -2,7 +2,7 @@
 
 In the project directory, you can run:
 
-## **STEP 1 _Back-End_**
+## **STEP 1 _`Back-End`_**
 
 Open the server directory in terminal and run the following commands.
 
@@ -14,7 +14,7 @@ This command will download all the dependencies.
 
 This will start the database server.
 
-## **STEP 2 _Front-End_**
+## **STEP 2 _`Front-End`_**
 
 Open the client directory in terminal and run the following commands.
 
@@ -38,8 +38,8 @@ You may also see any lint errors in the console.
 
 # Team Members
 
-Anmol Singh\
-Aryan Verma\
-Gulsan Kumar\
-Nitigya Joshi\
-Sudeep Gangwar
+**Anmol Singh**\
+**Aryan Verma**\
+**Gulsan Kumar**\
+**Nitigya Joshi**\
+**Sudeep Gangwar**
