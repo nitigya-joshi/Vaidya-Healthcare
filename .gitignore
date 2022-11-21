@@ -1,8 +1,4 @@
-/client/node_modules
+*/node_modules
 /client/.env
-/server/node_modules
 /server/env
-.DS_Store
-/client/.DS_Store
-/server/.DS_Store
-node_modules
+*/.DS_Store
