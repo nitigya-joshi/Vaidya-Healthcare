@@ -1,0 +1,98 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+.table {
+  width: 100%;
+  padding-top: 60px;
+  background-color: #e2e8f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-card {
+  width: 85%;
+  min-width: min-content;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  margin: 50px 0;
+  padding: 20px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.table-card .table-heading {
+  color: rgb(23, 162, 184);
+}
+
+.table-card a {
+  text-decoration: none;
+}
+
+.table-card button {
+  background-color: var(--theme-color);
+  color: white;
+  overflow: hidden;
+}
+
+.table-card button:hover {
+  background-color: var(--theme-color);
+  color: white;
+}
+
+.table-card td button {
+  background-color: var(--red);
+  color: white;
+}
+
+.table-card td button:hover {
+  background-color: var(--red);
+  color: white;
+}
+
+.table-card button:hover span span {
+  opacity: 0;
+  text-decoration: none;
+}
+
+.table-card button i {
+  position: absolute;
+  top: 100px;
+  left: 45%;
+  font-size: 19px;
+  transform: translate(-50%, -50%);
+}
+
+.table-card button:hover i {
+  top: 50%;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  color: rgb(164, 169, 176);
+}
+
+td,
+th {
+  border: 0.1px solid var(--theme-color);
+  align-items: center;
+  text-align: center;
+  padding: 6px;
+  word-wrap: break-word;
+}
+
+tr:nth-child(even) {
+  background-color: rgb(205, 228, 239);
+}

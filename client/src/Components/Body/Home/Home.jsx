@@ -31,10 +31,10 @@ function Home() {
       <>
         <div className={`${styles["title"]}`}>
           <h2>
-            <TypeOnLoad text={"Aryan Verma"} />
-            <small className={`${styles["graytext"]}`}>
+            <TypeOnLoad text={"Welcome"} />
+            {/* <small className={`${styles["graytext"]}`}>
               <TypeOnLoad text={"Web Developer"} />
-            </small>
+            </small> */}
           </h2>
           <div className={`${styles["hr"]}`}></div>
         </div>
