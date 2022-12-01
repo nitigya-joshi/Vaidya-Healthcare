@@ -20,6 +20,19 @@
   align-items: center;
 }
 
+.links button {
+  width: 110px;
+  font-size: 11px;
+  background-color: var(--theme-color);
+  color: rgb(255, 255, 255);
+  transition: all 0.3s;
+  text-transform: capitalize;
+}
+
+.links button:hover {
+  background-color: var(--theme-color);
+}
+
 .links > .link-container {
   margin: 0 15px;
   color: var(--gray-text);

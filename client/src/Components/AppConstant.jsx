@@ -172,6 +172,10 @@ export const links = [
     text: "About",
   },
   {
+    link: "/bookAppointment",
+    text: "Book Appointment"
+  },
+  {
     link: "/services",
     text: "Services",
     dropdown: [
@@ -396,6 +400,47 @@ export const contactInputs = [
     value: "msg",
     textarea: true,
     name: "form-message",
+  },
+];
+
+export const loginInputs = [
+  {
+    text: "Email",
+    value: "email",
+    name: "login-email",
+    type: "email",
+  },
+  {
+    text: "password",
+    value: "password",
+    name: "login-password",
+  },
+];
+
+export const signupInputs = [
+  {
+    text: "Name",
+    value: "Name",
+    name: "signup-name",
+    type: "text",
+  },
+  {
+    text: "Email",
+    value: "email",
+    name: "signup-email",
+    type: "email",
+  },
+  {
+    text: "Password",
+    value: "password",
+    name: "signup-password",
+    type: "password",
+  },
+  {
+    text: "Confirm password",
+    value: "confirmPassword",
+    name: "signup-hospital-confirm-password",
+    type: "password",
   },
 ];
 

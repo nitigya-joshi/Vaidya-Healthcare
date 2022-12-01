@@ -6,13 +6,17 @@ import NotificationSystem from "react-notification-system";
 import Icon from "../Reuseable/Icon/Icon";
 import Navbar from "../Navbar/Navbar";
 import Home from "./Home/Home";
+import LogIn from "./LogIn/LogIn";
+import SignUp from "./SignUp/SignUp";
 import AboutMe from "./AboutMe/AboutMe";
+import BookAppointment from "./BookAppointment/BookAppointment";
 import Services from "./Services/Services";
 import Works from "./Works/Works";
 import Contact from "./Contact/Contact";
 import YouAreLost from "./404/YouAreLost";
 import Footer from "../Footer/Footer";
 import ProjectPage from "../Reuseable/ProjectPage/ProjectPage";
+import Profile from "./Profile/Profile";
 import { links, style, works } from "../AppConstant";
 import { ContextApp } from "../../ContextAPI";
 import styles from "./Body.module.css";
@@ -39,11 +43,15 @@ function Body() {
       <AnimatePresence>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<LogIn />} />
+          <Route path="/signup" element={<SignUp />} />
           <Route path="/aboutme" element={<AboutMe />} />
+          <Route path="/bookAppointment" element={<BookAppointment />} />
           <Route path="/services" element={<Services />} />
           <Route path="/works" element={<Works />} />
           {worksRoutes}
           <Route path="/contact" element={<Contact />} />
+          <Route path="/profile" element={<Profile />} />
 
           <Route path="*" element={<YouAreLost />} />
         </Routes>
