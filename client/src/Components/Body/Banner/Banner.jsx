@@ -1,14 +1,12 @@
 import React from "react";
-
-import SocialIconTab from "./SocialIconTab";
 import styles from "./Banner.module.css";
 
 function Banner(props) {
-  const { className = "", html, style, height = "50vh" } = props;
+  const { html, style, height } = props;
 
   return (
     <div
-      className={`${styles["bannercont"]} ${className}`}
+      className={`${styles["bannercont"]}`}
       style={{ height: height ?? "" }}
     >
       <div
@@ -16,7 +14,6 @@ function Banner(props) {
         style={style}
         data-aos="zoom-out"
       ></div>
-      <SocialIconTab className={styles} />
       {html}
     </div>
   );

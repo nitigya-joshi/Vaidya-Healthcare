@@ -50,8 +50,6 @@ function Home() {
   return (
     <div className={`${styles["home"]}`}>
       <Banner
-        name="Aryan Verma"
-        hr={true}
         html={bannercont.html}
         height="100vh"
         style={{

@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Routes, Route } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import NotificationSystem from "react-notification-system";
-
 import Icon from "../Reuseable/Icon/Icon";
 import Navbar from "../Navbar/Navbar";
 import Home from "./Home/Home";
