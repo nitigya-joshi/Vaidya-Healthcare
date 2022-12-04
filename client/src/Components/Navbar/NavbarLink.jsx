@@ -8,15 +8,11 @@ function NavbarLink(props) {
   return (
     <div className={`${className["link-container"]}`}>
       <NavHashLink
-        to={link.link + "#top"}
-        // exact={link.exact}
+        to={link.link}
         activeclassname={`${className["activelink"]}`}
         onClick={() => {
           clickEvent && clickEvent();
         }}
-        // isActive={(match, location) => {
-        //   if (match) return true;
-        // }}
       >
         <span>{link.text}</span>
         <div className={`${className["dot"]}`}></div>

@@ -1,59 +1,51 @@
 import React from "react";
 import { useState,useEffect } from "react";
-import { HashLink } from "react-router-hash-link";
-import AppButton from "../../../../Reuseable/Button/AppButton";
 import styles from "./Tables.module.css";
-import http from '../../../../../http-common.js'
 function AppointmentTable() {
-  const [dbData,setdbData]=useState([])
-  useEffect(()=>{
-    http.get('/getpatients')
-    .then(res=>{
-      console.log(res);
-      setdbData(res.data[0].appointments)
-    })
-    .catch(err=>{
-      console.log(err);
-    })
-  },[])
+
+  const [appointmentData, setAppointmentData] = useState([])
+
+  const fetchAppointmentData = async () => {
+    const res = await fetch('http://localhost:3000/api/getappointments', {
+      credentials: 'include'
+    });
+    const data = await res.json();
+    setAppointmentData([...data])
+  }
+
+  useEffect(() => {
+    fetchAppointmentData()
+  }, [])
+
   return (
     <div className={`${styles["table"]}`}>
       <div className={`${styles["table-card"]}`}>
         <div className={`${styles["row"]} ${styles["mb-10"]}`}>
           <h4 className={`${styles["table-heading"]}`}>Appointments</h4>
-          <HashLink smooth to="/profile#top">
-            <AppButton text="Back To Profile" icon="fad fa-user-circle" />
-          </HashLink>
         </div>
         <table>
           <tr>
             <th>#</th>
-            <th>Visit Type</th>
-            <th>Clinician</th>
-            <th>Provider</th>
-            <th>Location</th>
+            <th>Patient's Name</th>
+            <th>Doctor's Name</th>
+            <th>Doctor's Mobile</th>
+            <th>Fee</th>
+            <th>Clinic Address</th>
             <th>Date</th>
-            <th>Duration</th>
-            <th>Comments</th>
-            <th>Insurance</th>
-            <th>Actions</th>
+            <th>Time</th>
           </tr>
           {
-            dbData.map((row,index)=>{
+            appointmentData.map((row,index)=>{
               return(
                 <tr>
                   <td>{index}</td>
-                  <td>{row.Visite_Tyoe}</td>
-                  <td>{row.Clinician}</td>
-                  <td>{row.Provider}</td>
-                  <td>{row.Location}</td>
-                  <td>{row.Date}</td>
-                  <td>{row.Duration} min</td>
-                  <td>{row.Comments}</td>
-                  <td>{row.Insurance?"Check":"Uncheck"}</td>
-                  <td>
-                    <AppButton text="Delete" icon="fas fa-trash-alt" />
-                  </td>
+                  <td>{row.name}</td>
+                  <td>{row.doctor.name}</td>
+                  <td>{row.doctor.mobile}</td>
+                  <td>₹{row.doctor.fee}</td>
+                  <td>{row.doctor.clinicaddress.split(',')[0]}</td>
+                  <td>{row.appointmentDate.split('T')[0]}</td>
+                  <td>{row.appointmentTime}</td>
                 </tr>
               )
             })

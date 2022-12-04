@@ -1,47 +1,50 @@
-import React, { useContext, useState } from "react";
-import emailjs from "emailjs-com";
-
+import React, { useState } from "react";
 import ObjectInput from "../../Reuseable/Input/ObjectInput";
 // import BannerProps from "../Banner/BannerProps";
-import Iconbox from "../../Reuseable/Icon/Iconbox";
+// import Iconbox from "../../Reuseable/Icon/Iconbox";
 import AppButton from "../../Reuseable/Button/AppButton";
-import { ContextApp } from "../../../ContextAPI";
 import { loginInputs } from "../../AppConstant";
-import { addNotification } from "../../AppFunctions";
 import styles from "./LogIn.module.css";
 import { HashLink } from "react-router-hash-link";
+import { useDispatch } from "react-redux";
+import { login } from "../../../store/userSlice";
+import { useNavigate } from "react-router-dom";
 
 function LogIn() {
-  const { notifisystem } = useContext(ContextApp);
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
   });
 
-  function sendEmail(event) {
-    console.log("asd");
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  async function loginHandler(event) {
     event.preventDefault();
-    emailjs
-      .sendForm(
-        "service_jsaoihr",
-        "template_h5vq1co",
-        event.target,
-        "user_B0W0FA6EBGqj9vC542Rs3"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          const parameters = {
-            msg: "Email Sent!",
-            icon: "fad fa-envelope",
-            notifisystem,
-          };
-          addNotification(parameters);
-        },
-        (error) => {
-          console.log(error.text);
+    console.log("logged in");
+    try {
+      if (formValues.email && formValues.password) {
+        const res = await fetch("http://localhost:3000/api/users/login", {
+          method: "POST",
+          headers: { 'Content-Type': 'application/json' },
+          credentials: 'include',
+          body: JSON.stringify(formValues)
+        });
+        const data = await res.json();
+        console.log(data)
+        if (data.status === "SUCCESS") {
+          dispatch(login({
+            ...data.user,
+            "loggedIn": true
+          }))
+          localStorage.setItem("user", JSON.stringify(data.user))
+          navigate("/")
         }
-      );
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    
   }
 
   const formInputs = loginInputs?.map((input) => {
@@ -60,26 +63,23 @@ function LogIn() {
 
   return (
     <div className={`${styles["contact"]}`}>
-      {/* <BannerProps
-        img="https://i.imgur.com/fzc9vDw.png"
-        title="Login"
-        text=""
-      /> */}
       <div className={`${styles["contact-info"]}`}>
         <div className={`${styles["contact-title"]}`} data-aos="flip-left">
-          <h2>LogIn</h2>
+          <h1>Log in</h1>
         </div>
         <div className={`${styles["contact-form"]}`} data-aos="zoom-out">
           <div className={`${styles["left-contact"]}`}>
-            <Iconbox className={styles} icon="fad fa-sign-in" />
-            <h2>LogIn here</h2>
+            <img src="https://img.freepik.com/free-vector/flat-psychiatrist-elderly-patient-with-alzheimer-diseas-dementia-psychiatric-anxiety-disorder-doctor-help-old-man-with-confusion-head-treatment-mental-problems-loss-memory_88138-768.jpg?w=826" alt="doctor" style={{ "height": "300px" }} />
           </div>
-          <form onSubmit={sendEmail}>
+          <form onSubmit={loginHandler}>
             {formInputs}
-            <AppButton text={"Login"} icon="fad fa-sign-in" />
+            <div style={{ "marginTop": "20px" }}>
+              <AppButton text={"Login"} icon="fad fa-sign-in" />
+            </div>
             <div className={`${styles["create-account"]}`}>
-              <HashLink smooth to="/signup#top">
-                Create New Account
+              <span>Don't have an account?</span>&nbsp;
+              <HashLink smooth to="/signup">
+                Register
               </HashLink>
             </div>
           </form>

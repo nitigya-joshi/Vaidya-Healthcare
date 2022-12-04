@@ -1,16 +1,13 @@
 import React from "react";
-import { HashLink } from "react-router-hash-link";
 
-import Iconbox from "../../Reuseable/Icon/Iconbox";
-
-function GridService(props) {
+function AboutRow(props) {
   const { className, service } = props;
-  const { title, texts, img, reverse, text, icon, link } = service;
+  const { title, texts, img, reverse, text } = service;
 
   return (
     <div
       id={title.replaceAll(" ", "").toLowerCase()}
-      className={`${className["gridservice"]} ${
+      className={`${className["about"]} ${
         reverse ? className["row-reverse"] : ""
       }`}
     >
@@ -18,10 +15,7 @@ function GridService(props) {
         className={`${className["content"]} ${reverse}`}
         data-aos={`fade-${reverse ? "left" : "right"}`}
       >
-        <Iconbox icon={icon} className={className} />
-        <HashLink to={link + "#top"}>
-          <h2>{title}</h2>
-        </HashLink>
+        <h2>{title}</h2>
         <div className={`${className["texts"]}`}>
           <div>
             {texts?.map((text) => {
@@ -35,10 +29,10 @@ function GridService(props) {
         className={`${className["img"]}`}
         data-aos={`fade-${reverse ? "right" : "left"}`}
       >
-        <img src={img} alt="" />
+        <img src={img} alt="pp" />
       </div>
     </div>
   );
 }
 
-export default GridService;
+export default AboutRow;

@@ -1,0 +1,57 @@
+.row-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto;
+    width: 70%;
+    border-radius: 125px 15px 95px 15px/15px 95px 15px 125px;
+    border-bottom:solid 3px var(--theme-color);
+}
+
+.pp-img {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.pp {
+    width: 30px;
+}
+
+.degree {
+    font-size: 12px;
+    color: rgb(132, 132, 132);
+}
+
+.rating {
+    display: flex;
+    align-items: center;
+}
+
+.type {
+    background-color: rgb(101, 101, 101);
+    color: white;
+    padding: 4px 8px;
+    text-align: center;
+    border-radius: 5px;
+    width: 200px;
+}
+
+.book-btn {
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.fee {
+    color: orangered;
+}
+
+.details {
+    width: 200px;
+
+}
+
+.location {
+    width: 200px;
+}

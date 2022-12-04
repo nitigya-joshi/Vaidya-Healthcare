@@ -1,47 +1,46 @@
-import React, { useContext, useState } from "react";
-import emailjs from "emailjs-com";
+import React, { useState } from "react";
 import ObjectInput from "../../Reuseable/Input/ObjectInput";
-import Iconbox from "../../Reuseable/Icon/Iconbox";
 import AppButton from "../../Reuseable/Button/AppButton";
-import { ContextApp } from "../../../ContextAPI";
 import { signupInputs } from "../../AppConstant";
-import { addNotification } from "../../AppFunctions";
 import styles from "./SignUp.module.css";
+import { HashLink } from "react-router-hash-link";
+import { useNavigate } from "react-router-dom";
 
 function SignUp() {
-  const { notifisystem } = useContext(ContextApp);
   const [formValues, setFormValues] = useState({
-    hospitalName: "",
-    hospitalAddress: "",
+    name: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
 
-  function sendEmail(event) {
-    console.log("asd");
+  const navigate = useNavigate()
+
+  async function sendEmail(event) {
     event.preventDefault();
-    emailjs
-      .sendForm(
-        "service_jsaoihr",
-        "template_h5vq1co",
-        event.target,
-        "user_B0W0FA6EBGqj9vC542Rs3"
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-          const parameters = {
-            msg: "Email Sent!",
-            icon: "fad fa-envelope",
-            notifisystem,
-          };
-          addNotification(parameters);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
+    console.log("register");
+    try {
+      let obj = {
+        name: formValues.name,
+        username: formValues.name.split(' ')[0],
+        gender: 'Male',
+        email: formValues.email,
+        password: formValues.password,
+      }
+      const res = await fetch("http://localhost:3000/api/users/register", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(obj)
+      });
+      const data = await res.json();
+      console.log(data)
+      if (data) {
+        navigate('/login')
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const formInputs = signupInputs?.map((input) => {
@@ -63,16 +62,23 @@ function SignUp() {
     <div className={`${styles["contact"]}`}>
       <div className={`${styles["contact-info"]}`}>
         <div className={`${styles["contact-title"]}`} data-aos="flip-left">
-          <h2>Sign Up</h2>
+          <h1>Sign Up</h1>
         </div>
         <div className={`${styles["contact-form"]}`} data-aos="zoom-out">
           <div className={`${styles["left-contact"]}`}>
-            <Iconbox className={styles} icon="fad fa-envelope" />
-            <h2>Sign Up Here</h2>
+            <img src="https://img.freepik.com/free-vector/flat-psychiatrist-elderly-patient-with-alzheimer-diseas-dementia-psychiatric-anxiety-disorder-doctor-help-old-man-with-confusion-head-treatment-mental-problems-loss-memory_88138-768.jpg?w=826" alt="doctor" style={{ "height": "300px" }} />
           </div>
           <form onSubmit={sendEmail}>
             {formInputs}
-            <AppButton text={"Submit"} icon="fad fa-envelope" />
+            <div style={{ "marginTop": "20px" }}>
+              <AppButton text={"Register"} icon="fad fa-sign-in" />
+            </div>
+            <div className={`${styles["create-account"]}`}>
+              <span>Already have an account?</span>&nbsp;
+              <HashLink smooth to="/login">
+                Login
+              </HashLink>
+            </div>
           </form>
         </div>
       </div>

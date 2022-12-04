@@ -19,14 +19,12 @@ function YouAreLost() {
 
   return (
     <div className={`${styles["you-are-lost"]}`} onMouseMove={determineShadow}>
-      <p
-        style={{
-          textShadow: `${textShadow.x / 30}px ${
-            textShadow.y / 30
+      <p style={{
+        textShadow: `${textShadow.x / 30}px ${textShadow.y / 30
           }px 10px rgba(0, 0, 0, 0.33) `,
-        }}
+      }}
       >{`4{}4`}</p>
-      <HashLink smooth to="/#top">
+      <HashLink smooth to="/">
         <AppButton text="Back Home" icon="fad fa-home" />
       </HashLink>
     </div>

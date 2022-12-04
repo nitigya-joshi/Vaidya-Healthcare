@@ -1,5 +1,10 @@
 import React, { useState } from "react";
 import styles from "./Profile.module.css";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../store/userSlice";
+import AppointmentTable from "./Table/Big Tables/AppointmentTable";
+
+
 // import AppointmentTable from './Table/Small Tables/AppointmentTable';
 // import MedicalBillsTable from './Table/Small Tables/MedicalBillsTable';
 // import MedicalRecordsTable from './Table/Small Tables/MedicalRecordsTable';
@@ -7,6 +12,7 @@ import styles from "./Profile.module.css";
 
 function Profile() {
   const [current, setCurrent] = useState('profile');
+  const user = useSelector(selectUser)
 
   function handleClick(event) {
     document.getElementById(current)?.classList.remove(`${styles["active-button"]}`);
@@ -28,8 +34,7 @@ function Profile() {
               />
             </div>
             <div className={`${styles["profile-info"]}`}>
-              <h4>Aryan Verma</h4>
-              <p>Student</p>
+              <h4>{user.name}</h4>
               <p>IIIT Sri City, Chittoor, A.P.</p>
             </div>
           </div>
@@ -105,14 +110,14 @@ function Profile() {
           <div className={`${styles["row"]}`}>
             <label className={`${styles["profile-label"]}`}>Full Name</label>
             <span className={`${styles["profile-label-info"]}`}>
-              Aryan Verma
+              {user.name}
             </span>
           </div>
           <hr />
           <div className={`${styles["row"]}`}>
             <label className={`${styles["profile-label"]}`}>Email</label>
             <span className={`${styles["profile-label-info"]}`}>
-              aryan.v20@iiits.in
+              {user.email}
             </span>
           </div>
           <hr />
@@ -135,7 +140,7 @@ function Profile() {
           id="appointmentsDiv"
           style={{ display: "none" }}
         >
-          {/* <Donut series={skillsData} title="Sample" colors={colors} /> */}
+          <AppointmentTable />
         </div>
         <div
           className={`${styles["card"]} ${styles["info-div"]}`}

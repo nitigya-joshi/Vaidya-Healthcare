@@ -1,0 +1,60 @@
+.main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+}
+
+.head {
+    width: 50%;
+    margin: 30px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.head select {
+    padding: 1rem;
+    height: 100%;
+    width: 25%;
+    font-size: 1rem;
+    border-radius: 5px;
+}
+
+.head select:focus {
+    border: 0;
+}
+
+.head input{
+    height: 100%;
+    width: 70%;
+    border-radius: 5px;
+    background-color: white;
+    border: 1px solid;
+    padding: 1rem;
+    height: 100%;
+    font-size: 1rem;
+}
+
+.body {
+    width: 100%;
+}
+
+.body-head {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 20px auto;
+}
+
+
+.result-sorting {
+    display: flex;
+    align-items: center;
+}
+ 
+  
+.result-sorting select {
+    color: var(--theme-color);
+    padding: 5px;
+    margin-left: 5px;
+}

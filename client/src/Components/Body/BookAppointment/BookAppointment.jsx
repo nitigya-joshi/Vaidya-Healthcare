@@ -1,111 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import InputMap from "./Book/InputMap";
 import Button from "./Book/Button";
 import styles from "./BookAppointment.module.css";
-// import { ToastContainer, toast } from "react-toastify";
-// import "react-toastify/dist/ReactToastify.css";
+import { appointmentFormFields } from '../../AppConstant'
+import { doctorFormFields } from '../../AppConstant'
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function BookAppointment() {
-  const [patientInfoInputs, setPatientInfoInputs] = useState([
-    {
-      id: "patientFirstName",
-      name: "patientFirstName",
-      type: "text",
-      placeholder: "First Name",
-      errorMessage: "First Name is required",
-      label: "Patient's First Name",
-      required: true,
-    },
-    {
-      id: "patientLastName",
-      name: "patientLastName",
-      type: "text",
-      placeholder: "Last Name",
-      errorMessage: "Last Name is required",
-      label: "Patient's Last Name",
-      required: true,
-    },
-    {
-      id: "patientMobileNo",
-      name: "patientMobileNo",
-      type: "tel",
-      errorMessage: "Mobile pattern: 0123456789 or +910123456789",
-      placeholder: "Mobile Number",
-      label: "Patient's Mobile No.",
-      pattern: "^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$",
-      minLength: "10",
-      maxLength: "13",
-    },
-    {
-      id: "patientDOB",
-      name: "patientDOB",
-      type: "text",
-      errorMessage:
-        "Date Of Birth is required & Age will be set according to DOB",
-      placeholder: "DOB",
-      label: "Patient's DOB",
-      max: "",
-      required: true,
-    },
-    {
-      id: "patientAge",
-      name: "patientAge",
-      type: "number",
-      errorMessage: "Age is required",
-      placeholder: "Age",
-      label: "Patient's Age",
-      required: true,
-      disabled: true,
-    },
-    {
-      id: "patientEmail",
-      name: "patientEmail",
-      type: "email",
-      errorMessage: "Email is required",
-      placeholder: "Email",
-      label: "Patient's Email",
-      pattern: `[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}`,
-      required: true,
-    },
-    {
-      id: "patientSex",
-      name: "patientSex",
-      type: "radio",
-      errorMessage: "Sex of the person is required",
-      placeholder: "Select Sex",
-      label: "Patient's Sex",
-      required: true,
-      setSpan: false,
-    },
-    {
-      id: "patientState",
-      name: "patientState",
-      type: "radio",
-      errorMessage: "State is required",
-      placeholder: "Select State",
-      label: "State",
-      required: true,
-      setSpan: false,
-    },
-    {
-      id: "patientCity",
-      name: "patientCity",
-      type: "radio",
-      errorMessage: "City is required",
-      placeholder: "Select City",
-      label: "City",
-      required: true,
-      setSpan: false,
-    },
-    {
-      id: "appointmentReason",
-      name: "appointmentReason",
-      type: "text-area",
-      placeholder: "Appointment Reason",
-      label: "Appointment Reason",
-    },
-  ]);
+  const [patientInfoInputs, setPatientInfoInputs] = useState(appointmentFormFields);
   const [patientInfoValues, setPatientInfoValues] = useState({
     patientFirstName: "",
     patientLastName: "",
@@ -118,64 +22,7 @@ function BookAppointment() {
     patientCity: "",
     appointmentReason: "",
   });
-  const [docInfoInputs, setdocInfoInputs] = useState([
-    {
-      id: "doctorName",
-      name: "doctorName",
-      type: "text",
-      placeholder: "Doctor's Name",
-      label: "Doctor's Name",
-      required: false,
-      disabled: true,
-    },
-    {
-      id: "doctorSpecialization",
-      name: "doctorSpecialization",
-      type: "text",
-      placeholder: "Doctor's Specialization",
-      label: "Doctor's Specialization",
-      required: false,
-      disabled: true,
-    },
-    {
-      id: "appointmentDate",
-      name: "appointmentDate",
-      type: "text",
-      errorMessage:
-        "Please Provide the correct date on which you want the Appointment",
-      placeholder: "Appointment Date",
-      label: "Appointment Date",
-      min: "",
-      required: false,
-    },
-    {
-      id: "appointmentTime",
-      name: "appointmentTime",
-      type: "text",
-      errorMessage: "Please Provide the time on which you want the Appointment",
-      placeholder: "Appointment Time",
-      label: "Appointment Time",
-      required: false,
-    },
-    {
-      id: "appointmentLocState",
-      name: "appointmentLocState",
-      type: "text",
-      placeholder: "Appointment State or Union Territorie",
-      label: "Appointment State or Union Territorie",
-      required: false,
-      disabled: true,
-    },
-    {
-      id: "appointmentLocCity",
-      name: "appointmentLocCity",
-      type: "text",
-      placeholder: "Appointment City",
-      label: "Appointment City",
-      required: false,
-      disabled: true,
-    },
-  ]);
+  const [docInfoInputs, setdocInfoInputs] = useState(doctorFormFields);
   const [docInfoValues, setDocInfoValues] = useState({
     doctorName: "",
     doctorSpecialization: "",
@@ -331,25 +178,25 @@ function BookAppointment() {
 
   const [searchParams] = useSearchParams();
 
-  // const fetchDoctor = useCallback(async () => {
-  //   const res = await fetch(
-  //     `http://localhost:3000/api/doctors/doctor/${searchParams.get("doctor")}`
-  //   );
-  //   const doctorDetails = await res.json();
-  //   const obj = {
-  //     doctorName: doctorDetails.name,
-  //     doctorSpecialization: doctorDetails.category,
-  //     appointmentLocState: doctorDetails.clinicaddress.split(",")[1],
-  //     appointmentLocCity: doctorDetails.clinicaddress.split(",")[0],
-  //   };
-  //   setDocInfoValues((prevState) => {
-  //     return { ...prevState, ...obj };
-  //   });
-  // }, [searchParams]);
+  const fetchDoctor = useCallback(async () => {
+    const res = await fetch(
+      `http://localhost:3000/api/doctors/doctor/${searchParams.get("doctor")}`
+    );
+    const doctorDetails = await res.json();
+    const obj = {
+      doctorName: doctorDetails.name,
+      doctorSpecialization: doctorDetails.category,
+      appointmentLocState: doctorDetails.clinicaddress.split(",")[1],
+      appointmentLocCity: doctorDetails.clinicaddress.split(",")[0],
+    };
+    setDocInfoValues((prevState) => {
+      return { ...prevState, ...obj };
+    });
+  }, [searchParams]);
 
-  // useEffect(() => {
-  //   fetchDoctor();
-  // }, [fetchDoctor]);
+  useEffect(() => {
+    fetchDoctor();
+  }, [fetchDoctor]);
 
   async function submitHandler(event) {
     event.preventDefault();
@@ -371,40 +218,40 @@ function BookAppointment() {
 
     if (!isEmpty) {
       // here
-      // const obj = {
-      //   name:
-      //     patientInfoValues.patientFirstName +
-      //     " " +
-      //     patientInfoValues.patientLastName,
-      //   mobile: patientInfoValues.patientMobileNo,
-      //   email: patientInfoValues.patientEmail,
-      //   gender: patientInfoValues.patientSex,
-      //   state: patientInfoValues.patientState,
-      //   city: patientInfoValues.patientCity,
-      //   reason: patientInfoValues.appointmentReason,
-      //   dob: patientInfoValues.patientDOB,
-      //   age: patientInfoValues.patientAge,
-      //   appointmentDate: docInfoValues.appointmentDate,
-      //   appointmentTime: docInfoValues.appointmentTime,
-      // };
-      // console.log(obj);
-      // const res = await fetch(
-      //   `http://localhost:3000/api/bookappointment?id=${searchParams.get(
-      //     "doctor"
-      //   )}`,
-      //   {
-      //     method: "POST",
-      //     headers: { "Content-Type": "application/json" },
-      //     credentials: "include",
-      //     body: JSON.stringify(obj),
-      //   }
-      // );
-      // const appointment = await res.json();
-      // if (appointment.status === "ok") {
-      //   notifySuccess();
-      // } else {
-      //   notifyError();
-      // }
+      const obj = {
+        name:
+          patientInfoValues.patientFirstName +
+          " " +
+          patientInfoValues.patientLastName,
+        mobile: patientInfoValues.patientMobileNo,
+        email: patientInfoValues.patientEmail,
+        gender: patientInfoValues.patientSex,
+        state: patientInfoValues.patientState,
+        city: patientInfoValues.patientCity,
+        reason: patientInfoValues.appointmentReason,
+        dob: patientInfoValues.patientDOB,
+        age: patientInfoValues.patientAge,
+        appointmentDate: docInfoValues.appointmentDate,
+        appointmentTime: docInfoValues.appointmentTime,
+      };
+      console.log(obj);
+      const res = await fetch(
+        `http://localhost:3000/api/bookappointment?id=${searchParams.get(
+          "doctor"
+        )}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify(obj),
+        }
+      );
+      const appointment = await res.json();
+      if (appointment.status === "ok") {
+        notifySuccess();
+      } else {
+        notifyError();
+      }
     } else {
       const newPatientInfoInputs = patientInfoInputs.map((input) => {
         if (input.setSpan === false) {
@@ -416,8 +263,8 @@ function BookAppointment() {
     }
   }
 
-  // const notifySuccess = () => toast.success("Appointment booked!");
-  // const notifyError = () => toast.error("Something went wrong!");
+  const notifySuccess = () => toast.success("Appointment booked!");
+  const notifyError = () => toast.error("Something went wrong!");
 
   function onBlur(event) {
     if (event.target.id === "patientDOB") {
@@ -666,7 +513,7 @@ function BookAppointment() {
           </div>
         </form>
       </div>
-      {/* <ToastContainer /> */}
+      <ToastContainer />
     </div>
   );
 }

@@ -9,7 +9,7 @@ import { profile } from "../../AppConstant";
 import styles from "./Home.module.css";
 import FeaturesSection from "../FeaturesSection/FeaturesSection";
 
-function Home() {
+function Home({user}) {
   const [currentSlideShown, setCurrentSlideShown] = useState(0);
   const slidesrow = profile?.map((element, index) => {
     return (
@@ -22,6 +22,8 @@ function Home() {
     );
   });
 
+  const welcomeText = user ? 'Welcome '+ user?.username : 'Welcome Guest'
+
   useEffect(() => {
     setCurrentSlideShown(0);
   }, []);
@@ -31,7 +33,7 @@ function Home() {
       <>
         <div className={`${styles["title"]}`}>
           <h2>
-            <TypeOnLoad text={"Welcome"} />
+            <TypeOnLoad text={welcomeText} />
             {/* <small className={`${styles["graytext"]}`}>
               <TypeOnLoad text={"Web Developer"} />
             </small> */}

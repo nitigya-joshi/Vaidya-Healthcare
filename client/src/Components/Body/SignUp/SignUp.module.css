@@ -1,11 +1,13 @@
 .contact-info {
   overflow: hidden;
   padding-bottom: 40px;
+  height: 100vh;
+  padding-top: 100px;
 }
 
 .contact-title {
   display: flex;
-  margin: 60px 0;
+  margin: 20px 0;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -111,6 +113,21 @@
 
 .contact-form textarea {
   min-height: 100px;
+}
+
+
+.contact-form .create-account {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.contact-form .create-account a:hover {
+  text-decoration: underline;
+  color: var(--theme-color);
+  transition: all 0.3s;
 }
 
 .graytext {

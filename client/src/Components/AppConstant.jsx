@@ -168,65 +168,17 @@ export const links = [
     exact: true,
   },
   {
-    link: "/aboutme",
-    text: "About",
+    link: "/doctors",
+    text: "Doctors",
   },
   {
-    link: "/bookAppointment",
-    text: "Book Appointment"
-  },
-  {
-    link: "/services",
-    text: "Services",
-    dropdown: [
-      {
-        link: "/services#websites",
-        text: "Websites",
-        icon: "fad fa-browser",
-      },
-      {
-        link: "/services#webapps",
-        text: "Web Apps",
-        icon: "fad fa-browser",
-      },
-      {
-        link: "/services#mobileapps",
-        text: "Mobile Apps",
-        icon: "fad fa-mobile",
-      },
-    ],
-  },
-  {
-    link: "/works",
-    text: "Works",
-    keyword: true,
-    dropdown: [
-      {
-        link: "website",
-        text: "Websites",
-      },
-      {
-        link: "webapps",
-        text: "Web Apps",
-      },
-      {
-        link: "mobile",
-        text: "Mobile Apps",
-      },
-      {
-        link: "hybrid",
-        text: "Hybrid",
-      },
-      {
-        link: "all",
-        text: "All",
-      },
-    ],
+    link: "/about",
+    text: "About"
   },
   {
     link: "/contact",
     text: "Contact",
-  },
+  }
 ];
 
 export const socialIcons = [
@@ -357,8 +309,8 @@ export const contactBoxes = [
   },
   {
     title: "Email Me",
-    text: "aryanverma2506@gmail.com",
-    link: "mailto:aryanverma2506@gmail.com",
+    text: "vaidyahealthcare@gmail.com",
+    link: "mailto:vaidyahealthcare@gmail.com",
     icon: "fad fa-envelope",
   },
   {
@@ -414,13 +366,14 @@ export const loginInputs = [
     text: "password",
     value: "password",
     name: "login-password",
+    type: "password"
   },
 ];
 
 export const signupInputs = [
   {
     text: "Name",
-    value: "Name",
+    value: "name",
     name: "signup-name",
     type: "text",
   },
@@ -446,38 +399,193 @@ export const signupInputs = [
 
 export const gridservices = [
   {
-    img: "https://i.imgur.com/cvOIep6.jpg",
-    title: "Websites",
-    texts: ["Modern", "Style", "Responsive"],
-    text: "Breath taking Web designs for an amazing user experience.",
-    icon: "fad fa-browser",
-    link: "/works/websites",
+    img: "https://xsgames.co/randomusers/assets/avatars/pixel/1.jpg",
+    title: "Sudeep Gangwar",
+    text: "UG3",
+    icon: "fad fa-solid fa-info",
   },
   {
     reverse: true,
-    img: "https://i.imgur.com/XFJIHqG.png",
-    title: "Mobile Apps",
-    texts: ["UX", "Design", "UI"],
-    text: "Mobile Apps allow users to access your web app on their phone!",
-    icon: "fad fa-mobile",
-    link: "/works/mobile",
+    img: "https://xsgames.co/randomusers/assets/avatars/pixel/2.jpg",
+    title: "Gulshan Kumar",
+    text: "UG3",
   },
   {
-    img: "https://i.imgur.com/6vC3i3o.png",
-    title: "Web Apps",
-    texts: ["UI", "UX", "Responsive"],
-    text: "Powerful Web Applications enhances user interference and productivity!",
-    icon: "fad fa-browser",
-    link: "/works/apps",
+    img: "https://xsgames.co/randomusers/assets/avatars/pixel/3.jpg",
+    title: "Nitigya Joshi",
+    text: "UG3",
   },
 
   {
     reverse: true,
-    img: "https://i.imgur.com/cs7dkFo.png",
-    title: "Hybrid",
-    texts: ["UI", "UX", "Responsive"],
-    text: "A Hybrid is a mix of a Web Application and a Website!",
-    link: "/works/hybrid",
-    icon: "fad fa-columns",
+    img: "https://xsgames.co/randomusers/assets/avatars/pixel/6.jpg",
+    title: "Aryan Verma",
+    text: "UG3",
+  },
+
+  {
+    img: "https://xsgames.co/randomusers/assets/avatars/pixel/7.jpg",
+    title: "Anmol Singh",
+    text: "UG3",
   },
 ];
+
+
+export const appointmentFormFields = [
+  {
+    id: "patientFirstName",
+    name: "patientFirstName",
+    type: "text",
+    placeholder: "First Name",
+    errorMessage: "First Name is required",
+    label: "Patient's First Name",
+    required: true,
+  },
+  {
+    id: "patientLastName",
+    name: "patientLastName",
+    type: "text",
+    placeholder: "Last Name",
+    errorMessage: "Last Name is required",
+    label: "Patient's Last Name",
+    required: true,
+  },
+  {
+    id: "patientMobileNo",
+    name: "patientMobileNo",
+    type: "tel",
+    errorMessage: "Mobile pattern: 0123456789 or +910123456789",
+    placeholder: "Mobile Number",
+    label: "Patient's Mobile No.",
+    pattern: "^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$",
+    minLength: "10",
+    maxLength: "13",
+  },
+  {
+    id: "patientDOB",
+    name: "patientDOB",
+    type: "text",
+    errorMessage:
+      "Date Of Birth is required & Age will be set according to DOB",
+    placeholder: "DOB",
+    label: "Patient's DOB",
+    max: "",
+    required: true,
+  },
+  {
+    id: "patientAge",
+    name: "patientAge",
+    type: "number",
+    errorMessage: "Age is required",
+    placeholder: "Age",
+    label: "Patient's Age",
+    required: true,
+    disabled: true,
+  },
+  {
+    id: "patientEmail",
+    name: "patientEmail",
+    type: "email",
+    errorMessage: "Email is required",
+    placeholder: "Email",
+    label: "Patient's Email",
+    pattern: `[a-zA-Z0-9.-_]{1,}@[a-zA-Z.-]{2,}[.]{1}[a-zA-Z]{2,}`,
+    required: true,
+  },
+  {
+    id: "patientSex",
+    name: "patientSex",
+    type: "radio",
+    errorMessage: "Sex of the person is required",
+    placeholder: "Select Sex",
+    label: "Patient's Sex",
+    required: true,
+    setSpan: false,
+  },
+  {
+    id: "patientState",
+    name: "patientState",
+    type: "radio",
+    errorMessage: "State is required",
+    placeholder: "Select State",
+    label: "State",
+    required: true,
+    setSpan: false,
+  },
+  {
+    id: "patientCity",
+    name: "patientCity",
+    type: "radio",
+    errorMessage: "City is required",
+    placeholder: "Select City",
+    label: "City",
+    required: true,
+    setSpan: false,
+  },
+  {
+    id: "appointmentReason",
+    name: "appointmentReason",
+    type: "text-area",
+    placeholder: "Appointment Reason",
+    label: "Appointment Reason",
+  },
+]
+
+export const doctorFormFields = [
+  {
+    id: "doctorName",
+    name: "doctorName",
+    type: "text",
+    placeholder: "Doctor's Name",
+    label: "Doctor's Name",
+    required: false,
+    disabled: true,
+  },
+  {
+    id: "doctorSpecialization",
+    name: "doctorSpecialization",
+    type: "text",
+    placeholder: "Doctor's Specialization",
+    label: "Doctor's Specialization",
+    required: false,
+    disabled: true,
+  },
+  {
+    id: "appointmentDate",
+    name: "appointmentDate",
+    type: "text",
+    errorMessage:
+      "Please Provide the correct date on which you want the Appointment",
+    placeholder: "Appointment Date",
+    label: "Appointment Date",
+    min: "",
+    required: false,
+  },
+  {
+    id: "appointmentTime",
+    name: "appointmentTime",
+    type: "text",
+    errorMessage: "Please Provide the time on which you want the Appointment",
+    placeholder: "Appointment Time",
+    label: "Appointment Time",
+    required: false,
+  },
+  {
+    id: "appointmentLocState",
+    name: "appointmentLocState",
+    type: "text",
+    placeholder: "Appointment State or Union Territorie",
+    label: "Appointment State or Union Territorie",
+    required: false,
+    disabled: true,
+  },
+  {
+    id: "appointmentLocCity",
+    name: "appointmentLocCity",
+    type: "text",
+    placeholder: "Appointment City",
+    label: "Appointment City",
+    required: false,
+    disabled: true,
+  },
+]

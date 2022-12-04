@@ -3,22 +3,27 @@
   overflow: hidden;
 }
 
-.services .gridservice img {
+.services .about img {
   width: 100%;
-  max-width: 400px;
+  max-width: 100px;
+  border-radius: 50%;
 }
 
 .services .row-reverse img {
-  filter: drop-shadow(8px 1px 1px rgba(238, 238, 238, 0.933));
+  margin-right: 100px;
 }
 
-.gridservice {
+.about {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  margin: 40px 0;
+  margin: auto ;
   gap: 10px;
+  max-width: 600px;
+  height: 200px;
+  border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+  border-bottom:solid 5px var(--theme-color);;
 }
 
 .content {
@@ -36,12 +41,12 @@
   font-size: 30px;
 }
 
-.gridservice a:hover {
+.about a:hover {
   color: var(--theme-color);
   text-decoration: underline;
 }
 
-.gridservice.row-reverse {
+.about.row-reverse {
   flex-direction: row-reverse;
 }
 

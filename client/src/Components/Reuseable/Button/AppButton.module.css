@@ -1,4 +1,4 @@
-.body .button {
+.button {
   background-color: var(--theme-color);
   color: #fff;
   display: flex;
@@ -17,7 +17,7 @@
   text-transform: capitalize;
 }
 
-.body .button:hover {
+.button:hover {
   background-color: var(--theme-color);
 }
 
