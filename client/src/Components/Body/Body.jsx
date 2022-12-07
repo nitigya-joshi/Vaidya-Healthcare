@@ -13,6 +13,7 @@ import Contact from "./Contact/Contact";
 import YouAreLost from "./404/YouAreLost";
 import Footer from "../Footer/Footer";
 import Profile from "./Profile/Profile";
+import DoctorProfile from "./DocorProfile/DoctorProfile";
 import { links } from "../AppConstant";
 import { ContextApp } from "../../ContextAPI";
 import styles from "./Body.module.css";
@@ -44,25 +45,26 @@ function Body() {
   return (
     <div className={`${styles["body"]}`}>
       <Icon
-        icon = {
+        icon={
           scrolled
             ? `fad fa-arrow-up ${styles["top"]} ${styles["scrol"]}`
             : `${styles["top"]}`
         }
         clickEvent={() => window.scrollTo(0, 0)}
       />
-      <Navbar links={links} user={user}/>
+      <Navbar links={links} user={user} />
 
       <AnimatePresence>
         <Routes>
-          <Route path="/login" element={!user ? <LogIn />  : <Navigate to='/' />} />
-          <Route path="/" element={<Home user={user}/>} />
-          <Route path="/signup" element={!user ? <SignUp />  : <Navigate to='/' />} />
+          <Route path="/login" element={!user ? <LogIn /> : <Navigate to='/' />} />
+          <Route path="/" element={<Home user={user} />} />
+          <Route path="/signup" element={!user ? <SignUp /> : <Navigate to='/' />} />
           <Route path="/doctors" element={<Doctors />} />
-          <Route path="/book" element={user?.loggedIn ? <BookAppointment />  : <Navigate to='/login' />} />
+          <Route path="/book" element={user?.loggedIn ? <BookAppointment /> : <Navigate to='/login' />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/profile" element={user?.loggedIn ? <Profile /> : <Navigate to='/login' />} />
+          <Route path="/docProfile" element={<DoctorProfile />} />
           <Route path="/admin" element={<AdminHome />} />
           <Route path="/admin/users" element={<List />} />
           <Route path="/admin/doctors" element={<List />} />
@@ -70,7 +72,7 @@ function Body() {
           <Route path="*" element={<YouAreLost />} />
         </Routes>
       </AnimatePresence>
-        <Chatbot />
+      <Chatbot />
       <Footer />
     </div>
   );
