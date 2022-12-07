@@ -14,9 +14,8 @@ function Slide(props) {
 
   return (
     <div
-      className={`${className["slide"]} ${
-        currentSlide === index ? "active" : "inactive"
-      }`}
+      className={`${className["slide"]} ${currentSlide === index ? "active" : "inactive"
+        }`}
     >
       <div>
         <h3 data-aos={determineFade("right")}>
@@ -27,7 +26,7 @@ function Slide(props) {
           className={`${className["graytext"]}`}
           data-aos={determineFade("right")}
         >
-          <i className={`fad fa-${slide.texticon}`}></i>
+          <i className={`${slide.texticon}`}></i>
           <span>{slide.text}</span>
         </p>
         <div className={`${className["btns"]}`} data-aos={determineFade("up")}>

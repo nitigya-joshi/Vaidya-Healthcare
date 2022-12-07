@@ -1,88 +1,50 @@
 import React from "react";
 
-import Bar from "./Bar";
 import TextArrow from "../../Reuseable/TextArrow/TextArrow";
-import Iconbox from "../../Reuseable/Icon/Iconbox";
-import { bars } from "../../AppConstant";
 import styles from "./AboutSection.module.css";
 
 function AboutSection(props) {
-  const { fulltext, limit = 5 } = props;
-  const barsRow = bars.slice(0, limit).map((bar, index) => {
-    return <Bar key={index} className={styles} bar={bar} />;
-  });
+  const { fulltext } = props;
 
   return (
-    <div
-      className={`${fulltext ? styles["about-me"] : ""} ${
-        styles["about-section"]
-      }`}
-    >
-      {fulltext && (
-        <>
-          <div className={`${styles["left-part"]}`} data-aos="fade-right">
-            <div className={`${styles["about-img"]}`}>
-              <img src="https://i.imgur.com/b88Bw6C.jpg" alt="" />
-            </div>
-          </div>
-          <div
-            className={`${styles["about-me"]} ${styles["aboutc"]} ${styles["about-cont"]}`}
-            id="aboutc"
-          >
-            <h3>About Me</h3>
-            <p>
-              Extremely motivated to constantly develop my skills and grow
-              professionally. I am confident in my ability to come up with new
-              ideas and enhance my UI and UX skills.
-            </p>
-          </div>
-          <div>
-            <div className={`${styles["about-me"]} ${styles["works"]}`}>
-              <img src="https://i.imgur.com/Azabnhm.png" alt="" />
-            </div>
-          </div>
-        </>
-      )}
-      {!fulltext && (
-        <div className={`${styles["left-part"]}`} data-aos="fade-right">
-          <div className={`${styles["about-img"]}`}>
-            <img src="https://i.imgur.com/b88Bw6C.jpg" alt="" />
-          </div>
+    <>
+      <div
+        className={`${fulltext ? styles["about-me"] : ""} ${styles["about-section"]
+          }`}
+      >
+        <div className={`${styles["bg-image"]}`}></div>
+        <div className={`${styles["header"]}`} data-aos="flip-left">
+          <h2>About Us</h2>
         </div>
-      )}
-      <div className={`${styles["right-part"]}`} data-aos="fade-left">
-        <div className={`${styles["about-cont"]}`}>
+        <div className={`${styles["about-section-row"]}`}>
           {!fulltext && (
-            <>
-              <div>
-                <h2>About Me</h2>
-                <small className={`${styles["graytext"]}`}>
-                  Self Motivated
-                </small>
+            <div className={`${styles["left-part"]}`} data-aos="fade-right">
+              <div className={`${styles["about-img"]}`}>
+                <img src={require("../../../img/about.png")} alt="He" />
               </div>
-              <div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Quidem ipsa alias nisi repellat quisquam itaque doloribus
-                  facere aspernatur? Quo error explicabo recusandae
-                  <span className={`${styles["fade"]}`}>
-                    unde ab doloribus rem a non dicta provident...
-                  </span>
-                </p>
-                <TextArrow link="/aboutme" />
-              </div>
-            </>
+            </div>
           )}
-          <div className={`${styles["bars"]}`}>
-            <h3>
-              <span>My Skills</span>
-              <Iconbox icon="fal fa-paint-brush" />
-            </h3>
-            {barsRow}
+          <div className={`${styles["right-part"]}`} data-aos="fade-left">
+            <div className={`${styles["about-cont"]}`}>
+              {!fulltext && (
+                <>
+                  <div>
+                    <h2>Welcome To Our Health Center</h2>
+                  </div>
+                  <div>
+                    <p>
+                      Looking for a trusted & secured online dr consultation in India?
+                      Consult a doctor online on Vaidya for any health concern. Our pool of over 1000 trusted doctors across 25+ specialties will ensure all your health queries are answered. You can get online dr advice from a Psychiatrist, Dermatologist, Gynecologist, Sexologist, Pediatrician, Cardiologist, Neurologist, Gastroenterologist, Urologist, Endocrinologist, Dentist, Psychologist, and many more.
+                    </p>
+                    <TextArrow link="/about" />
+                  </div>
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
