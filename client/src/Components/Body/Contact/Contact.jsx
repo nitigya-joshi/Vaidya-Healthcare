@@ -77,7 +77,7 @@ function Contact() {
       <BannerProps
         img="https://i.imgur.com/fzc9vDw.png"
         title="Contact"
-        text="Contact me to get your dream website up and ready for the rest of the world to see!"
+        text="Questions not answered yet? We are here to help!"
       />
       <div className={`${styles["contact-info"]}`}>
         {/* <div className={`${styles["contact-title"]}`} data-aos="flip-left">
