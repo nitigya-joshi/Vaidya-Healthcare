@@ -46,7 +46,7 @@ function Profile() {
             >
               <h6 className={`${styles["button-heading"]}`}>
                 <div className={`${styles["icon-box"]}`}>
-                  <i class="fas fa-user-circle"></i>
+                  <i className="fas fa-user-circle"></i>
                 </div>
                 <span>Profile</span>
               </h6>

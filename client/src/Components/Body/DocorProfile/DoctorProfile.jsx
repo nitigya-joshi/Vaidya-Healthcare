@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import styles from "./DoctorProfile.module.css";
 // import AppointmentTable from './Table/Small Tables/AppointmentTable';
 // import MedicalBillsTable from './Table/Small Tables/MedicalBillsTable';
@@ -7,6 +8,43 @@ import styles from "./DoctorProfile.module.css";
 
 function DoctorProfile() {
   const [current, setCurrent] = useState('profile');
+  const [doctorData, setDoctorData] = useState({
+    name: "",
+    edu: "",
+    category: "",
+    fee: "",
+    lang: "",
+    exp: "",
+    email: "",
+    mobile: "",
+    rating: ""
+  });
+
+  const [searchParams] = useSearchParams();
+
+  const fetchDoctorData = useCallback(async () => {
+    const res = await fetch(`http://localhost:3000/api/doctors/doctor/${searchParams.get("doctor")}`);
+    const doctorDetails = await res.json();
+    const obj = {
+      name: doctorDetails.name,
+      category: doctorDetails.category,
+      state: doctorDetails.clinicaddress.split(',')[1],
+      city: doctorDetails.clinicaddress.split(',')[0],
+      edu: doctorDetails.edu,
+      email: doctorDetails.email,
+      mobile: doctorDetails.mobile,
+      exp: doctorDetails.experience,
+      fee: doctorDetails.fee,
+      rating: doctorDetails.rating,
+      lang: doctorDetails.languages
+    };
+    setDoctorData(obj);
+  }, [searchParams]);
+
+
+  useEffect(() => {
+    fetchDoctorData();
+  }, [fetchDoctorData]);
 
   function handleClick(event) {
     document.getElementById(current)?.classList.remove(`${styles["active-button"]}`);
@@ -28,7 +66,7 @@ function DoctorProfile() {
               />
             </div>
             <div className={`${styles["profile-info"]}`}>
-              <h4>Aryan Verma</h4>
+              <h4>{doctorData.name}</h4>
             </div>
           </div>
           <div className={`${styles["buttons"]}`}>
@@ -39,7 +77,7 @@ function DoctorProfile() {
             >
               <h6 className={`${styles["button-heading"]}`}>
                 <div className={`${styles["icon-box"]}`}>
-                  <i class="fas fa-user-circle"></i>
+                  <i className="fas fa-user-circle"></i>
                 </div>
                 <span>Profile</span>
               </h6>
@@ -51,7 +89,7 @@ function DoctorProfile() {
             >
               <h6 className={`${styles["button-heading"]}`}>
                 <div className={`${styles["icon-box"]}`}>
-                  <i class="fas fa-info-circle"></i>
+                  <i className="fas fa-info-circle"></i>
                 </div>
                 <span>More Info</span>
               </h6>
@@ -67,28 +105,28 @@ function DoctorProfile() {
           <div className={`${styles["row"]}`}>
             <label className={`${styles["profile-label"]}`}>Full Name</label>
             <span className={`${styles["profile-label-info"]}`}>
-              Aryan Verma
+              {doctorData.name}
             </span>
           </div>
           <hr />
           <div className={`${styles["row"]}`}>
             <label className={`${styles["profile-label"]}`}>Specialist</label>
             <span className={`${styles["profile-label-info"]}`}>
-              Dermatalogists
+              {doctorData.category}
             </span>
           </div>
           <hr />
           <div className={`${styles["row"]}`}>
             <label className={`${styles["profile-label"]}`}>Rating</label>
             <span className={`${styles["profile-label-info"]}`}>
-              0
+              {doctorData.rating}
             </span>
           </div>
           <hr />
           <div className={`${styles["row"]}`}>
             <label className={`${styles["profile-label"]}`}>Consultant Fee</label>
             <span className={`${styles["profile-label-info"]}`}>
-              200
+              {doctorData.fee}
             </span>
           </div>
           <hr />
@@ -109,14 +147,14 @@ function DoctorProfile() {
           <div className={`${styles["row"]}`}>
             <label className={`${styles["profile-label"]}`}>Education</label>
             <span className={`${styles["profile-label-info"]}`}>
-              MBBS
+              {doctorData.edu}
             </span>
           </div>
           <hr />
           <div className={`${styles["row"]}`}>
             <label className={`${styles["profile-label"]}`}>Experience</label>
             <span className={`${styles["profile-label-info"]}`}>
-              2 (Years)
+              {doctorData.exp}
             </span>
           </div>
         </div>

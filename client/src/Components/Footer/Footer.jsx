@@ -9,7 +9,7 @@ import styles from "./Footer.module.css";
 function Footer(props) {
   const columns = [
     {
-      title: <Logo text1="TurtleX" text2="Digital" />,
+      title: <Logo text1="Vaidya" text2="Healthcare" />,
       logo: true,
     },
     {
@@ -21,22 +21,6 @@ function Footer(props) {
       title: "Contact Me",
       links: contactBoxes,
       copy: true,
-    },
-    {
-      title: "Portfolio",
-      links: [
-        {
-          text: "Github",
-          icon: "fab fa-github",
-          link: "https://github.com/Joshua131313",
-        },
-        {
-          text: "Dribbble",
-          icon: "fab fa-dribbble",
-          link: "https://dribbble.com/josh1231",
-        },
-      ],
-      blank: true,
     },
     {
       title: "Policies",
@@ -78,7 +62,7 @@ function Footer(props) {
       <div className={`${styles["bottom-content"]}`}>
         <div className={`${styles["rights-reserved"]}`}>
           <small className={`${styles["graytext"]}`}>
-            All Rights Reserved TurtleXDigital 2022, made by Aryan Verma
+            All Rights Reserved  2022, made by Vaidya Healthcare Team
           </small>
         </div>
         <div className={`${styles["social-icons"]}`}>{socialIconsRow}</div>

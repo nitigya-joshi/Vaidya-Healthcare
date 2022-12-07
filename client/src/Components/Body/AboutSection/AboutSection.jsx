@@ -1,5 +1,4 @@
 import React from "react";
-
 import Bar from "./Bar";
 import TextArrow from "../../Reuseable/TextArrow/TextArrow";
 import Iconbox from "../../Reuseable/Icon/Iconbox";

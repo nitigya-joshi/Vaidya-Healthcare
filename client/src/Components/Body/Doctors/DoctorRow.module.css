@@ -55,3 +55,8 @@
 .location {
     width: 200px;
 }
+
+.name:hover {
+    color: var(--theme-color);
+    cursor: pointer;
+}

@@ -14,7 +14,7 @@ const DoctorRow = ({id, imgsrc, name, degree, location, fee, type, rating}) => {
                 <img src={`https://xsgames.co/randomusers/assets/avatars/pixel/${imgsrc}.jpg`} alt='pp' className={`${style["pp-img"]}`}/>
             </div>
             <div className={`${style["details"]}`}>
-                <div className={`${style["name"]}`}>{name}</div>
+                <div className={`${style["name"]}`} onClick={() => navigate(`/docProfile?doctor=${id}`)}>{name}</div>
                 <div className={`${style["degree"]}`}>{degree}</div>
             </div>
             <div className={`${style["location"]}`}><span style={{color:"grey",fontSize:"12px"}}>in</span>&nbsp;{location}</div>

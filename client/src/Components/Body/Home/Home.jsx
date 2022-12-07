@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import Slide from "../Banner/Slide";
 import TypeOnLoad from "../../Reuseable/TypeOnLoad/TypeOnLoad";
 import CarouselCont from "../../Reuseable/Carousel/CarouselCont";
