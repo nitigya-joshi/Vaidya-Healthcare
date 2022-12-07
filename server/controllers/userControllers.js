@@ -185,7 +185,7 @@ const verifyEmail = async (req, res) => {
     }
 }
 const getAllUsers = asyncHandler(async (req, res) => {
-    const users = await User.find({});
+    const users = await User.find({ isDoctor: false });
     if (users) {
         res.status(201).send(users);
     } else {

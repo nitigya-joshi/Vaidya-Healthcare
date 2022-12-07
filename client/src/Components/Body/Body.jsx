@@ -66,8 +66,8 @@ function Body() {
           <Route path="/profile" element={user?.loggedIn ? <Profile /> : <Navigate to='/login' />} />
           <Route path="/docProfile" element={<DoctorProfile />} />
           <Route path="/admin" element={<AdminHome />} />
-          <Route path="/admin/users" element={<List />} />
-          <Route path="/admin/doctors" element={<List />} />
+          <Route path="/admin/users" element={<List listtype={'users'}/>} />
+          <Route path="/admin/doctors" element={<List listtype={'doctors'}/>} />
           <Route path="/events" element={<Calender />} />
           <Route path="*" element={<YouAreLost />} />
         </Routes>
