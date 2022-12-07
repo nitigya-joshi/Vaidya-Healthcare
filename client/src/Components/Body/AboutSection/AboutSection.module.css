@@ -36,7 +36,6 @@
 .about-section .about-img {
   width: 500px;
   height: 500px;
-  /* overflow: hidden; */
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.637);
   border-radius: 50%;
