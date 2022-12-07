@@ -19,30 +19,30 @@ function Contact() {
   async function contactHandler(event) {
     event.preventDefault();
     try {
-			const obj = {
-				name: formValues.name,
-				email: formValues.email,
-				phone: '+911234567890',
-				message: formValues.msg
-			};
-			const res = await fetch("http://localhost:3000/api/postContactData", {
-				method: "POST",
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(obj)
-			});
-			const data = await res.json();
-			console.log(data);
-			if (data) {
-				notifySuccess();
-			}
-		} catch (error) {
-			notifyError();
-		}
+      const obj = {
+        name: formValues.name,
+        email: formValues.email,
+        phone: '+911234567890',
+        message: formValues.msg
+      };
+      const res = await fetch("http://localhost:3000/api/postContactData", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(obj)
+      });
+      const data = await res.json();
+      console.log(data);
+      if (data) {
+        notifySuccess();
+      }
+    } catch (error) {
+      notifyError();
+    }
   }
 
 
-	const notifySuccess = () => toast.success("Message sent!");
-	const notifyError = () => toast.error("Something went wrong!");
+  const notifySuccess = () => toast.success("Message sent!");
+  const notifyError = () => toast.error("Something went wrong!");
 
   const formInputs = contactInputs?.map((input) => {
     return (
@@ -76,8 +76,8 @@ function Contact() {
     <div className={`${styles["contact"]}`}>
       <BannerProps
         img="https://i.imgur.com/fzc9vDw.png"
-        title="Contact"
-        text="Contact me to get your dream website up and ready for the rest of the world to see!"
+        title="Contact Us"
+        text="Contact Us if you are getting any problem while using our Website"
       />
       <div className={`${styles["contact-info"]}`}>
         {/* <div className={`${styles["contact-title"]}`} data-aos="flip-left">
@@ -89,8 +89,8 @@ function Contact() {
         <div className={`${styles["contact-boxes"]}`}>{contactBoxesRow}</div>
         <div className={`${styles["contact-form"]}`} data-aos="zoom-out">
           <div className={`${styles["left-contact"]}`}>
-        
-            <img src={svg} alt="contact" style={{"height": "230px"}}/>
+
+            <img src={svg} alt="contact" style={{ "height": "230px" }} />
           </div>
           <form onSubmit={contactHandler}>
             {formInputs}
@@ -98,7 +98,7 @@ function Contact() {
           </form>
         </div>
       </div>
-			<ToastContainer />
+      <ToastContainer />
     </div>
   );
 }
