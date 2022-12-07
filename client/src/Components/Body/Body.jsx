@@ -56,8 +56,8 @@ function Body() {
 
       <AnimatePresence>
         <Routes>
-          <Route path="/login" element={!user ? <LogIn /> : <Navigate to='/' />} />
           <Route path="/" element={<Home user={user} />} />
+          <Route path="/login" element={!user ? <LogIn /> : <Navigate to='/' />} />
           <Route path="/signup" element={!user ? <SignUp /> : <Navigate to='/' />} />
           <Route path="/doctors" element={<Doctors />} />
           <Route path="/book" element={user?.loggedIn ? <BookAppointment /> : <Navigate to='/login' />} />
