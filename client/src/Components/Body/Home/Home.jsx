@@ -8,7 +8,7 @@ import { profile } from "../../AppConstant";
 import styles from "./Home.module.css";
 import FeaturesSection from "../FeaturesSection/FeaturesSection";
 
-function Home({user}) {
+function Home({ user }) {
   const [currentSlideShown, setCurrentSlideShown] = useState(0);
   const slidesrow = profile?.map((element, index) => {
     return (
@@ -22,7 +22,7 @@ function Home({user}) {
     );
   });
 
-  const welcomeText = user ? 'Welcome '+ user?.username : 'Welcome Guest'
+  const welcomeText = user ? 'Welcome ' + user?.username : 'Welcome Guest'
 
   useEffect(() => {
     setCurrentSlideShown(0);

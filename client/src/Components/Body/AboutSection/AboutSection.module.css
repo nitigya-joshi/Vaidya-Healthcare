@@ -1,23 +1,41 @@
 .about-section {
-  display: grid;
-  padding: 10px 20%;
-  grid-template-columns: 200px 1fr;
-  grid-gap: 30px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px 50px;
+
+  height: 60vh;
+  min-height: 800px;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-section .bg-image {
   background-image: url("https://i.imgur.com/BWo9nt9.png");
   background-size: contain;
   background-position: center;
-  height: 60vh;
-  min-height: 1000px;
-  padding-bottom: 25px;
   background-attachment: fixed;
-  overflow: hidden;
+  height: 100%;
+  width: 100%;
+  filter: blur(8px);
+  -webkit-filter: blur(8px);
+  position: absolute;
+}
+
+.about-section .header {
+  font-size: 30px;
+}
+
+.about-section .about-section-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
 }
 
 .about-section .about-img {
-  width: 200px;
-  height: 200px;
-  overflow: hidden;
-  border-radius: 10px;
+  width: 500px;
+  height: 500px;
   padding: 10px;
   background-color: rgba(255, 255, 255, 0.637);
   border-radius: 50%;
@@ -40,6 +58,7 @@
 .about-section .about-cont {
   width: 100%;
   display: flex;
+  align-items: center;
   justify-content: center;
   flex-direction: column;
   padding: 20px;
@@ -56,7 +75,6 @@
   width: 100%;
   height: 100%;
   border-radius: 10px;
-  border-radius: 50%;
 }
 
 .bars {
@@ -140,6 +158,18 @@
   color: #fff;
   -webkit-background-clip: initial;
   -webkit-text-fill-color: initial;
+}
+
+@media (max-width: 1100px) {
+  .about-section {
+    min-height: 1000px;
+  }
+
+  .about-section .about-section-row {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+  }
 }
 
 @media (max-width: 980px) {
