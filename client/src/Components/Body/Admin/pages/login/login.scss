@@ -1,0 +1,28 @@
+.login {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #EDEDED;
+    .paper {
+        padding: 20px;
+        height: 60vh;
+        width: 280px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .avatar {
+            background-color: #444444;
+        }
+
+        .signinBtn {
+            margin: 8px 0;
+            background-color: #da0037ac;
+            color: white;
+
+            &:hover {
+                background-color: #da0037;
+            }
+        }
+    }
+}

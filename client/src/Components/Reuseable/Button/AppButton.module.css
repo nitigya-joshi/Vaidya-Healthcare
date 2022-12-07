@@ -17,9 +17,6 @@
   text-transform: capitalize;
 }
 
-.button:hover {
-  background-color: var(--theme-color);
-}
 
 .button:active {
   transform: scale(0.98);

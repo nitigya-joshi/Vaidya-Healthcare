@@ -20,6 +20,10 @@ import { useSelector } from "react-redux";
 import { selectUser } from "../../store/userSlice";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/userSlice";
+import AdminHome from "./Admin/pages/home/AdminHome";
+import List from "./Admin/pages/list/List";
+import Calender from "./Calender/pages/Calender";
+import Chatbot from "./Chatbot/Chatbot";
 function Body() {
 
   const { scrolled } = useContext(ContextApp);
@@ -29,7 +33,6 @@ function Body() {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"))
-    console.log(user)
     if (user) {
       dispatch(login({
         ...user,
@@ -60,10 +63,14 @@ function Body() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/profile" element={user?.loggedIn ? <Profile /> : <Navigate to='/login' />} />
+          <Route path="/admin" element={<AdminHome />} />
+          <Route path="/admin/users" element={<List />} />
+          <Route path="/admin/doctors" element={<List />} />
+          <Route path="/events" element={<Calender />} />
           <Route path="*" element={<YouAreLost />} />
         </Routes>
       </AnimatePresence>
-
+        <Chatbot />
       <Footer />
     </div>
   );

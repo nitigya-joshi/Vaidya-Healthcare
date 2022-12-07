@@ -1,0 +1,12 @@
+.timeItem {
+    display: flex;
+    height: 50px;
+    width: 80px;
+    border-bottom: 1px solid rgb(165, 165, 165);
+}
+
+.timeColumnContainer {
+    position: absolute;
+    top: 120px;
+    left: 600px;
+}

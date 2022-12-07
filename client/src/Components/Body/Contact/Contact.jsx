@@ -6,6 +6,8 @@ import AppButton from "../../Reuseable/Button/AppButton";
 import { contactInputs, contactBoxes } from "../../AppConstant";
 import styles from "./Contact.module.css";
 import svg from "../../../img/contact.svg";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Contact() {
   const [formValues, setFormValues] = useState({
@@ -14,10 +16,33 @@ function Contact() {
     msg: "",
   });
 
-  function contactHandler(event) {
+  async function contactHandler(event) {
     event.preventDefault();
-    console.log("contact details sent");
+    try {
+			const obj = {
+				name: formValues.name,
+				email: formValues.email,
+				phone: '+911234567890',
+				message: formValues.msg
+			};
+			const res = await fetch("http://localhost:3000/api/postContactData", {
+				method: "POST",
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(obj)
+			});
+			const data = await res.json();
+			console.log(data);
+			if (data) {
+				notifySuccess();
+			}
+		} catch (error) {
+			notifyError();
+		}
   }
+
+
+	const notifySuccess = () => toast.success("Message sent!");
+	const notifyError = () => toast.error("Something went wrong!");
 
   const formInputs = contactInputs?.map((input) => {
     return (
@@ -64,6 +89,7 @@ function Contact() {
         <div className={`${styles["contact-boxes"]}`}>{contactBoxesRow}</div>
         <div className={`${styles["contact-form"]}`} data-aos="zoom-out">
           <div className={`${styles["left-contact"]}`}>
+        
             <img src={svg} alt="contact" style={{"height": "230px"}}/>
           </div>
           <form onSubmit={contactHandler}>
@@ -72,6 +98,7 @@ function Contact() {
           </form>
         </div>
       </div>
+			<ToastContainer />
     </div>
   );
 }

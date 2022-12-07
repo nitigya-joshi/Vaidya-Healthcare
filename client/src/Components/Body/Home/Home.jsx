@@ -14,6 +14,7 @@ function Home({user}) {
   const slidesrow = profile?.map((element, index) => {
     return (
       <Slide
+        key={index}
         className={styles}
         slide={element}
         index={index}

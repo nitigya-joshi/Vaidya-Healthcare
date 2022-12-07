@@ -1,0 +1,41 @@
+.gridContainer {
+    display: grid;
+    grid-template-columns: 100px 100px 100px 100px 100px 100px 100px;
+}
+
+
+.gridItem {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 0.5px solid rgb(165, 165, 165);
+    text-align: center;
+    height: 50px;
+    width: 100px;
+    background-color: var(--light-grey);
+}
+
+.gridItem:target {
+    border: 2px solid;
+    background-color: red;
+}
+
+
+.timeslotContainer {
+    position: absolute;
+    right: 50px;
+    top: 120px;
+}
+
+.eventCell {
+    background-color: var(--theme-color);
+    color: white;
+}
+
+
+.container {
+    display: flex;
+    flex-direction: row;
+}
+
+.current {
+    background-color: rgba(127, 255, 212, 0.395);
+}

@@ -18,7 +18,7 @@ function Navbar(props) {
   const navigate = useNavigate()
   const linksrow = (
     <MappedArray array={links}>
-      {({ prop }) => <NavbarLink className={styles} link={prop} />}
+      {({ prop }) => <NavbarLink key={prop.id} className={styles} link={prop} />}
     </MappedArray>
   );
 
@@ -47,12 +47,13 @@ function Navbar(props) {
       <div className={`${styles["links"]}`}>
         {linksrow}
         {user?.loggedIn ? <NavbarLink className={styles} link={{link: "/profile", text: "Profile"}} /> : ''}
+        {user?.loggedIn && user?.isAdmin ? <NavbarLink className={styles} link={{link: "/admin", text: "Admin"}} /> : ''}
         {!user?.loggedIn ? 
         <HashLink smooth to="/login">
           <AppButton text="Login" icon="fad fa-sign-in" />
         </HashLink>
          :        
-        <AppButton text="Logout" icon="fad fa-sign-in" clickEvent={logoutHandler}/>
+        <AppButton text="Logout" icon="fad fa-sign-in" clickEvent={logoutHandler} />
         }
       </div>
       <div className={`${styles["mobbtn"]} ${navmenu ? styles["open"] : ""}`} onClick={() => setNavmenu(!navmenu)}>
@@ -66,6 +67,7 @@ function Navbar(props) {
           {links?.map((link) => {
             return (
               <NavbarLink
+                key={link.id}
                 className={styles}
                 link={link}
                 clickEvent={() => setNavmenu(false)}

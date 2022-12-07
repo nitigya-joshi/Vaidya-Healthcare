@@ -8,8 +8,8 @@ import styles from "./AboutSection.module.css";
 
 function AboutSection(props) {
   const { fulltext, limit = 5 } = props;
-  const barsRow = bars.slice(0, limit).map((bar) => {
-    return <Bar className={styles} bar={bar} />;
+  const barsRow = bars.slice(0, limit).map((bar, index) => {
+    return <Bar key={index} className={styles} bar={bar} />;
   });
 
   return (

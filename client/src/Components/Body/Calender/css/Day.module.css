@@ -1,0 +1,17 @@
+.dayBlock {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: rgb(206, 204, 204);
+    border-radius: 5px;
+    border: 1px solid rgb(130, 130, 130);
+}
+
+.currentDay {
+    background-color: #01CB99;
+    color: white;
+    border-radius: 5px;
+}

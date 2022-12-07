@@ -5,8 +5,8 @@ import { services } from "../../AppConstant";
 import styles from "./FeaturesSection.module.css";
 
 function FeaturesSection() {
-  const servicesRow = services?.map((service) => {
-    return <Card card={service} themeShadow={true} />;
+  const servicesRow = services?.map((service, index) => {
+    return <Card key={index} card={service} themeShadow={true} />;
   });
 
   return (

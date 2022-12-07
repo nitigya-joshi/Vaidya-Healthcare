@@ -60,14 +60,14 @@ function Footer(props) {
     },
   ];
 
-  const columnsRow = columns?.map((column) => {
-    return <Columns className={styles} column={column} />;
+  const columnsRow = columns?.map((column, index) => {
+    return <Columns key={index} className={styles} column={column} />;
   });
 
-  const socialIconsRow = socialIcons?.map((icon) => {
+  const socialIconsRow = socialIcons?.map((icon, index) => {
     return (
-      <a href={icon.link} target="__blank">
-        <Icon className={styles} icon={`${icon.icon} social-icon`} />
+      <a key={index} href={icon.link} target="__blank">
+        <Icon key={index} className={styles} icon={`${icon.icon} social-icon`} />
       </a>
     );
   });

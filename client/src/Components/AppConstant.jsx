@@ -163,19 +163,22 @@ export const works = [
 
 export const links = [
   {
+    id: "1",
     link: "/",
     text: "Home",
-    exact: true,
   },
   {
+    id: "2",
     link: "/doctors",
     text: "Doctors",
   },
   {
+    id: "3",
     link: "/about",
     text: "About"
   },
   {
+    id: "4",
     link: "/contact",
     text: "Contact",
   }
@@ -191,21 +194,24 @@ export const socialIcons = [
 
 export const profile = [
   {
-    title: "Profile",
-    img: "https://i.imgur.com/EMcyIBn.png",
-    text: "Extremely motivated to constantly develop my skills and grow professionally. I am confident in my ability to come up with new ideas and enhance  my UI and UX skills.",
+    id: 1,
+    title: "Live Doc",
+    img: "https://i.imgur.com/ih8gwVB.png",
+    text: "Connect securely anytime, anywhere with 24*7 doctors available just for you. Completely private and confidential.",
     icon: "paint-brush",
   },
   {
-    title: "Quotes",
-    img: "https://i.imgur.com/PldPiNS.png",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed convallis ante nec imperdiet venenatis. Aenean sed consectetur enim. Donec pretium erat ut varius varius.",
+    id: 2,
+    title: "Appointments",
+    img: "https://i.imgur.com/EMcyIBn.png",
+    text: "Book appointments with our certified partner doctors, clinics, hospitals and receive personalized care.",
     icon: "quote-left",
   },
   {
-    title: "Inspiration",
-    img: "https://i.imgur.com/ih8gwVB.png",
-    text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed convallis ante nec imperdiet venenatis. Aenean sed consectetur enim. Donec pretium erat ut varius varius.",
+    id: 3,
+    title: "Chat Bot",
+    img: "https://i.imgur.com/PldPiNS.png",
+    text: "Our chatbot will try its best to clear your queries instantly. It will get you up with commonly asked questions.",
     icon: "lightbulb",
   },
 ];
@@ -257,69 +263,50 @@ export const bars = [
 
 export const services = [
   {
-    text: "Powerful, simple and modern websites!",
-    title: "Web Design",
+    text: "Powerful, simple and responsive appointment forms!",
+    title: "Book Apointment",
     icon: "fad fa-browser",
     link: "/services",
   },
   {
-    text: "Websites are made with   love and creativity!",
-    title: "Creativity",
+    text: "AI powered bot for resolving common doubts!",
+    title: "Chatbot",
     icon: "fad fa-pencil-paintbrush",
     link: "/services",
   },
   {
-    text: "Modern and stylistic designs to your website!",
-    title: "Modern",
+    text: "Profile dashboard for both doctors and patients!",
+    title: "Personalized Dashboard",
     icon: "fad fa-sparkles",
     link: "/services",
   },
   {
-    text: "User and device friendly websites!",
-    title: "Responsive",
-    icon: "fad fa-mobile-android",
-    link: "/services",
-  },
-  {
-    text: "Designs made with you in mind! ",
-    title: "Stunning Design",
-    icon: "fad fa-layer-group",
-    link: "/services",
-  },
-  {
-    text: "Clear, neat and organized code!",
-    title: "Organization",
+    text: "We offer lowest price for your health plans!",
+    title: "Low cost",
     icon: "fad fa-broom",
     link: "/services",
-  },
-  {
-    title: "More!",
-    icon: "fad fa-th",
-    link: "/services",
-  },
-];
-
-export const contactBoxes = [
-  {
-    title: "Call Me",
-    text: "+91 1234567890",
-    link: "tel:123456789",
-    icon: "fad fa-phone",
-    notBlank: true,
-  },
-  {
-    title: "Email Me",
-    text: "vaidyahealthcare@gmail.com",
-    link: "mailto:vaidyahealthcare@gmail.com",
-    icon: "fad fa-envelope",
-  },
-  {
-    title: "Visit Me",
-    text: "IIIT Sri City",
-    link: "https://goo.gl/maps/EmzLFogcUes8PEAd8",
-    icon: "fad fa-map-marker-alt",
-  },
-];
+  }]
+  export const contactBoxes = [
+    {
+      title: "Call Us",
+      text: "+91 1234567890",
+      link: "tel:123456789",
+      icon: "fad fa-phone",
+      notBlank: true,
+    },
+    {
+      title: "Email Us",
+      text: "contact@vaidyahealth.com",
+      link: "mailto:customersupport@vaidyahealth.com",
+      icon: "fad fa-envelope",
+    },
+    {
+      title: "Visit Us",
+      text: "IIIT Sri City",
+      link: "https://goo.gl/maps/EmzLFogcUes8PEAd8",
+      icon: "fad fa-map-marker-alt",
+    },
+  ];
 
 export const style = {
   NotificationItem: {

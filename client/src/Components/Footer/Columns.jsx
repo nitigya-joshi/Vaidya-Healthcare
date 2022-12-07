@@ -1,55 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { HashLink } from "react-router-hash-link";
-import CopyToClipboard from "react-copy-to-clipboard";
-
-import { ContextApp } from "../../ContextAPI";
-import { addNotification } from "../AppFunctions";
 import styles from "./Columns.module.css";
 
 function Columns(props) {
   const { className = "", column } = props;
-  const { notifisystem } = useContext(ContextApp);
   const [expanded, setExpanded] = useState(false);
 
-  function determineLink(link) {
-    if (column.copy) {
-      const parameters = {
-        msg: "Copied to clipboard!",
-        icon: "fad fa-copy",
-        notifisystem,
-      };
-      return (
-        <CopyToClipboard
-          text={link.text}
-          onCopy={() => addNotification(parameters)}
-        >
-          <a
-            className={`${styles["link-cont"]}`}
-            href={link.link}
-            target={!link.notBlank && "__blank"}
-          >
-            <i className={link.icon}></i>
-            <span>{link.text}</span>
-          </a>
-        </CopyToClipboard>
-      );
-    }
-
-    if (column.blank) {
-      return (
-        <a
-          className={`${styles["link-cont"]}`}
-          href={link.link}
-          target={!link.notBlank && "__blank"}
-        >
-          <i className={link.icon}></i>
-          <span>{link.text}</span>
-        </a>
-      );
-    }
-
+  function determineLink(link, index) {
     return (
-      <HashLink smooth to={`${link.link} #top`}>
+      <HashLink key={index} smooth to={`${link.link} #top`}>
         <i className={link.icon}></i>
         <p className={`${styles["link-cont"]}`}>
           {column.linkTitle ? link.title : link.text}
@@ -93,8 +52,8 @@ function Columns(props) {
         }`}
       >
         <div className={`${styles["column-links"]}`}>
-          {column.links?.map((link) => {
-            return determineLink(link);
+          {column.links?.map((link, index) => {
+            return determineLink(link, index);
           })}
         </div>
       </div>
