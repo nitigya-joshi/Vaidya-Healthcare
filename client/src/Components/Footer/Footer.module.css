@@ -12,9 +12,9 @@
 }
 
 .footer-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  display: flex;
   grid-gap: 30px;
+  justify-content: space-between;
 }
 
 .bottom-content {

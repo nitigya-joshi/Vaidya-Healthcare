@@ -13,7 +13,7 @@ function Services() {
   return (
     <div className={`${styles["services"]}`}>
       <BannerProps
-        img="https://i.imgur.com/oFYPpob.png"
+        img="https://i.imgur.com/1PBKN6Z.png"
         title="About Us"
         text="Learn More about our team!"
       />

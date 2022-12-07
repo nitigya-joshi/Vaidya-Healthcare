@@ -35,7 +35,7 @@ function Doctors() {
 
   const fetchDoctors = async () => {
     const response = await fetch('http://localhost:3000/api/doctors/getdoctors');
-    const data = await response.json() 
+    const data = await response.json()
     setFetchedDoctors(data);
   };
 
@@ -46,6 +46,7 @@ function Doctors() {
   return (
     <div className={`${styles["about-me"]}`}>
       <BannerProps
+        img="https://i.imgur.com/oFYPpob.png"
         title="All doctors"
         text="Below is the list of all the doctors registered."
       />
@@ -80,8 +81,8 @@ function Doctors() {
                   <option>Consultation Fee</option>
                 </select>
               </div>
-            </div>            
-              {renderedDoctorsHtml}
+            </div>
+            {renderedDoctorsHtml}
           </div>
         </div>
       </div>
