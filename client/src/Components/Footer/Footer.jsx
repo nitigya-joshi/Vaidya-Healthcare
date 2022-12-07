@@ -18,7 +18,7 @@ function Footer(props) {
       linkTitle: true,
     },
     {
-      title: "Contact Me",
+      title: "Contact Us",
       links: contactBoxes,
       copy: true,
     },
