@@ -4,10 +4,13 @@ import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import { Link } from 'react-router-dom';
+import { selectUsers } from '../../../../../store/usersSlice';
+import { selectDoctors } from '../../../../../store/doctorsSlice';
+import { useSelector } from 'react-redux';
+
 const Widget = ({ type }) => {
     let data;
     const diff = 20
-    const amount = 100
     switch (type) {
         case 'user':
             data = {
@@ -48,12 +51,25 @@ const Widget = ({ type }) => {
         default:
             break;
     }
+    const users = useSelector(selectUsers)
+    const doctors = useSelector(selectDoctors)
+    let number
+    if (type === "user") {
+        number = users.length
+    } else if (type === "doctor") {
+        number = doctors.length
+    } else if (type === "appointment") {
+        number = 127
+    } else if (type === "earning") {
+        number = 10502
+    }
+
 
     return (
         <div className={styles.widget}>
             <div className={styles.left}>
                 <span className={styles.title}>{data.title}</span>
-                <span className={styles.counter}>{data.isMoney && "$"}{amount}</span>
+                <span className={styles.counter}>{data.isMoney && "$"}{number}</span>
                 <Link to={data.route}><span className={styles.link}>{data.link}</span></Link>
             </div>
             <div className={styles.right}>

@@ -4,7 +4,33 @@ import Widget from '../../components/widget/Widget'
 import Featured from '../../components/featured/Featured'
 import Chart from '../../components/chart/Chart'
 import BannerProps from '../../../Banner/BannerProps'
+import { useCallback, useEffect } from 'react'
+import { useDispatch } from 'react-redux';
+import { addUsers } from '../../../../../store/usersSlice'
+import { addDoctors } from '../../../../../store/doctorsSlice'
+
 const AdminHome = () => {
+
+    const dispatch = useDispatch()
+
+    const fetchData = useCallback(async () => {
+        const res = await fetch('http://localhost:3000/api/users/getusers', {
+        credentials: 'include'
+        })
+        const users = await res.json()
+        dispatch(addUsers(users))
+
+        const doctorres = await fetch('http://localhost:3000/api/doctors/getdoctors', {
+        credentials: 'include'
+        })
+        const doctors = await doctorres.json()
+        dispatch(addDoctors(doctors))
+    }, [dispatch])
+
+    useEffect(() => {
+        fetchData()
+    }, [fetchData])
+
     return (
         <>
         <BannerProps
@@ -20,7 +46,7 @@ const AdminHome = () => {
                     <Widget type='user' />
                     <Widget type='doctor' />
                     <Widget type='appointment' />
-                    <Widget type='earning' />
+                    <Widget type='earning'/>
                 </div>
                 <div className={styles.charts}>
                     <Featured/>

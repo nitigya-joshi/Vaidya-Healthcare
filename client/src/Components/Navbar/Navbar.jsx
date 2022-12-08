@@ -1,21 +1,23 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HashLink } from "react-router-hash-link";
 import {useDispatch} from "react-redux";
 import Logo from "../Reuseable/Logo/Logo";
 import MappedArray from "../Body/MappedArray/MappedArray";
 import NavbarLink from "./NavbarLink";
 import AppButton from "../Reuseable/Button/AppButton";
-import { ContextApp } from "../../ContextAPI";
 import styles from "./Navbar.module.css";
 import { logout } from "../../store/userSlice";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from 'react-redux';
+import { selectScrolled, setScrolled } from "../../store/scrolledSlice";
 
 function Navbar(props) {
   const { links, user } = props;
-  const { scrolled, setScrolled } = useContext(ContextApp);
+  const scrolled = useSelector(selectScrolled)
   const [navmenu, setNavmenu] = useState(false);
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  
   const linksrow = (
     <MappedArray array={links}>
       {({ prop }) => <NavbarLink key={prop.id} className={styles} link={prop} />}
@@ -25,13 +27,13 @@ function Navbar(props) {
   useEffect(() => {
     function handleScroll() {
       if (window.scrollY > 50) {
-        setScrolled(true);
+        dispatch(setScrolled(true))
       } else {
-        setScrolled(false);
+        dispatch(setScrolled(false))
       }
     }
     window.addEventListener("scroll", handleScroll);
-  }, [setScrolled]);
+  }, [dispatch]);
 
   const logoutHandler = () => {
     dispatch(logout())

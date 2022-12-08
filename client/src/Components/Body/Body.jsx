@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import Icon from "../Reuseable/Icon/Icon";
@@ -15,7 +15,6 @@ import Footer from "../Footer/Footer";
 import Profile from "./Profile/Profile";
 import DoctorProfile from "./DocorProfile/DoctorProfile";
 import { links } from "../AppConstant";
-import { ContextApp } from "../../ContextAPI";
 import styles from "./Body.module.css";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/userSlice";
@@ -25,9 +24,11 @@ import AdminHome from "./Admin/pages/home/AdminHome";
 import List from "./Admin/pages/list/List";
 import Calender from "./Calender/pages/Calender";
 import Chatbot from "./Chatbot/Chatbot";
+import { selectScrolled } from "../../store/scrolledSlice";
 function Body() {
 
-  const { scrolled } = useContext(ContextApp);
+  const scrolled = useSelector(selectScrolled)
+
   const user = useSelector(selectUser)
   const dispatch = useDispatch()
 
