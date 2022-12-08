@@ -25,10 +25,10 @@ import List from "./Admin/pages/list/List";
 import Calender from "./Calender/pages/Calender";
 import Chatbot from "./Chatbot/Chatbot";
 import { selectScrolled } from "../../store/scrolledSlice";
+import DoctorApplication from "./DoctorApplication/DoctorApplication";
 function Body() {
 
   const scrolled = useSelector(selectScrolled)
-
   const user = useSelector(selectUser)
   const dispatch = useDispatch()
 
@@ -70,6 +70,7 @@ function Body() {
           <Route path="/admin/users" element={<List listtype={'users'}/>} />
           <Route path="/admin/doctors" element={<List listtype={'doctors'}/>} />
           <Route path="/events" element={<Calender />} />
+          <Route path="/apply" element={<DoctorApplication />} />
           <Route path="*" element={<YouAreLost />} />
         </Routes>
       </AnimatePresence>

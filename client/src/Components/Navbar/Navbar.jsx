@@ -50,6 +50,7 @@ function Navbar(props) {
         {linksrow}
         {user?.loggedIn ? <NavbarLink className={styles} link={{link: "/profile", text: "Profile"}} /> : ''}
         {user?.loggedIn && user?.isAdmin ? <NavbarLink className={styles} link={{link: "/admin", text: "Admin"}} /> : ''}
+        {user?.loggedIn && user?.isDoctor ? <NavbarLink className={styles} link={{link: "/events", text: "Events"}} /> : <NavbarLink className={styles} link={{link: "/apply", text: "Apply Now"}} />}
         {!user?.loggedIn ? 
         <HashLink smooth to="/login">
           <AppButton text="Login" icon="fad fa-sign-in" />

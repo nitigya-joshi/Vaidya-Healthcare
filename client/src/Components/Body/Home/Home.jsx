@@ -7,9 +7,12 @@ import AboutSection from "../AboutSection/AboutSection";
 import { profile } from "../../AppConstant";
 import styles from "./Home.module.css";
 import FeaturesSection from "../FeaturesSection/FeaturesSection";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../store/userSlice";
 
-function Home({ user }) {
+function Home() {
   const [currentSlideShown, setCurrentSlideShown] = useState(0);
+  const user = useSelector(selectUser)
   const slidesrow = profile?.map((element, index) => {
     return (
       <Slide
