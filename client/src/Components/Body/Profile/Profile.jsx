@@ -1,18 +1,22 @@
 import React, { useState } from "react";
 import styles from "./Profile.module.css";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../../store/userSlice";
-import AppointmentTable from "./Table/Big Tables/AppointmentTable";
+import { useDispatch, useSelector } from "react-redux";
+import { selectUser, setAvatar } from "../../../store/userSlice";
+import AppointmentTable from "./Table/BigTables/AppointmentTable";
+import { Button } from "@material-ui/core";
 
 
 // import AppointmentTable from './Table/Small Tables/AppointmentTable';
-// import MedicalBillsTable from './Table/Small Tables/MedicalBillsTable';
+import MedicalBillsTable from './Table/BigTables/MedicalBillsTable';
+import AppButton from "../../Reuseable/Button/AppButton";
 // import MedicalRecordsTable from './Table/Small Tables/MedicalRecordsTable';
 // import Medications from './Table/Small Tables/Medications';
 
 function Profile() {
   const [current, setCurrent] = useState('profile');
-  const user = useSelector(selectUser)
+  const [image, setImage] = useState(null);
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   function handleClick(event) {
     document.getElementById(current)?.classList.remove(`${styles["active-button"]}`);
@@ -22,6 +26,29 @@ function Profile() {
     document.getElementById(`${event}Div`)?.removeAttribute("style");
   }
 
+  function captureImage(e) {
+    const file = e.target.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = function () {
+      setImage(file);
+      dispatch(setAvatar(reader.result));
+    };
+  }
+
+  async function updatePhotoHandler(e) {
+    e.preventDefault()
+    const formData = new FormData()
+    formData.append("avatarInput", image)
+    const res = await fetch("http://localhost:3000/api/users/upload", {
+      credentials: 'include',
+      method: "POST",
+      body: formData
+    });
+    const data = await res.json();
+    dispatch(setAvatar(data.path));
+  }
+
   return (
     <div className={`${styles["profile-page"]}`}>
       <div className={`${styles["row"]}`}>
@@ -29,14 +56,24 @@ function Profile() {
           <div className={`${styles["card"]}`}>
             <div className={`${styles["profile-img"]}`}>
               <img
-                src="https://bootdey.com/img/Content/avatar/avatar7.png"
-                alt="Admin"
+                src={user.pic}
+                alt="profile"
               />
+              <input
+                onChange={captureImage}
+                id="avatarInput"
+                name="avatarInput"
+                type="file"
+                className={`${styles["avatar-input"]}`}
+              />
+              <label className={styles.avatarLabel} htmlFor="avatarInput">
+                Choose a different photo
+              </label>
+              <Button color="primary" variant="contained" onClick={updatePhotoHandler}>Update Photo</Button>
             </div>
-            <div className={`${styles["profile-info"]}`}>
+            {/* <div className={`${styles["profile-info"]}`}>
               <h4>{user.name}</h4>
-              <p>IIIT Sri City, Chittoor, A.P.</p>
-            </div>
+            </div> */}
           </div>
           <div className={`${styles["buttons"]}`}>
             <button
@@ -58,47 +95,47 @@ function Profile() {
             >
               <h6 className={`${styles["button-heading"]}`}>
                 <div className={`${styles["icon-box"]}`}>
-                  <i class="fad fa-calendar-check"></i>
+                  <i className="fad fa-calendar-check"></i>
                 </div>
                 <span>Appointments</span>
               </h6>
             </button>
-            <button
+            {user.isDoctor && <button
               className=""
               id="medicalBills"
               onClick={() => handleClick("medicalBills")}
             >
               <h6 className={`${styles["button-heading"]}`}>
                 <div className={`${styles["icon-box"]}`}>
-                  <i class="fad fa-file-invoice-dollar"></i>
+                  <i className="fad fa-file-invoice-dollar"></i>
                 </div>
-                <span>Medical Bills</span>
+                <span>Patient's Appointments</span>
               </h6>
-            </button>
-            <button
+            </button>}
+            {/* <button
               className=""
               id="medicalRecords"
               onClick={() => handleClick("medicalRecords")}
             >
               <h6 className={`${styles["button-heading"]}`}>
                 <div className={`${styles["icon-box"]}`}>
-                  <i class="fad fa-file-medical-alt"></i>
+                  <i className="fad fa-file-medical-alt"></i>
                 </div>
                 <span>Medical Records</span>
               </h6>
-            </button>
-            <button
+            </button> */}
+            {/* <button
               className=""
               id="medications"
               onClick={() => handleClick("medications")}
             >
               <h6 className={`${styles["button-heading"]}`}>
                 <div className={`${styles["icon-box"]}`}>
-                  <i class="fad fa-capsules"></i>
+                  <i className="fad fa-capsules"></i>
                 </div>
                 <span>Medications</span>
               </h6>
-            </button>
+            </button> */}
           </div>
         </div>
         <div
@@ -147,6 +184,7 @@ function Profile() {
           id="medicalBillsDiv"
           style={{ display: "none" }}
         >
+          <MedicalBillsTable />
           {/* <iframe src={resume} className={`${styles["iframe"]}`} /> */}
         </div>
         <div

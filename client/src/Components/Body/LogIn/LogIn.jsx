@@ -21,7 +21,6 @@ function LogIn() {
 
   async function loginHandler(event) {
     event.preventDefault();
-    console.log("logged in");
     try {
       if (formValues.email && formValues.password) {
         const res = await fetch("http://localhost:3000/api/users/login", {
@@ -37,14 +36,13 @@ function LogIn() {
             ...data.user,
             "loggedIn": true
           }))
-          localStorage.setItem("user", JSON.stringify(data.user))
           navigate("/")
         }
       }
     } catch (error) {
       console.log(error)
     }
-    
+
   }
 
   const formInputs = loginInputs?.map((input) => {

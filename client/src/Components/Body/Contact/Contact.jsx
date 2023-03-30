@@ -31,7 +31,6 @@ function Contact() {
         body: JSON.stringify(obj)
       });
       const data = await res.json();
-      console.log(data);
       if (data) {
         notifySuccess();
       }
@@ -64,9 +63,9 @@ function Contact() {
         copy={true}
         card={box}
         iconLink={
-          <a href={box.link} target="__blank">
-            <i className={`fal fa-chevron-right ${styles["arrow-icon"]}`}></i>
-          </a>
+          // <a href={box.link} target="__blank">
+          <i className={`fal fa-chevron-right ${styles["arrow-icon"]}`}></i>
+          // </a>
         }
       />
     );

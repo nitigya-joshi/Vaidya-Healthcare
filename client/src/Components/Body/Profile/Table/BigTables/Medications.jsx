@@ -2,20 +2,20 @@ import React from "react";
 import { HashLink } from "react-router-hash-link";
 import AppButton from "../../../../Reuseable/Button/AppButton";
 import styles from "./Tables.module.css";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import http from '../../../../../http-common.js'
 function Medications() {
-  const [dbData,setdbData]=useState([])
-  useEffect(()=>{
+  const [dbData, setdbData] = useState([])
+  useEffect(() => {
     http.get('/getpatients')
-    .then(res=>{
-      console.log(res.data[0].medications);
-      setdbData(res.data[0].medications)
-    })
-    .catch(err=>{
-      console.log(err);
-    })
-  },[])
+      .then(res => {
+        console.log(res.data[0].medications);
+        setdbData(res.data[0].medications)
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }, [])
   return (
     <div className={`${styles["table"]}`}>
       <div className={`${styles["table-card"]}`}>
@@ -25,7 +25,7 @@ function Medications() {
             <AppButton text="Back To Profile" icon="fad fa-user-circle" />
           </HashLink>
         </div>
-        <table>
+        <tbody>
           <tr>
             <th>Medication Name</th>
             <th>Dose</th>
@@ -39,8 +39,8 @@ function Medications() {
             <th>Actions</th>
           </tr>
           {
-            dbData.map((row)=>{
-              return(
+            dbData.map((row) => {
+              return (
                 <tr>
                   <td>{row.Medication_Name}</td>
                   <td>{row.Dose}</td>
@@ -58,7 +58,7 @@ function Medications() {
               )
             })
           }
-        </table>
+        </tbody>
       </div>
     </div>
   );

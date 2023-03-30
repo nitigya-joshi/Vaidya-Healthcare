@@ -142,3 +142,15 @@
 .iframe {
   height: 75vh;
 }
+
+.avatar-input {
+  display: none;
+}
+
+.avatarLabel {
+    color: #131313;
+    margin: 10px 0 20px 0;
+    display: inline-block;
+    cursor: pointer;
+    font-size: 14px;
+}

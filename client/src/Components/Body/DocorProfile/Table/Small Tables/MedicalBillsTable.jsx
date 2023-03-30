@@ -2,20 +2,20 @@ import React from "react";
 import { HashLink } from "react-router-hash-link";
 import AppButton from "../../../../Reuseable/Button/AppButton";
 import styles from "./Tables.module.css";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import http from '../../../../../http-common.js'
 function MedicalBillsTable() {
-  const [dbData,setdbData]=useState([])
-  useEffect(()=>{
+  const [dbData, setdbData] = useState([])
+  useEffect(() => {
     http.get('/getpatients')
-    .then(res=>{
-      console.log(res.data[0].medical_bills);
-      setdbData(res.data[0].medical_bills)
-    })
-    .catch(err=>{
-      console.log(err);
-    })
-  },[])
+      .then(res => {
+        console.log(res.data[0].medical_bills);
+        setdbData(res.data[0].medical_bills)
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }, [])
   return (
     <div className={`${styles["table"]}`}>
       <div className={`${styles["table-card"]}`}>
@@ -25,15 +25,15 @@ function MedicalBillsTable() {
             <AppButton text="Browse All" icon="fas fa-browser" />
           </HashLink>
         </div>
-        <table>
+        <tbody>
           <tr>
             <th>Date</th>
             <th>Amount</th>
             <th>Status</th>
           </tr>
           {
-            dbData.map((row)=>{
-              return(
+            dbData.map((row) => {
+              return (
                 <tr>
                   <td>{row.Date_Of_Service}</td>
                   <td>{row.Amount_Due}</td>
@@ -42,7 +42,7 @@ function MedicalBillsTable() {
               )
             })
           }
-        </table>
+        </tbody>
       </div>
     </div>
   );

@@ -6,14 +6,14 @@ const Doctor = require('../models/doctorModel');
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
 
 class apiControllers {
-    constructor (){}
+    constructor() { }
 
     static postContactData = asyncHandler(async (req, res) => {
         const { name, email, phone, message } = req.body;
         const mess = await contact.create({
             name, email, phone, message
         });
-    
+
         if (mess) {
             res.status(201).send({
                 _id: mess._id,
@@ -36,7 +36,7 @@ class apiControllers {
         const appointment = await appointmentModel.create({
             name, mobile, email, gender, state, city, reason, dob, age, appointmentDate, appointmentTime, user, doctor
         });
-    
+
         if (appointment) {
             res.status(201).json({ status: 'ok', appointmentId: appointment._id });
         } else {
@@ -58,7 +58,7 @@ class apiControllers {
     static deleteAppointment = asyncHandler(async (req, res) => {
         const app = await appointmentModel.findByIdAndDelete(req.query.id)
         if (app) {
-            res.redirect('/verified?m1=Appointment Deleted&m2= ')
+            res.redirect('')
         } else {
             throw new Error('connot delete')
         }
@@ -88,7 +88,7 @@ class apiControllers {
         } catch (err) {
             res.status(500).json({ error: err.message })
         }
-    
+
     }
 
 

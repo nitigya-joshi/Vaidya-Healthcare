@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { HashLink } from "react-router-hash-link";
-import {useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import Logo from "../Reuseable/Logo/Logo";
 import MappedArray from "../Body/MappedArray/MappedArray";
 import NavbarLink from "./NavbarLink";
@@ -17,7 +17,7 @@ function Navbar(props) {
   const [navmenu, setNavmenu] = useState(false);
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  
+
   const linksrow = (
     <MappedArray array={links}>
       {({ prop }) => <NavbarLink key={prop.id} className={styles} link={prop} />}
@@ -35,10 +35,24 @@ function Navbar(props) {
     window.addEventListener("scroll", handleScroll);
   }, [dispatch]);
 
-  const logoutHandler = () => {
-    dispatch(logout())
-    localStorage.removeItem("user")
-    navigate('/login')
+  const logoutHandler = async () => {
+    try {
+      const res = await fetch('http://localhost:3000/api/users/logout', {
+        method: 'GET',
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include"
+      })
+      const data = await res.json()
+      if (data.message === "logged out") {
+        dispatch(logout())
+        navigate('/login')
+      }
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -48,15 +62,15 @@ function Navbar(props) {
       <Logo text1="Vaidya" text2="Healthcare" />
       <div className={`${styles["links"]}`}>
         {linksrow}
-        {user?.loggedIn ? <NavbarLink className={styles} link={{link: "/profile", text: "Profile"}} /> : ''}
-        {user?.loggedIn && user?.isAdmin ? <NavbarLink className={styles} link={{link: "/admin", text: "Admin"}} /> : ''}
-        {user?.loggedIn && user?.isDoctor ? <NavbarLink className={styles} link={{link: "/events", text: "Events"}} /> : <NavbarLink className={styles} link={{link: "/apply", text: "Apply Now"}} />}
-        {!user?.loggedIn ? 
-        <HashLink smooth to="/login">
-          <AppButton text="Login" icon="fad fa-sign-in" />
-        </HashLink>
-         :        
-        <AppButton text="Logout" icon="fad fa-sign-in" clickEvent={logoutHandler} />
+        {user?.loggedIn ? <NavbarLink className={styles} link={{ link: "/profile", text: "Profile" }} /> : ''}
+        {user?.loggedIn && user?.isAdmin ? <NavbarLink className={styles} link={{ link: "/admin", text: "Admin" }} /> : ''}
+        {user?.loggedIn && user?.isDoctor ? <NavbarLink className={styles} link={{ link: "/events", text: "Events" }} /> : <NavbarLink className={styles} link={{ link: "/apply", text: "Apply Now" }} />}
+        {!user?.loggedIn ?
+          <HashLink smooth to="/login">
+            <AppButton text="Login" icon="fad fa-sign-in" />
+          </HashLink>
+          :
+          <AppButton text="Logout" icon="fad fa-sign-in" clickEvent={logoutHandler} />
         }
       </div>
       <div className={`${styles["mobbtn"]} ${navmenu ? styles["open"] : ""}`} onClick={() => setNavmenu(!navmenu)}>
@@ -64,7 +78,7 @@ function Navbar(props) {
         <hr className={`${styles["l2"]}`} />
         <hr className={`${styles["l3"]}`} />
       </div>
-      <div className={`${styles["navmenu"]} ${navmenu ? styles["navmenu-enter"] : "" }`}>
+      <div className={`${styles["navmenu"]} ${navmenu ? styles["navmenu-enter"] : ""}`}>
         <Logo text1="Vaidya" text2="Healthcare" />
         <div className={styles["linksmenu"]}>
           {links?.map((link) => {
@@ -78,12 +92,12 @@ function Navbar(props) {
             );
           })}
         </div>
-        {!user?.loggedIn ? 
-        <HashLink smooth to="/login">
-          <AppButton text="Login" icon="fad fa-sign-in" />
-        </HashLink>
-         :        
-        <AppButton text="Logout" icon="fad fa-sign-in" clickEvent={logoutHandler}/>
+        {!user?.loggedIn ?
+          <HashLink smooth to="/login">
+            <AppButton text="Login" icon="fad fa-sign-in" />
+          </HashLink>
+          :
+          <AppButton text="Logout" icon="fad fa-sign-in" clickEvent={logoutHandler} />
         }
       </div>
     </div>

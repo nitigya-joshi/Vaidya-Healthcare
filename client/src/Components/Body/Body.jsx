@@ -17,7 +17,7 @@ import DoctorProfile from "./DocorProfile/DoctorProfile";
 import { links } from "../AppConstant";
 import styles from "./Body.module.css";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../store/userSlice";
+import { logout, selectUser } from "../../store/userSlice";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/userSlice";
 import AdminHome from "./Admin/pages/home/AdminHome";
@@ -26,22 +26,64 @@ import Calender from "./Calender/pages/Calender";
 import Chatbot from "./Chatbot/Chatbot";
 import { selectScrolled } from "../../store/scrolledSlice";
 import DoctorApplication from "./DoctorApplication/DoctorApplication";
+import RoomPage from "../VideoCall/Room";
+
 function Body() {
 
   const scrolled = useSelector(selectScrolled)
   const user = useSelector(selectUser)
   const dispatch = useDispatch()
+  // const navigate = useNavigate()
 
+  // const logoutHandler = async () => {
+  //   try {
+  //     const res = await fetch('http://localhost:3000/api/users/logout', {
+  //       method: 'GET',
+  //       headers: {
+  //         Accept: "application/json",
+  //         "Content-Type": "application/json",
+  //       },
+  //       credentials: "include"
+  //     })
+  //     const data = await res.json()
+  //     if (data.status === 200) {
+  //       dispatch(logout())
+  //       navigate('/login')
+  //     }
+  //   } catch (error) {
+  //     console.log(error)
+  //   }
+  // }
+
+  const getUserdata = async () => {
+    try {
+      const res = await fetch('http://localhost:3000/api/users/me', {
+        method: 'GET',
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include"
+      })
+      const data = await res.json()
+      if (res.status === 200) {
+        dispatch(login({
+          ...data,
+          "loggedIn": true
+        }))
+      } else {
+        const error = new Error(res.error)
+        throw error;
+      }
+    } catch (error) {
+      console.error(error)
+      dispatch(logout())
+    }
+  }
 
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user"))
-    if (user) {
-      dispatch(login({
-        ...user,
-        "loggedIn": true
-      }))
-    }
-  }, [dispatch])
+    getUserdata()
+  }, [])
 
   return (
     <div className={`${styles["body"]}`}>
@@ -66,11 +108,13 @@ function Body() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/profile" element={user?.loggedIn ? <Profile /> : <Navigate to='/login' />} />
           <Route path="/docProfile" element={<DoctorProfile />} />
-          <Route path="/admin" element={<AdminHome />} />
-          <Route path="/admin/users" element={<List listtype={'users'}/>} />
-          <Route path="/admin/doctors" element={<List listtype={'doctors'}/>} />
+          <Route path="/admin" element={user?.loggedIn ? <AdminHome /> : <Navigate to='/login' />} />
+          <Route path="/admin/users" element={user?.loggedIn ? <List listtype={'users'} /> : <Navigate to='/login' />} />
+          <Route path="/admin/doctors" element={user?.loggedIn ? <List listtype={'doctors'} /> : <Navigate to='/login' />} />
+          <Route path="/admin/approve" element={user?.loggedIn ? <List listtype={'approve'} /> : <Navigate to='/login' />} />
           <Route path="/events" element={<Calender />} />
           <Route path="/apply" element={<DoctorApplication />} />
+          <Route path="/room/:roomId" element={<RoomPage />} />
           <Route path="*" element={<YouAreLost />} />
         </Routes>
       </AnimatePresence>

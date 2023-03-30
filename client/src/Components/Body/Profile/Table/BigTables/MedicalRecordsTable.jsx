@@ -2,20 +2,20 @@ import React from "react";
 import { HashLink } from "react-router-hash-link";
 import AppButton from "../../../../Reuseable/Button/AppButton";
 import styles from "./Tables.module.css";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import http from '../../../../../http-common.js'
 function MedicalRecordsTable() {
-  const [dbData,setdbData]=useState([])
-  useEffect(()=>{
+  const [dbData, setdbData] = useState([])
+  useEffect(() => {
     http.get('/getpatients')
-    .then(res=>{
-      console.log(res.data[0].medical_records);
-      setdbData(res.data[0].medical_records)
-    })
-    .catch(err=>{
-      console.log(err);
-    })
-  },[])
+      .then(res => {
+        console.log(res.data[0].medical_records);
+        setdbData(res.data[0].medical_records)
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }, [])
   return (
     <div className={`${styles["table"]}`}>
       <div className={`${styles["table-card"]}`}>
@@ -25,7 +25,7 @@ function MedicalRecordsTable() {
             <AppButton text="Back To Profile" icon="fad fa-user-circle" />
           </HashLink>
         </div>
-        <table>
+        <tbody>
           <tr>
             <th>Date</th>
             <th>Name</th>
@@ -36,8 +36,8 @@ function MedicalRecordsTable() {
             <th>Actions</th>
           </tr>
           {
-            dbData.map((row)=>{
-              return(
+            dbData.map((row) => {
+              return (
                 <tr>
                   <td>{row.Date}</td>
                   <td>{row.Name}</td>
@@ -63,7 +63,7 @@ function MedicalRecordsTable() {
               <AppButton text="Delete" icon="fas fa-trash-alt" />
             </td>
           </tr> */}
-        </table>
+        </tbody>
       </div>
     </div>
   );

@@ -2,15 +2,30 @@ import styles from './Widget.module.css'
 import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
 import PersonOutlinedIcon from '@mui/icons-material/PersonOutlined';
 import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
+// import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import { Link } from 'react-router-dom';
 import { selectUsers } from '../../../../../store/usersSlice';
 import { selectDoctors } from '../../../../../store/doctorsSlice';
 import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 const Widget = ({ type }) => {
     let data;
     const diff = 20
+
+    const [unapproved, setUnapproved] = useState()
+
+    useEffect(() => {
+        const fetchUnapprovedDoctors = async () => {
+            const res = await fetch('http://localhost:3000/api/doctors/unapproved', {
+                credentials: 'include'
+            })
+            const doctors = await res.json()
+            setUnapproved(doctors.length)
+        }
+        fetchUnapprovedDoctors()
+    })
+
     switch (type) {
         case 'user':
             data = {
@@ -41,10 +56,11 @@ const Widget = ({ type }) => {
             break;
         case 'earning':
             data = {
-                title: "EARNINGS",
-                isMoney: true,
-                link: 'See details',
-                icon: <AccountBalanceWalletOutlinedIcon className='icon'/>
+                title: "TO APPROVE",
+                isMoney: false,
+                link: 'Approve doctors',
+                route: 'approve',
+                icon: <LocalHospitalIcon className='icon' />
             }
             break;
 
@@ -61,7 +77,7 @@ const Widget = ({ type }) => {
     } else if (type === "appointment") {
         number = 127
     } else if (type === "earning") {
-        number = 10502
+        number = unapproved
     }
 
 
@@ -74,7 +90,7 @@ const Widget = ({ type }) => {
             </div>
             <div className={styles.right}>
                 <div className={`${styles.percentage} `}>
-                    <KeyboardArrowUpOutlinedIcon/>
+                    <KeyboardArrowUpOutlinedIcon />
                     {diff} %
                 </div>
                 {data.icon}

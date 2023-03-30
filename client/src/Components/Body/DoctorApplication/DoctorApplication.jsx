@@ -26,31 +26,30 @@ function SignUp() {
   async function sendEmail(event) {
     event.preventDefault();
     try {
-        const data = {
-          name: formValues.name,
-          category: formValues.category,
-          languages: formValues.languages,
-          fee: formValues.fee,
-          edu: formValues.education,
-          experience: formValues.experience,
-          email: formValues.email,
-          mobile: formValues.phone,
-          clinicaddress: formValues.address,
-        };
-        const res = await fetch("http://localhost:3000/api/doctors/register", {
-          method: "POST",
-          headers: { 'Content-Type': 'application/json' },
-          credentials: 'include',
-          body: JSON.stringify(data)
-        });
-        const doctorRegister = await res.json();
-        console.log(doctorRegister);
-        if (doctorRegister) {
-          notifySuccess();
-        }
-      } catch (error) {
-        notifyError();
+      const data = {
+        name: formValues.name,
+        category: formValues.category,
+        languages: formValues.languages,
+        fee: formValues.fee,
+        edu: formValues.education,
+        experience: formValues.experience,
+        email: formValues.email,
+        mobile: formValues.phone,
+        clinicaddress: formValues.address,
+      };
+      const res = await fetch("http://localhost:3000/api/doctors/register", {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify(data)
+      });
+      const doctorRegister = await res.json();
+      if (doctorRegister) {
+        notifySuccess();
       }
+    } catch (error) {
+      notifyError();
+    }
   }
 
   const formInputs = applicationInputs?.map((input) => {

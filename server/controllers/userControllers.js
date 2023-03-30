@@ -28,12 +28,6 @@ transporter.verify((error, success) => {
     }
 })
 
-const createToken = (id) => {
-    return jwt.sign({ id }, 'jwtsecret', {
-        expiresIn: 3 * 24 * 60 * 60
-    });
-};
-
 const sendVerificationEmail = async ({ _id, email }, res) => {
     const currentUrl = 'http://localhost:3000/';
     const uniqueString = uuidv4() + _id;
@@ -69,6 +63,12 @@ const sendVerificationEmail = async ({ _id, email }, res) => {
 
 }
 
+const createToken = (id) => {
+    return jwt.sign({ id }, 'jwtsecret', {
+        expiresIn: 3 * 24 * 60 * 60
+    });
+};
+
 
 const registerUser = asyncHandler(async (req, res) => {
     const { name, username, gender, email, password, mobile, address, pic, appointments } = req.body;
@@ -98,7 +98,7 @@ const authUser = asyncHandler(async (req, res) => {
     if (user && (await user.matchPassword(password))) {
         if (user.verified) {
             const token = createToken(user._id);
-            res.cookie('jwt', token, { httpOnly: false, maxAge: 3 * 24 * 60 * 60 * 1000 });
+            res.cookie('jwt', token, { httpOnly: true, maxAge: 3 * 24 * 60 * 60 * 1000 });
             res.status(200).json({ status: 'SUCCESS', user: user });
         } else {
             res.status(400).json({ status: 'FAILED', message: 'Email is not verified. Check your inbox!' })
@@ -112,14 +112,14 @@ const authUser = asyncHandler(async (req, res) => {
 
 const logout = asyncHandler(async (req, res) => {
     res.cookie('jwt', '', { maxAge: 1 })
-    res.status(200).json({message: 'logged out'})
+    res.status(200).json({ message: 'logged out' })
 })
 
 const getUserdata = asyncHandler(async (req, res) => {
     if (req.user) {
-        res.json(req.user)
+        res.status(200).json(req.user)
     } else {
-        res.json('no user found!')
+        res.status(500).json('no user found!')
     }
 })
 
@@ -138,12 +138,10 @@ const updateUser = asyncHandler(async (req, res) => {
 })
 
 const uploadAvatar = asyncHandler(async (req, res) => {
-    const buffer = await sharp(req.file.buffer).png().resize({ width: 250, height: 250 }).toBuffer()
-    req.user.pic = buffer;
+    const profilePic = 'http://localhost:3000/' + req.file.path
+    req.user.pic = profilePic
     await req.user.save()
-    res.status(200).redirect('/userprofile');
-}, (error, req, res, next) => {
-    res.status(400).send('image can not be uploaded!');
+    res.send({ status: true, path: profilePic })
 })
 
 const verifyEmail = async (req, res) => {
@@ -195,18 +193,16 @@ const getAllUsers = asyncHandler(async (req, res) => {
 })
 
 const deleteUser = asyncHandler(async (req, res) => {
-    const userid = req.query.id
-    const user = await User.findById({ _id: userid });
-    const doctorid = user.doctorId
-    await Doctor.findByIdAndDelete(doctorid)
-    await user.remove()
-    res.status(200).redirect('/verified?m1=Deleted User&m2= ')
+    const userids = req.body.mongo_ids
+    const result = await User.deleteMany({ _id: { $in: userids } })
+    const users = await User.find({ isDoctor: false });
+    res.status(200).send({ status: 'success', remaining: users })
 })
 
 const makeAdmin = asyncHandler(async (req, res) => {
     const userid = req.query.id;
     const user = await User.findByIdAndUpdate(userid, { isAdmin: true })
-    res.status(200).redirect('/verified?m1=Given Admin Previledges&m2= ')
+    res.status(200).send()
 })
 
 module.exports = { registerUser, authUser, logout, updateUser, uploadAvatar, verifyEmail, getUserdata, getAllUsers, deleteUser, makeAdmin };

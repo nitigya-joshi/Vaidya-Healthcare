@@ -6,7 +6,7 @@ const appointmentModel = require('../models/appointmentModel')
 
 
 class doctorController {
-    constructor(){}
+    constructor() { }
 
     static registerDoctor = asyncHandler(async (req, res) => {
         const { name, category, languages, fee, edu, experience, email, mobile, clinicaddress, rating, pic } = req.body;
@@ -38,11 +38,11 @@ class doctorController {
             res.status(400)
             throw new Error('Error Occured');
         }
-    
+
     })
 
     static getDoctors = asyncHandler(async (req, res) => {
-        const doctors = await Doctor.find({});
+        const doctors = await Doctor.find({ approved: true });
         if (doctors) {
             res.status(201).send(doctors);
         } else {
@@ -52,21 +52,26 @@ class doctorController {
     })
 
     static approveDoctor = asyncHandler(async (req, res) => {
-        const doctorid = req.query.id
-        const doctor = await Doctor.findByIdAndUpdate(doctorid, { approved: true }).populate('user');
-        const userid = doctor.user._id
-        await User.findByIdAndUpdate(userid, { isDoctor: true, doctorId: doctorid });
-        res.status(200).redirect('/verified?m1=Doctor Approved&m2= ')
+        const { mongo_ids, user_ids } = req.body.details
+        console.log(mongo_ids, user_ids)
+        const updatedDoctors = await Doctor.updateMany({ _id: { $in: mongo_ids } }, { approved: true }).populate('user')
+        console.log(updatedDoctors)
+        await User.updateMany({ _id: { $in: user_ids } }, { isDoctor: true, doctorId: mongo_ids })
+        const doctors = await Doctor.find({ approved: false });
+        res.status(200).send({ status: 'success', remaining: doctors })
     })
 
     static deleteDoctor = asyncHandler(async (req, res) => {
-        const doctorid = req.query.id
-        const doctor = await Doctor.findByIdAndDelete(doctorid).populate('user');
-        const userid = doctor.user._id
-        await User.findByIdAndUpdate(userid, { isDoctor: false, doctorId: null })
-        if (doctor) {
-            res.status(200).redirect('/verified?m1=Doctor Deleted&m2= ')
-        }
+        const doctorids = req.body.mongo_ids
+        const deletedDoctors = await Doctor.find({ _id: { $in: doctorids } }).populate("user")
+        await Doctor.deleteMany({ _id: { $in: doctorids } })
+        const user_ids = []
+        deletedDoctors.forEach(doctor => {
+            user_ids.push(doctor.user._id)
+        });
+        await User.updateMany({ _id: { $in: user_ids } }, { isDoctor: false, doctorId: null })
+        const doctors = await Doctor.find({});
+        res.status(200).send({ status: 'success', remaining: doctors })
     })
 
     static doctorappointments = asyncHandler(async (req, res) => {
@@ -87,6 +92,16 @@ class doctorController {
         }
         else {
             throw new Error('can not fetch appointments');
+        }
+    })
+
+    static getUnapprovedDoctors = asyncHandler(async (req, res) => {
+        const doctors = await Doctor.find({ approved: false });
+        if (doctors) {
+            res.status(200).send(doctors);
+        } else {
+            res.status(400)
+            throw new Error('Cannot get doctors');
         }
     })
 }

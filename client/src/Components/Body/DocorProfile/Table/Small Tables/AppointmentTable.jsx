@@ -2,21 +2,21 @@ import React from "react";
 import { HashLink } from "react-router-hash-link";
 import AppButton from "../../../../Reuseable/Button/AppButton";
 import styles from "./Tables.module.css";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import http from '../../../../../http-common.js'
 
 function AppointmentTable() {
-  const [dbData,setdbData]=useState([])
-  useEffect(()=>{
+  const [dbData, setdbData] = useState([])
+  useEffect(() => {
     http.get('/getpatients')
-    .then(res=>{
-      console.log(res.data[0].appointments);
-      setdbData(res.data[0].appointments)
-    })
-    .catch(err=>{
-      console.log(err);
-    })
-  },[])
+      .then(res => {
+        console.log(res.data[0].appointments);
+        setdbData(res.data[0].appointments)
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }, [])
   return (
     <div className={`${styles["table"]}`}>
       <div className={`${styles["table-card"]}`}>
@@ -26,7 +26,7 @@ function AppointmentTable() {
             <AppButton text="Browse All" icon="fas fa-browser" />
           </HashLink>
         </div>
-        <table>
+        <tbody>
           <tr>
             <th>Visit Type</th>
             <th>Date</th>
@@ -34,8 +34,8 @@ function AppointmentTable() {
             <th>Status</th>
           </tr>
           {
-            dbData.map((row)=>{
-              return(
+            dbData.map((row) => {
+              return (
                 <tr>
                   <td>{row.Visite_Tyoe}</td>
                   <td>{row.Date}</td>
@@ -45,7 +45,7 @@ function AppointmentTable() {
               )
             })
           }
-        </table>
+        </tbody>
       </div>
     </div>
   );

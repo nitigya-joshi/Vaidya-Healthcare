@@ -1,15 +1,19 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import AppButton from "../../../../Reuseable/Button/AppButton";
 import styles from "./Tables.module.css";
-function AppointmentTable() {
+import { useState, useEffect } from "react";
+import { Button } from "@material-ui/core";
+import { useNavigate } from "react-router-dom";
+function MedicalBillsTable() {
 
   const [appointmentData, setAppointmentData] = useState([])
 
   const fetchAppointmentData = async () => {
-    const res = await fetch('http://localhost:3000/api/getappointments', {
+    const res = await fetch('http://localhost:3000/api/doctors/doctorappointments', {
       credentials: 'include'
     });
     const data = await res.json();
+    console.log(data)
     setAppointmentData([...data])
   }
 
@@ -17,22 +21,28 @@ function AppointmentTable() {
     fetchAppointmentData()
   }, [])
 
+  const navigate = useNavigate()
+
+  const handleJoinRoom = (roomId) => {
+    // console.log(roomId)
+    navigate(`/room/${roomId}`)
+  }
+
   return (
     <div className={`${styles["table"]}`}>
       <div className={`${styles["table-card"]}`}>
         <div className={`${styles["row"]} ${styles["mb-10"]}`}>
-          <h4 className={`${styles["table-heading"]}`}>Appointments</h4>
+          <h4 className={`${styles["table-heading"]}`}>Patient's Appointments</h4>
         </div>
         <tbody>
           <tr>
             <th>#</th>
             <th>Patient's Name</th>
-            <th>Doctor's Name</th>
-            <th>Doctor's Mobile</th>
-            <th>Fee</th>
-            <th>Clinic Address</th>
+            <th>Patient's Mobile</th>
+            <th>Appointment Reason</th>
             <th>Date</th>
             <th>Time</th>
+            <th>Join meeting</th>
           </tr>
           {
             appointmentData.map((row, index) => {
@@ -40,12 +50,13 @@ function AppointmentTable() {
                 <tr>
                   <td>{index}</td>
                   <td>{row.name}</td>
-                  <td>{row.doctor.name}</td>
-                  <td>{row.doctor.mobile}</td>
-                  <td>₹{row.doctor.fee}</td>
-                  <td>{row.doctor.clinicaddress.split(',')[0]}</td>
+                  <td>{row.mobile}</td>
+                  <td>{row.reason ? row.reason : 'N/A'}</td>
                   <td>{row.appointmentDate.split('T')[0]}</td>
                   <td>{row.appointmentTime}</td>
+                  <td>
+                    <td><Button onClick={() => handleJoinRoom(`${row._id}`)}>Join</Button></td>
+                  </td>
                 </tr>
               )
             })
@@ -56,4 +67,4 @@ function AppointmentTable() {
   );
 }
 
-export default AppointmentTable;
+export default MedicalBillsTable;

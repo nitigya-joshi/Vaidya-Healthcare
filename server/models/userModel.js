@@ -62,7 +62,7 @@ const userSchema = mongoose.Schema(
             type: String,
         },
         pic: {
-            type: Buffer,
+            type: String,
             default:
                 "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg",
         },
@@ -72,13 +72,13 @@ const userSchema = mongoose.Schema(
     }
 );
 
-userSchema.virtual('imgsrc').get(function () {
-    if (this.pic.toString('base64').length < 2000) {
-        return '/img/unknown.png';
-    } else {
-        return `data:image/jpg;base64,${this.pic.toString('base64')}`;
-    }
-})
+// userSchema.virtual('imgsrc').get(function () {
+//     if (this.pic.toString('base64').length < 2000) {
+//         return '/img/unknown.png';
+//     } else {
+//         return `data:image/jpg;base64,${this.pic.toString('base64')}`;
+//     }
+// })
 
 userSchema.pre('save', async function (next) {
     const user = this
@@ -91,7 +91,6 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.matchPassword = async function (enteredPass) {
     return await bcrypt.compare(enteredPass, this.password);
 }
-
 
 const User = mongoose.model('User', userSchema)
 

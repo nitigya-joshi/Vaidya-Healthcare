@@ -56,50 +56,6 @@ export const profile = [
   },
 ];
 
-// export const bars = [
-//   {
-//     skill: "React",
-//     percent: 70,
-//     icon: "fab fa-react",
-//     text: "Learn how React can make your dream come true!",
-//   },
-//   {
-//     skill: "React Native",
-//     percent: 40,
-//     icon: "fab fa-react",
-//     text: "Transform your website or web application into a mobile app!",
-//   },
-//   {
-//     skill: "Photoshop",
-//     percent: 50,
-//     icon: "fad fa-image",
-//     text: "",
-//   },
-//   {
-//     skill: "JavaScript",
-//     percent: 80,
-//     icon: "fab fa-js-square",
-//     text: "JavaScript is an extremely powerful language!",
-//   },
-//   {
-//     skill: "Firebase",
-//     percent: 90,
-//     icon: "fad fa-database",
-//     text: "A very powerful database which makes web developing easy!",
-//   },
-//   {
-//     skill: "CSS",
-//     percent: 90,
-//     icon: "fab fa-css3",
-//     text: "CSS is not code, it's the art of the internet!",
-//   },
-//   {
-//     skill: "HTML",
-//     percent: 100,
-//     icon: "fab fa-html5",
-//     text: "The backbone of your future website!",
-//   },
-// ];
 
 export const services = [
   {
@@ -196,7 +152,7 @@ export const loginInputs = [
     value: "password",
     name: "login-password",
     type: "password",
-  },
+  }
 ];
 
 export const signupInputs = [

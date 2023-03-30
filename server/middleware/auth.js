@@ -6,7 +6,7 @@ const auth = async (req, res, next) => {
         jwt.verify(token, 'jwtsecret', async (err, decodedToken) => {
             if (err) {
                 console.log(err.message);
-                res.status(500).send()
+                res.status(401).send('Invalid token!')
             } else {
                 const user = await User.findById(decodedToken.id);
                 req.user = user;
@@ -14,7 +14,7 @@ const auth = async (req, res, next) => {
             }
         })
     } else {
-        res.status(500).send()
+        res.status(500).send('Something went wrong')
     }
 }
 
@@ -22,14 +22,14 @@ const adminauth = async (req, res, next) => {
     if (req.user.isAdmin) {
         next()
     } else {
-        res.redirect('/verified?error=err&m1=404 Not Found&m2= ')
+        res.status(401).send('Unauthorised')
     }
 }
 const doctorauth = async (req, res, next) => {
     if (req.user.isDoctor) {
         next()
     } else {
-        res.send('/verified?error=err&m1=404 Not Found&m2= ')
+        res.status(401).send('Unauthorised')
     }
 }
 

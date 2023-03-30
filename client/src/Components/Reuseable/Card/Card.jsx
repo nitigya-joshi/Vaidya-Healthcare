@@ -15,9 +15,8 @@ function Card(props) {
   return (
     <HashLink
       to={link}
-      className={`${className !== "" ? className["card"] : ""} ${
-        styles["card"]
-      } ${themeShadow ? styles["theme-shadow-card"] : ""}`}
+      className={`${className !== "" ? className["card"] : ""} ${styles["card"]
+        } ${themeShadow ? styles["theme-shadow-card"] : ""}`}
       data-aos="zoom-in"
     >
       <Iconbox className={className} icon={icon} />

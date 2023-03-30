@@ -15,13 +15,13 @@ const AdminHome = () => {
 
     const fetchData = useCallback(async () => {
         const res = await fetch('http://localhost:3000/api/users/getusers', {
-        credentials: 'include'
+            credentials: 'include'
         })
         const users = await res.json()
         dispatch(addUsers(users))
 
         const doctorres = await fetch('http://localhost:3000/api/doctors/getdoctors', {
-        credentials: 'include'
+            credentials: 'include'
         })
         const doctors = await doctorres.json()
         dispatch(addDoctors(doctors))
@@ -33,27 +33,27 @@ const AdminHome = () => {
 
     return (
         <>
-        <BannerProps
-            img="https://i.imgur.com/fzc9vDw.png"
-            title="Admin"
-            text="This is the page where you have full access and previliges!"
-        />
-        <div className={styles.home}>
-            {/* <Sidebar />  */}
-            <div className={styles.homeContainer}>
-                {/* <Navbar /> */}
-                <div className={styles.widgets}>
-                    <Widget type='user' />
-                    <Widget type='doctor' />
-                    <Widget type='appointment' />
-                    <Widget type='earning'/>
-                </div>
-                <div className={styles.charts}>
-                    <Featured/>
-                    <Chart/>
+            <BannerProps
+                img="https://i.imgur.com/fzc9vDw.png"
+                title="Admin"
+                text="This is the page where you have full access and previliges!"
+            />
+            <div className={styles.home}>
+                {/* <Sidebar />  */}
+                <div className={styles.homeContainer}>
+                    {/* <Navbar /> */}
+                    <div className={styles.widgets}>
+                        <Widget type='user' />
+                        <Widget type='doctor' />
+                        <Widget type='appointment' />
+                        <Widget type='earning' />
+                    </div>
+                    <div className={styles.charts}>
+                        <Featured />
+                        <Chart />
+                    </div>
                 </div>
             </div>
-        </div>
         </>
 
     )
