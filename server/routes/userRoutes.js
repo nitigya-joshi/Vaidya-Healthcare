@@ -6,7 +6,7 @@ const {
   updateUser,
   uploadAvatar,
   verifyEmail,
-  getUserdata,
+  getUserData,
   getAllUsers,
   deleteUser,
   makeAdmin,
@@ -311,7 +311,7 @@ router.route("/verify/:userId/:uniqueString").get(verifyEmail);
  *                    example: USer Data didn't fetched succesfuly!
  *
  */
-router.route("/me").get(auth, getUserdata);
+router.route("/me").get(auth, getUserData);
 /**
  * @swagger
  * /users/getusers:

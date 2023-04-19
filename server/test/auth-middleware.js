@@ -10,7 +10,10 @@ describe("Auth Middleware", () => {
   let user;
   before((done) => {
     mongoose
-      .connect("mongodb://127.0.0.1:27017/fsd-test")
+      .connect(
+        // "mongodb://127.0.0.1:27017/fsd-test"
+        "mongodb+srv://completeNodeGuide:e7S9ME6cXDU3XUQE@cluster0.08pm440.mongodb.net/fsd-test?retryWrites=true&w=majority"
+      )
       .then((result) => {
         user = new User({
           _id: "5c0f66b979af55031b34728a",
