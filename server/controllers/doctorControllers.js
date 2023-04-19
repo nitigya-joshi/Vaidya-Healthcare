@@ -57,7 +57,7 @@ class doctorController {
       });
     } else {
       res.status(400);
-      throw new Error("Error Occured");
+      throw new Error("Error Occurred");
     }
   });
 
@@ -105,7 +105,7 @@ class doctorController {
     res.status(200).send({ status: "success", remaining: doctors });
   });
 
-  static doctorappointments = asyncHandler(async (req, res) => {
+  static doctorAppointments = asyncHandler(async (req, res) => {
     const appointments = await appointmentModel
       .find({ doctor: req.user.doctorId })
       .populate("user");

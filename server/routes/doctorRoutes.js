@@ -228,7 +228,7 @@ router
  */
 router
   .route("/doctorappointments")
-  .get(auth, doctorAuth, doctorController.doctorappointments);
+  .get(auth, doctorAuth, doctorController.doctorAppointments);
 
 /**
  * @swagger

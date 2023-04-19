@@ -298,8 +298,8 @@ const { auth, doctorAuth } = require("../middleware/authMiddleware");
  */
 
 router.route("/postContactData").post(api.postContactData);
-router.route("/bookappointment").post(auth, api.bookappointment);
-router.route("/getappointments").get(auth, api.getappointments);
+router.route("/bookappointment").post(auth, api.bookAppointment);
+router.route("/getappointments").get(auth, api.getAppointments);
 router.route("/deleteAppointment").get(auth, doctorAuth, api.deleteAppointment);
 router.route("/create-checkout-session").post(auth, api.payment);
 module.exports = router;

@@ -26,11 +26,11 @@ class apiControllers {
       });
     } else {
       res.status(400);
-      throw new Error("Error Occured");
+      throw new Error("Error Occurred");
     }
   });
 
-  static bookappointment = asyncHandler(async (req, res) => {
+  static bookAppointment = asyncHandler(async (req, res) => {
     const {
       name,
       mobile,
@@ -45,8 +45,8 @@ class apiControllers {
       appointmentTime,
     } = req.body;
     const user = req.user._id;
-    const doctorobj = await Doctor.findOne({ _id: req.query.id });
-    const doctor = doctorobj._id;
+    const doctorObj = await Doctor.findOne({ _id: req.query.id });
+    const doctor = doctorObj._id;
     const appointment = await appointmentModel.create({
       name,
       mobile,
@@ -71,7 +71,7 @@ class apiControllers {
     }
   });
 
-  static getappointments = asyncHandler(async (req, res) => {
+  static getAppointments = asyncHandler(async (req, res) => {
     const appointments = await appointmentModel
       .find({ user: req.user._id })
       .populate("doctor");
@@ -87,7 +87,7 @@ class apiControllers {
     if (app) {
       res.redirect("");
     } else {
-      throw new Error("connot delete");
+      throw new Error("cannot delete");
     }
   });
 
