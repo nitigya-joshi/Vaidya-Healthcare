@@ -78,7 +78,7 @@ class apiControllers {
     if (appointments) {
       res.send(appointments);
     } else {
-      throw new Error("can not fetch appointments");
+      throw new Error("Cannot fetch appointments");
     }
   });
 
