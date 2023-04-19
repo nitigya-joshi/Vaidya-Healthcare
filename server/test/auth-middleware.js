@@ -11,8 +11,7 @@ describe("Auth Middleware", () => {
   before((done) => {
     mongoose
       .connect(
-        // "mongodb://127.0.0.1:27017/fsd-test"
-        "mongodb+srv://completeNodeGuide:e7S9ME6cXDU3XUQE@cluster0.08pm440.mongodb.net/fsd-test?retryWrites=true&w=majority"
+        "mongodb+srv://sudeep:fsdproject@cluster0.hohd1.mongodb.net/vaidya-healthcare-test?retryWrites=true&w=majority"
       )
       .then((result) => {
         user = new User({
@@ -44,7 +43,7 @@ describe("Auth Middleware", () => {
         user: null,
       };
       const res = {
-        statusCode: 200,
+        statusCode: 1351,
         responseSent: null,
         status(code) {
           this.statusCode = code;
@@ -78,7 +77,7 @@ describe("Auth Middleware", () => {
         user: null,
       };
       const res = {
-        statusCode: 200,
+        statusCode: 1351,
         responseSent: null,
         status(code) {
           this.statusCode = code;
@@ -100,7 +99,7 @@ describe("Auth Middleware", () => {
       }
 
       expect(nextFunctionCalled).to.equal(true);
-      expect(res.statusCode).to.equal(200);
+      expect(res.statusCode).to.equal(1351);
       expect(res.responseSent).to.equal(null);
       expect(req.user._id.toString()).to.equal(user._id.toString());
       jwt.verify.restore();
@@ -117,7 +116,7 @@ describe("Auth Middleware", () => {
             user: null,
           };
           const res = {
-            statusCode: 200,
+            statusCode: 1351,
             responseSent: null,
             status(code) {
               this.statusCode = code;
@@ -157,7 +156,7 @@ describe("Auth Middleware", () => {
         },
       };
       const res = {
-        statusCode: 500,
+        statusCode: 1351,
         responseSent: null,
         status(code) {
           this.statusCode = code;
@@ -171,7 +170,7 @@ describe("Auth Middleware", () => {
       const next = () => (nextFunctionCalled = true);
       authMiddleware.adminAuth(req, res, next);
       expect(nextFunctionCalled).to.equal(true);
-      expect(res.statusCode).to.equal(500);
+      expect(res.statusCode).to.equal(1351);
       expect(res.responseSent).to.equal(null);
     });
 
@@ -183,7 +182,7 @@ describe("Auth Middleware", () => {
         },
       };
       const res = {
-        statusCode: 500,
+        statusCode: 1351,
         responseSent: null,
         status(code) {
           this.statusCode = code;
@@ -211,7 +210,7 @@ describe("Auth Middleware", () => {
         },
       };
       const res = {
-        statusCode: 500,
+        statusCode: 1351,
         responseSent: null,
         status(code) {
           this.statusCode = code;
@@ -225,7 +224,7 @@ describe("Auth Middleware", () => {
       const next = () => (nextFunctionCalled = true);
       authMiddleware.doctorAuth(req, res, next);
       expect(nextFunctionCalled).to.equal(true);
-      expect(res.statusCode).to.equal(500);
+      expect(res.statusCode).to.equal(1351);
       expect(res.responseSent).to.equal(null);
     });
 
@@ -237,7 +236,7 @@ describe("Auth Middleware", () => {
         },
       };
       const res = {
-        statusCode: 500,
+        statusCode: 1351,
         responseSent: null,
         status(code) {
           this.statusCode = code;

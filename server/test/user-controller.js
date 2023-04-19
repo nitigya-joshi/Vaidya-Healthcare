@@ -15,8 +15,7 @@ describe("User Controller", () => {
   before((done) => {
     mongoose
       .connect(
-        // "mongodb://127.0.0.1:27017/fsd-test"
-        "mongodb+srv://completeNodeGuide:e7S9ME6cXDU3XUQE@cluster0.08pm440.mongodb.net/fsd-test?retryWrites=true&w=majority"
+        "mongodb+srv://sudeep:fsdproject@cluster0.hohd1.mongodb.net/vaidya-healthcare-test?retryWrites=true&w=majority"
       )
       .then((result) => {
         user = new User({
@@ -36,6 +35,106 @@ describe("User Controller", () => {
         console.log(error);
         done();
       });
+  });
+
+  describe("authUser", () => {
+    const req = {
+      body: {
+        email: "",
+        password: "",
+      },
+    };
+    const res = {
+      responseCookie: null,
+      statusCode: 1351,
+      responseJson: null,
+      status(code) {
+        this.statusCode = code;
+        return this;
+      },
+      cookie(key, value, obj) {
+        this.responseCookie = {
+          key: key,
+          value: value,
+          httpOnly: obj.httpOnly,
+          maxAge: obj.maxAge,
+        };
+        return this;
+      },
+      json(response) {
+        this.responseJson = response;
+        return this;
+      },
+    };
+
+    afterEach(() => {
+      req.body.email = "";
+      req.body.password = "";
+      res.responseCookie = null;
+      res.status(1351);
+      res.json(null);
+    });
+
+    it("should send a response with the status code 200 and json response should contain SUCCESS status and user", async () => {
+      req.body.email = "test@test.com";
+      req.body.password = "12345678";
+
+      try {
+        user.verified = true;
+        await user.save();
+        await userController.authUser(req, res);
+      } catch (error) {
+        console.log(error);
+      }
+
+      try {
+        user.verified = false;
+        await user.save();
+      } catch (error) {
+        console.log(error);
+      }
+
+      expect(res.statusCode).to.equal(200);
+      expect(res.responseJson).to.have.property("status");
+      expect(res.responseJson.status).to.equal("SUCCESS");
+      expect(res.responseJson).to.have.property("user");
+      expect(res.responseJson.user._id.toString()).to.equal(
+        user._id.toString()
+      );
+    });
+
+    it('should send a response with the status code 400 and json response should contain status="FAILED" and message="Email is not verified. Check your inbox!"', async () => {
+      req.body.email = "test@test.com";
+      req.body.password = "12345678";
+
+      try {
+        await userController.authUser(req, res);
+      } catch (error) {
+        console.log(error);
+      }
+
+      expect(res.statusCode).to.equal(400);
+      expect(res.responseJson).to.have.property("status");
+      expect(res.responseJson.status).to.equal("FAILED");
+      expect(res.responseJson).to.have.property("message");
+      expect(res.responseJson.message).to.equal(
+        "Email is not verified. Check your inbox!"
+      );
+    });
+
+    it('should send a response with the status code 400 and json response should contain status="FAILED" and message="Invalid email or password"', async () => {
+      try {
+        await userController.authUser(req, res);
+      } catch (error) {
+        console.log(error);
+      }
+
+      expect(res.statusCode).to.equal(400);
+      expect(res.responseJson).to.have.property("status");
+      expect(res.responseJson.status).to.equal("FAILED");
+      expect(res.responseJson).to.have.property("message");
+      expect(res.responseJson.message).to.equal("Invalid email or password");
+    });
   });
 
   describe("logout", () => {
@@ -121,6 +220,77 @@ describe("User Controller", () => {
     });
   });
 
+  describe("updateUser", () => {
+    let req = {
+      body: {
+        name: null,
+        email: null,
+        username: null,
+        mobile: null,
+        address: null,
+      },
+      user: user,
+    };
+    const res = {
+      statusCode: 1351,
+      responseSend: null,
+      status(code) {
+        this.statusCode = code;
+        return this;
+      },
+      send(response) {
+        this.responseSend = response;
+        return this;
+      },
+    };
+
+    afterEach(() => {
+      req = {
+        body: {
+          name: null,
+          email: null,
+          username: null,
+          mobile: null,
+          address: null,
+        },
+        user: user,
+      };
+      res.status(1351);
+      res.send(null);
+    });
+
+    it("should send a response with the status code 400 and response should have property error with value Invalid Updates!", async () => {
+      req.body.test = "test";
+
+      try {
+        await userController.updateUser(req, res);
+      } catch (error) {
+        console.log(error);
+      }
+
+      expect(res.statusCode).to.equal(400);
+      expect(res.responseSend).have.property("error");
+      expect(res.responseSend.error).to.equal("Invalid Updates!");
+    });
+
+    it("should send a response with req.user", async () => {
+      req.body.name = "Tester";
+      req.body.email = "test@test.com";
+      req.body.username = "tester";
+      req.body.mobile = "12345678";
+      req.body.address = "testingLoc";
+
+      try {
+        await userController.updateUser(req, res);
+      } catch (error) {
+        console.log(error);
+      }
+
+      expect(res.statusCode).to.equal(1351);
+      expect(res.responseSend._id.toString()).to.equal(req.user._id.toString());
+    });
+  });
+
   describe("uploadAvatar", () => {
     it("should send a response with the status true and path of uploaded profile pic", async () => {
       const req = {
@@ -199,6 +369,39 @@ describe("User Controller", () => {
       expect(next).to.have.been.called;
       expect(calledError).to.equal(error);
       User.find.restore();
+    });
+  });
+
+  describe("deleteUser", () => {
+    it("should send a response with status code 200 and response should be status with success and remaining users", async () => {
+      const req = {
+        body: {
+          mongo_ids: [],
+        },
+      };
+      const res = {
+        statusCode: 1351,
+        responseSend: null,
+        status(code) {
+          this.statusCode = code;
+          return this;
+        },
+        send(response) {
+          this.responseSend = response;
+        },
+      };
+
+      try {
+        await userController.deleteUser(req, res);
+      } catch (error) {
+        console.log(error);
+      }
+
+      expect(res.statusCode).to.equal(200);
+      expect(res.responseSend).have.property("status");
+      expect(res.responseSend.status).to.equal("success");
+      expect(res.responseSend).have.property("remaining");
+      expect(res.responseSend.remaining.length).to.greaterThan(0);
     });
   });
 
