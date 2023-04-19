@@ -6,7 +6,7 @@ const auth = async (req, res, next) => {
         jwt.verify(token, 'jwtsecret', async (err, decodedToken) => {
             if (err) {
                 console.log(err.message);
-                res.status(401).send('Invalid token!')
+                res.status(401).send('Invalid token!');
             } else {
                 const user = await User.findById(decodedToken.id);
                 req.user = user;

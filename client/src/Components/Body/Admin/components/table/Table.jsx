@@ -211,7 +211,7 @@ const Table = ({ listtype }) => {
         const data = await res.json()
         console.log(data.remaining)
         if (data) {
-          setUnapprovedDoctors(data.remaining)
+          setUsers(data.remaining)
         }
       }
       if (listtype === "doctors") {
