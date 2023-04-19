@@ -3,7 +3,8 @@ const { default: mongoose } = require('mongoose');
 const Doctor = require('../models/doctorModel');
 const User = require('../models/userModel');
 const appointmentModel = require('../models/appointmentModel')
-
+require('../services/cache')
+const { clearHash } = require('../services/cache')
 
 class doctorController {
     constructor() { }
@@ -19,6 +20,7 @@ class doctorController {
         const doctor = await Doctor.create({
             name, user, category, languages, fee, edu, experience, email, mobile, clinicaddress, rating, pic
         });
+        clearHash('default')
         if (doctor) {
             res.status(201).send({
                 _id: doctor._id,
@@ -42,7 +44,7 @@ class doctorController {
     })
 
     static getDoctors = asyncHandler(async (req, res) => {
-        const doctors = await Doctor.find({ approved: true });
+        const doctors = await Doctor.find({ approved: true }).cache()
         if (doctors) {
             res.status(201).send(doctors);
         } else {
@@ -55,9 +57,9 @@ class doctorController {
         const { mongo_ids, user_ids } = req.body.details
         console.log(mongo_ids, user_ids)
         const updatedDoctors = await Doctor.updateMany({ _id: { $in: mongo_ids } }, { approved: true }).populate('user')
-        console.log(updatedDoctors)
         await User.updateMany({ _id: { $in: user_ids } }, { isDoctor: true, doctorId: mongo_ids })
         const doctors = await Doctor.find({ approved: false });
+        clearHash('default')
         res.status(200).send({ status: 'success', remaining: doctors })
     })
 
@@ -71,6 +73,7 @@ class doctorController {
         });
         await User.updateMany({ _id: { $in: user_ids } }, { isDoctor: false, doctorId: null })
         const doctors = await Doctor.find({});
+        clearHash('default')
         res.status(200).send({ status: 'success', remaining: doctors })
     })
 
@@ -96,7 +99,7 @@ class doctorController {
     })
 
     static getUnapprovedDoctors = asyncHandler(async (req, res) => {
-        const doctors = await Doctor.find({ approved: false });
+        const doctors = await Doctor.find({ approved: false })
         if (doctors) {
             res.status(200).send(doctors);
         } else {

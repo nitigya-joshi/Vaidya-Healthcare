@@ -1,5 +1,4 @@
 */node_modules
-/client/.env
-/server/.env
+.env
 /server/uploads
 */.DS_Store

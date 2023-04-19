@@ -1,6 +1,7 @@
 const express = require('express');
 const doctorController = require('../controllers/doctorControllers');
-const { auth, adminauth, doctorauth } = require('../middleware/auth')
+const { auth, adminauth, doctorauth } = require('../middleware/auth');
+const cleanCache = require('../middleware/cleanCache');
 const router = express.Router();
 
 /**
@@ -65,8 +66,6 @@ const router = express.Router();
  *                    type: string
  *                    example: Error registering as Doctor!
  */
-
-
 router.route('/register').post(auth, doctorController.registerDoctor);
 
 /**
