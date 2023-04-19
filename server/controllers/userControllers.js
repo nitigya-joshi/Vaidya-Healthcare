@@ -1,13 +1,10 @@
 const asyncHandler = require("express-async-handler");
-const { default: mongoose } = require("mongoose");
 const User = require("../models/userModel");
 const UserVerification = require("../models/userVerification");
 const jwt = require("jsonwebtoken");
-const sharp = require("sharp");
 const nodemailer = require("nodemailer");
 const bcrypt = require("bcryptjs");
 const { v4: uuidv4 } = require("uuid");
-const Doctor = require("../models/doctorModel");
 
 require("dotenv").config();
 
@@ -108,7 +105,7 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(201).json({ user: user._id });
   } else {
     res.status(400);
-    throw new Error("Error Occured");
+    throw new Error("Error Occurred");
   }
 });
 

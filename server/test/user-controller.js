@@ -37,6 +37,111 @@ describe("User Controller", () => {
       });
   });
 
+  describe("registerUser", () => {
+    let req = {
+      body: {
+        name: null,
+        username: null,
+        gender: null,
+        email: null,
+        password: null,
+        mobile: null,
+        address: null,
+        pic: null,
+        appointments: null,
+      },
+    };
+
+    const res = {
+      statusCode: 1351,
+      responseJson: null,
+      status(code) {
+        this.statusCode = code;
+        return this;
+      },
+      json(response) {
+        this.responseJson = response;
+        return this;
+      },
+    };
+
+    afterEach(() => {
+      req = {
+        body: {
+          name: null,
+          username: null,
+          gender: null,
+          email: null,
+          password: null,
+          mobile: null,
+          address: null,
+          pic: null,
+          appointments: null,
+        },
+      };
+      res.status(1351);
+      res.json(null);
+    });
+
+    it("should send a response with the status code 400 and throw an Error: User already exists", async () => {
+      req.body.email = "test@test.com";
+      const error = "Error: User already exists";
+      let calledError;
+      const next = sinon.spy((args) => (calledError = args.toString()));
+
+      try {
+        await userController.registerUser(req, res, next);
+      } catch (error) {
+        console.log(error);
+      }
+
+      expect(res.statusCode).to.equal(400);
+      expect(next).to.have.been.called;
+      expect(calledError).to.equal(error);
+    });
+
+    it("should send a response with the status code 201 and response should contain user property", async () => {
+      req.body.name = "Temp";
+      req.body.username = "temporary";
+      req.body.gender = "temp";
+      req.body.email = "temp@temp.com";
+      req.body.password = "12345678";
+      req.body.mobile = "12345678";
+      req.body.address = "I live temporary";
+      req.body.pic = "pretty ugly";
+      req.body.appointments = 0;
+
+      try {
+        await userController.registerUser(req, res);
+      } catch (error) {
+        console.log(error);
+      }
+
+      expect(res.statusCode).to.equal(201);
+      expect(res.responseJson).have.property("user");
+    });
+
+    it("should send a response with the status code 201 and response should contain user property", async () => {
+      sinon.stub(User, "create");
+      User.create.returns(null);
+      req.body.email = "test@temp.com";
+      const error = "Error: Error Occurred";
+      let calledError;
+      const next = sinon.spy((args) => (calledError = args.toString()));
+
+      try {
+        await userController.registerUser(req, res, next);
+      } catch (error) {
+        console.log(error);
+      }
+
+      expect(res.statusCode).to.equal(400);
+      expect(next).to.have.been.called;
+      expect(calledError).to.equal(error);
+      User.create.restore();
+    });
+  });
+
   describe("authUser", () => {
     const req = {
       body: {
