@@ -10,7 +10,10 @@ describe("Auth Middleware", () => {
   let user;
   before((done) => {
     mongoose
-      .connect("mongodb://127.0.0.1:27017/fsd-test")
+      .connect(
+        // "mongodb://127.0.0.1:27017/fsd-test"
+        "mongodb+srv://completeNodeGuide:e7S9ME6cXDU3XUQE@cluster0.08pm440.mongodb.net/fsd-test?retryWrites=true&w=majority"
+      )
       .then((result) => {
         user = new User({
           _id: "5c0f66b979af55031b34728a",
@@ -32,89 +35,75 @@ describe("Auth Middleware", () => {
   });
 
   describe("auth", () => {
-    it("should send a response with status code 401 and Invalid token!", (done) => {
-      async function testAuth() {
-        try {
-          let nextFunctionCalled = false;
-          const req = {
-            cookies: {
-              jwt: "VERIFY_ME",
-            },
-            user: null,
-          };
-          const res = {
-            statusCode: 200,
-            responseSent: null,
-            status(code) {
-              this.statusCode = code;
-              return this;
-            },
-            send(response) {
-              this.responseSent = response;
-              return this;
-            },
-          };
-          const next = () => (nextFunctionCalled = true);
-          await authMiddleware.auth(req, res, next);
-          expect(nextFunctionCalled).not.to.equal(true);
-          expect(res.statusCode).to.equal(401);
-          expect(res.responseSent).to.equal("Invalid token!");
-          expect(req.user).to.equal(null);
-          done();
-        } catch (error) {
-          console.log(error);
-          expect(nextFunctionCalled).not.to.equal(true);
-          expect(res.statusCode).to.equal(401);
-          expect(res.responseSent).to.equal("Invalid token!");
-          done();
-        }
+    it("should send a response with status code 401 and Invalid token!", async () => {
+      let nextFunctionCalled = false;
+      const req = {
+        cookies: {
+          jwt: "VERIFY_ME",
+        },
+        user: null,
+      };
+      const res = {
+        statusCode: 200,
+        responseSent: null,
+        status(code) {
+          this.statusCode = code;
+          return this;
+        },
+        send(response) {
+          this.responseSent = response;
+          return this;
+        },
+      };
+      const next = () => (nextFunctionCalled = true);
+
+      try {
+        await authMiddleware.auth(req, res, next);
+      } catch (error) {
+        console.log(error);
       }
-      testAuth();
+
+      expect(nextFunctionCalled).not.to.equal(true);
+      expect(res.statusCode).to.equal(401);
+      expect(res.responseSent).to.equal("Invalid token!");
+      expect(req.user).to.equal(null);
     });
 
-    it("should call next function and and req.user should be user", (done) => {
-      async function testAuth() {
-        try {
-          let nextFunctionCalled = false;
-          const req = {
-            cookies: {
-              jwt: "VERIFY_ME",
-            },
-            user: null,
-          };
-          const res = {
-            statusCode: 200,
-            responseSent: null,
-            status(code) {
-              this.statusCode = code;
-              return this;
-            },
-            send(response) {
-              this.responseSent = response;
-              return this;
-            },
-          };
-          const next = () => (nextFunctionCalled = true);
-          sinon.stub(jwt, "verify");
-          jwt.verify.returns({ id: "5c0f66b979af55031b34728a" });
-          await authMiddleware.auth(req, res, next);
-          expect(nextFunctionCalled).to.equal(true);
-          expect(res.statusCode).to.equal(200);
-          expect(res.responseSent).to.equal(null);
-          expect(req.user._id.toString()).to.equal(user._id.toString());
-          jwt.verify.restore();
-          done();
-        } catch (error) {
-          console.log(error);
-          expect(nextFunctionCalled).to.equal(true);
-          expect(res.statusCode).to.equal(200);
-          expect(res.responseSent).to.equal(null);
-          expect(req.user._id.toString()).to.equal(user._id.toString());
-          jwt.verify.restore();
-          done();
-        }
+    it("should call next function and and req.user should be user", async () => {
+      let nextFunctionCalled = false;
+      const req = {
+        cookies: {
+          jwt: "VERIFY_ME",
+        },
+        user: null,
+      };
+      const res = {
+        statusCode: 200,
+        responseSent: null,
+        status(code) {
+          this.statusCode = code;
+          return this;
+        },
+        send(response) {
+          this.responseSent = response;
+          return this;
+        },
+      };
+      const next = () => (nextFunctionCalled = true);
+      sinon.stub(jwt, "verify");
+      jwt.verify.returns({ id: "5c0f66b979af55031b34728a" });
+
+      try {
+        await authMiddleware.auth(req, res, next);
+      } catch (error) {
+        console.log(error);
       }
-      testAuth();
+
+      expect(nextFunctionCalled).to.equal(true);
+      expect(res.statusCode).to.equal(200);
+      expect(res.responseSent).to.equal(null);
+      expect(req.user._id.toString()).to.equal(user._id.toString());
+      jwt.verify.restore();
     });
 
     it("should send a response with status code 500 and Something went wrong", (done) => {
@@ -322,7 +311,7 @@ describe("Auth Middleware", () => {
         } catch (error) {
           console.log(error);
           expect(nextFunctionCalled).to.equal(true);
-          expect(res.locals.user).to.equal(user);
+          expect(res.locals.user._id.toString()).to.equal(user._id.toString());
           jwt.verify.restore();
           done();
         }
