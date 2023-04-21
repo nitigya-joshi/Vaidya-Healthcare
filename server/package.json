@@ -26,7 +26,7 @@
     "nodemailer": "^6.8.0",
     "redis": "^4.6.5",
     "sharp": "^0.31.1",
-    "stripe": "^10.15.0",
+    "stripe": "^10.17.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.2",
     "uuid": "^9.0.0",

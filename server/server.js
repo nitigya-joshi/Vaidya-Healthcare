@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const connectDB = require('./config/db');
 const userRoutes = require('./routes/userRoutes');
@@ -11,6 +12,7 @@ const port = process.env.PORT || 3000;
 const app = express();
 const path = require('path');
 const morgan = require('morgan')
+const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 var fs = require('fs')
 
 require('dotenv').config()
@@ -26,6 +28,36 @@ app.use(express.json({ limit: '8mb' }))
 app.use(morgan('tiny'))
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+
+const storeItems = new Map([
+    [1, { item: 'MacBook Pro', price: 5999 }],
+]);
+
+app.post('/create-checkout-session', async (req, res) => {
+    try {
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            mode : 'payment',
+            line_items: req.body.items.map(item => {
+                return {
+                    price_data: {
+                        currency: 'inr',
+                        product_data: {
+                            name: item.name,
+                        },
+                        unit_amount: item.price * 100,
+                    },
+                    quantity: item.quantity,
+                };
+            }),
+            success_url: 'http://localhost:3001',
+            cancel_url: 'http://localhost:3001',
+        });
+        res.json({ url: session.url });
+    } catch (e){
+        res.status(500).json({ error: e.message })
+    }
+});
 
 const swaggerOptions = {
     definition: {
