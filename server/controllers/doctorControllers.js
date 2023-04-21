@@ -1,5 +1,4 @@
 const asyncHandler = require('express-async-handler');
-const { default: mongoose } = require('mongoose');
 const Doctor = require('../models/doctorModel');
 const User = require('../models/userModel');
 const appointmentModel = require('../models/appointmentModel')
@@ -76,7 +75,7 @@ class doctorController {
         res.status(200).send({ status: 'success', remaining: doctors })
     })
 
-    static doctorappointments = asyncHandler(async (req, res) => {
+    static doctorAppointments = asyncHandler(async (req, res) => {
         const appointments = await appointmentModel.find({ doctor: req.user.doctorId }).populate('user');
         if (appointments) {
             res.send(appointments)

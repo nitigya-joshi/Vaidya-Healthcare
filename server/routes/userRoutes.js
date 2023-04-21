@@ -1,9 +1,19 @@
-const express = require('express');
-const { registerUser, authUser, logout, updateUser, uploadAvatar, verifyEmail, getUserdata, getAllUsers, deleteUser, makeAdmin } = require('../controllers/userControllers');
-const { auth, adminauth } = require('../middleware/auth')
-const { upload } = require('../middleware/avatarUpload');
-const router = express.Router()
-
+const express = require("express");
+const {
+  registerUser,
+  authUser,
+  logout,
+  updateUser,
+  uploadAvatar,
+  verifyEmail,
+  getUserData,
+  getAllUsers,
+  deleteUser,
+  makeAdmin,
+} = require("../controllers/userControllers");
+const { auth, adminAuth } = require("../middleware/authMiddleware");
+const { upload } = require("../middleware/avatarUpload");
+const router = express.Router();
 
 /**
  * @swagger
@@ -14,8 +24,8 @@ const router = express.Router()
  *       required: true
  *       content:
  *         application/json:
- *           schema: 
- *             type: object 
+ *           schema:
+ *             type: object
  *             properties:
  *               name:
  *                  type: string
@@ -40,32 +50,32 @@ const router = express.Router()
  *         description: User data added successfully!
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 201
- *                  message: 
+ *                  message:
  *                    type: string
  *                    example: User data added successfully!
  *       400:
  *         description: Error adding user data!
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 400
- *                  message: 
+ *                  message:
  *                    type: string
  *                    example: Error adding user data!
- *       
+ *
  */
 
-router.route('/register').post(registerUser);
+router.route("/register").post(registerUser);
 
 /**
  * @swagger
@@ -76,8 +86,8 @@ router.route('/register').post(registerUser);
  *       required: true
  *       content:
  *         application/json:
- *           schema: 
- *             type: object 
+ *           schema:
+ *             type: object
  *             properties:
  *               email:
  *                  type: string
@@ -88,32 +98,32 @@ router.route('/register').post(registerUser);
  *         description: The Login happened Successfully
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 200
- *                  message: 
+ *                  message:
  *                    type: string
  *                    example: Logged in successfully!
  *       400:
  *         description: Error while logging!
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 400
- *                  message: 
+ *                  message:
  *                    type: string
- *                    example: Error while logging!       
- *       
+ *                    example: Error while logging!
+ *
  */
-router.route('/login').post(authUser);
-router.route('/logout').get(auth, logout);
+router.route("/login").post(authUser);
+router.route("/logout").get(auth, logout);
 
 /**
  * @swagger
@@ -124,16 +134,16 @@ router.route('/logout').get(auth, logout);
  *       required: true
  *       content:
  *         application/json:
- *           schema: 
- *             type: object 
- *             properties: 
+ *           schema:
+ *             type: object
+ *             properties:
  *               name:
  *                 type: string
  *               email:
  *                 type: string
  *               username:
  *                 type: string
- *               mobile: 
+ *               mobile:
  *                 type: string
  *               address:
  *                 type: string
@@ -142,46 +152,46 @@ router.route('/logout').get(auth, logout);
  *         description: User data updated successfully!
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 200
- *                  message: 
+ *                  message:
  *                    type: string
  *                    example: User data updated!
  *       400:
  *         description: Error updating user data!
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 400
- *                  message: 
+ *                  message:
  *                    type: string
- *                    example: Error while updating user data!        
- *       
+ *                    example: Error while updating user data!
+ *
  */
 
-router.route('/updateuser').patch(auth, updateUser);
+router.route("/updateuser").patch(auth, updateUser);
 
 /**
  * @swagger
  * /users/verify/:userId/:uniqueString:
  *   get:
- *     parameters: 
+ *     parameters:
  *       -  in: path
  *          name: userId
- *          schema: 
+ *          schema:
  *            type: string
  *          required: true
  *       -  in: path
  *          name: uniqueString
- *          schema: 
+ *          schema:
  *            type: string
  *          required: true
  *          description: API to verify mail id.
@@ -191,46 +201,46 @@ router.route('/updateuser').patch(auth, updateUser);
  *         description: API to verify mail-id.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 200
- *                  message: 
+ *                  message:
  *                    type: string
  *                    example: Mail -ID verified Succesfuly!
  *       400:
  *         description: Mail -ID  Didn't verified.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 400
- *                  message: 
+ *                  message:
  *                    type: string
- *                    example: Mail -ID  Didn't verified!    
- *       
+ *                    example: Mail -ID  Didn't verified!
+ *
  */
 
-router.route('/upload').post(auth, upload.single("avatarInput"), uploadAvatar);
+router.route("/upload").post(auth, upload.single("avatarInput"), uploadAvatar);
 
 /**
  * @swagger
  * /users/verify/:userId/:uniqueString:
  *   get:
- *     parameters: 
+ *     parameters:
  *       -  in: path
  *          name: userId
- *          schema: 
+ *          schema:
  *            type: string
  *          required: true
  *       -  in: path
  *          name: uniqueString
- *          schema: 
+ *          schema:
  *            type: string
  *          required: true
  *          description: API to verify mail id.
@@ -240,32 +250,32 @@ router.route('/upload').post(auth, upload.single("avatarInput"), uploadAvatar);
  *         description: API to verify mail-id.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 200
- *                  message: 
+ *                  message:
  *                    type: string
  *                    example: Mail -ID verified Succesfuly!
  *       400:
  *         description: Mail -ID  Didn't verified.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 400
- *                  message: 
+ *                  message:
  *                    type: string
- *                    example: Mail -ID  Didn't verified!    
- *       
+ *                    example: Mail -ID  Didn't verified!
+ *
  */
 
-router.route('/verify/:userId/:uniqueString').get(verifyEmail);
+router.route("/verify/:userId/:uniqueString").get(verifyEmail);
 
 /**
  * @swagger
@@ -277,31 +287,31 @@ router.route('/verify/:userId/:uniqueString').get(verifyEmail);
  *         description: API to get user Data.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 200
- *                  message: 
+ *                  message:
  *                    type: string
  *                    example: User data fetched Succesfuly!
  *       400:
  *         description: API to get userData.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 400
- *                  message: 
+ *                  message:
  *                    type: string
- *                    example: USer Data didn't fetched succesfuly!    
- *       
+ *                    example: USer Data didn't fetched succesfuly!
+ *
  */
-router.route('/me').get(auth, getUserdata);
+router.route("/me").get(auth, getUserData);
 /**
  * @swagger
  * /users/getusers:
@@ -312,40 +322,40 @@ router.route('/me').get(auth, getUserdata);
  *         description: API to get All UsersData.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 200
- *                  message: 
+ *                  message:
  *                    type: string
  *                    example: All users data fetched Succesfuly!
  *       400:
  *         description: API to get All UsersData.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 400
- *                  message: 
+ *                  message:
  *                    type: string
- *                    example: Data didn't fetched succesfuly!    
- *       
+ *                    example: Data didn't fetched succesfuly!
+ *
  */
-router.route('/getusers').get(auth, adminauth, getAllUsers);
+router.route("/getusers").get(auth, adminAuth, getAllUsers);
 
 /**
  * @swagger
  * /users/deleteUser:
  *   get:
- *     parameters: 
+ *     parameters:
  *       -  in: query
  *          name: id
- *          schema: 
+ *          schema:
  *            type: string
  *          required: true
  *          description: This is the unique User ID
@@ -355,30 +365,30 @@ router.route('/getusers').get(auth, adminauth, getAllUsers);
  *         description: API to delete user data.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 200
- *                  message: 
+ *                  message:
  *                    type: string
  *                    example: user data deleted Succesfuly!
  *       400:
  *         description: API to delete  UsersData.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 400
- *                  message: 
+ *                  message:
  *                    type: string
- *                    example: User data  didn't deleted succesfuly!    
- *       
+ *                    example: User data  didn't deleted succesfuly!
+ *
  */
-router.route('/deleteUser').post(auth, adminauth, deleteUser);
-router.route('/makeadmin').post(auth, adminauth, makeAdmin);
+router.route("/deleteUser").post(auth, adminAuth, deleteUser);
+router.route("/makeadmin").post(auth, adminAuth, makeAdmin);
 module.exports = router;

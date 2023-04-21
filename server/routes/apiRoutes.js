@@ -1,21 +1,21 @@
-const express = require('express');
-const api = require('../controllers/apiControllers');
+const express = require("express");
+const api = require("../controllers/apiControllers");
 // const { postContactData, bookappointment, getappointments, deleteAppointment, payment } = require('../controllers/apiControllers')
-const router = express.Router()
-const { auth, doctorauth } = require('../middleware/auth')
+const router = express.Router();
+const { auth, doctorAuth } = require("../middleware/authMiddleware");
 
-/** 
-   * @swagger
+/**
+ * @swagger
  * tags:
  *   - name: contactData
  *     description: Users contact form data
- * 
+ *
  *   - name: appointments
  *     description: Appointment related operations
- * 
+ *
  *   - name: checkout session
  *     description: Endpoint for payment endpoint
- * 
+ *
  * paths:
  *   /postContactData:
  *     post:
@@ -54,7 +54,7 @@ const { auth, doctorauth } = require('../middleware/auth')
  *                   email: nitigya@gmail.com
  *                   phone: "9171412345"
  *                   message: Hello world!
- * 
+ *
  *         "400":
  *           description: Error Description
  *           content:
@@ -66,8 +66,8 @@ const { auth, doctorauth } = require('../middleware/auth')
  *                     type: string
  *                     description: Error message indicating invalid request body
  *                     example: Invalid request! Error occured.
- * 
- * 
+ *
+ *
  *   /bookappointment:
  *     post:
  *       summary: Book an appointment
@@ -99,8 +99,8 @@ const { auth, doctorauth } = require('../middleware/auth')
  *           description: Error booking an appointment
  *         '500':
  *           description: User credentials not found in our database
- *   
- *   
+ *
+ *
  *   /getappointments:
  *     get:
  *       parameters:
@@ -131,8 +131,8 @@ const { auth, doctorauth } = require('../middleware/auth')
  *           description: No appointment found
  *         '500':
  *           description: User credentials not found in our database
- *     
- * 
+ *
+ *
  *   /deleteAppointment:
  *     get:
  *       parameters:
@@ -159,7 +159,7 @@ const { auth, doctorauth } = require('../middleware/auth')
  *                       example: Appointment deleted successfully
  *         '400':
  *           description: Invalid status value
- * 
+ *
  *   /create-checkout-session:
  *     post:
  *       summary: Create a checkout session for making payment
@@ -202,9 +202,9 @@ const { auth, doctorauth } = require('../middleware/auth')
  *                   error:
  *                     type: string
  *                     description: Error message
- * 
- * 
- * 
+ *
+ *
+ *
  * components:
  *   schemas:
  *     ContactData:
@@ -230,7 +230,7 @@ const { auth, doctorauth } = require('../middleware/auth')
  *         message: Hello world!
  *       xml:
  *         name: ContactData
- *     
+ *
  *     Appointment:
  *       type: object
  *       required:
@@ -297,10 +297,9 @@ const { auth, doctorauth } = require('../middleware/auth')
  *         doctor: 626730ba0b3d491b43315079
  */
 
-
-router.route('/postContactData').post(api.postContactData);
-router.route('/bookappointment').post(auth, api.bookappointment);
-router.route('/getappointments').get(auth, api.getappointments);
-router.route('/deleteAppointment').get(auth, doctorauth, api.deleteAppointment);
-router.route('/create-checkout-session').post(auth, api.payment);
+router.route("/postContactData").post(api.postContactData);
+router.route("/bookappointment").post(auth, api.bookAppointment);
+router.route("/getappointments").get(auth, api.getAppointments);
+router.route("/deleteAppointment").get(auth, doctorAuth, api.deleteAppointment);
+router.route("/create-checkout-session").post(auth, api.payment);
 module.exports = router;

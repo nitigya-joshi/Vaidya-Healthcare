@@ -1,9 +1,7 @@
-const express = require('express');
-const doctorController = require('../controllers/doctorControllers');
-const { auth, adminauth, doctorauth } = require('../middleware/auth');
-const cleanCache = require('../middleware/cleanCache');
+const express = require("express");
+const doctorController = require("../controllers/doctorControllers");
+const { auth, adminAuth, doctorAuth } = require("../middleware/authMiddleware");
 const router = express.Router();
-
 /**
  * @swagger
  * /doctors/register:
@@ -13,8 +11,8 @@ const router = express.Router();
  *       required: true
  *       content:
  *         application/json:
- *           schema: 
- *             type: object 
+ *           schema:
+ *             type: object
  *             properties:
  *               name:
  *                  type: string
@@ -43,30 +41,31 @@ const router = express.Router();
  *         description: Doctor data added successfully!
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 201
- *                  message: 
+ *                  message:
  *                    type: string
  *                    example:  USer registered as doctor successfully!
  *       400:
  *         description: Error registering as Doctor!
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 400
- *                  message: 
+ *                  message:
  *                    type: string
  *                    example: Error registering as Doctor!
  */
-router.route('/register').post(auth, doctorController.registerDoctor);
+
+router.route("/register").post(auth, doctorController.registerDoctor);
 
 /**
  * @swagger
@@ -78,40 +77,40 @@ router.route('/register').post(auth, doctorController.registerDoctor);
  *         description: API to get Doctors Data.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 200
- *                  message: 
+ *                  message:
  *                    type: string
  *                    example: Doctor data fetched Succesfuly!
  *       400:
  *         description: API to get all Doctor's.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 400
- *                  message: 
+ *                  message:
  *                    type: string
- *                    example: Doctor's Data didn't fetched succesfuly!    
- *       
+ *                    example: Doctor's Data didn't fetched succesfuly!
+ *
  */
-router.route('/getdoctors').get(doctorController.getDoctors);
+router.route("/getdoctors").get(doctorController.getDoctors);
 
 /**
  * @swagger
  * /doctors/approve:
  *   get:
- *     parameters: 
+ *     parameters:
  *       -  in: query
  *          name: id
- *          schema: 
+ *          schema:
  *            type: string
  *          required: true
  *          description: This is the unique User ID
@@ -121,40 +120,40 @@ router.route('/getdoctors').get(doctorController.getDoctors);
  *         description: API to make user as a Doctor.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 200
- *                  message: 
+ *                  message:
  *                    type: string
  *                    example: user made to Doctor made successfuly!
  *       400:
  *         description: API to make user as a Doctor.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 400
- *                  message: 
+ *                  message:
  *                    type: string
- *                    example: User Cannot be made as doctor, error occured!    
- *       
+ *                    example: User Cannot be made as doctor, error occured!
+ *
  */
-router.route('/approve').post(auth, adminauth, doctorController.approveDoctor);
+router.route("/approve").post(auth, adminAuth, doctorController.approveDoctor);
 
 /**
  * @swagger
  * /doctors/deleteDoctor:
  *   get:
- *     parameters: 
+ *     parameters:
  *       -  in: query
  *          name: id
- *          schema: 
+ *          schema:
  *            type: string
  *          required: true
  *          description: This is the unique User ID of Doctor
@@ -164,31 +163,33 @@ router.route('/approve').post(auth, adminauth, doctorController.approveDoctor);
  *         description: API to remove user as a Doctor.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 200
- *                  message: 
+ *                  message:
  *                    type: string
  *                    example: user removed from Doctor  successfuly!
  *       400:
  *         description: API to remove user as from Doctor.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 400
- *                  message: 
+ *                  message:
  *                    type: string
- *                    example: User Cannot be removed from doctor, error occured!    
- *       
+ *                    example: User Cannot be removed from doctor, error occured!
+ *
  */
-router.route('/deleteDoctor').post(auth, adminauth, doctorController.deleteDoctor);
+router
+  .route("/deleteDoctor")
+  .post(auth, adminAuth, doctorController.deleteDoctor);
 
 /**
  * @swagger
@@ -200,40 +201,42 @@ router.route('/deleteDoctor').post(auth, adminauth, doctorController.deleteDocto
  *         description: API to get All appointment of doctor.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 200
- *                  message: 
+ *                  message:
  *                    type: string
  *                    example: All appointments of doctor fetched Succesfuly!
  *       400:
  *         description: API to get All appointments of dotor.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 400
- *                  message: 
+ *                  message:
  *                    type: string
- *                    example: Appointments didn't fetched succesfuly!    
- *       
+ *                    example: Appointments didn't fetched succesfuly!
+ *
  */
-router.route('/doctorappointments').get(auth, doctorauth, doctorController.doctorappointments);
+router.route("/doctorappointments")
+  .get(auth, doctorAuth, doctorController.doctorAppointments);
+
 
 /**
  * @swagger
  * /doctors/doctor/{_id}:
  *   get:
- *     parameters: 
+ *     parameters:
  *       -  in: path
  *          name: _id
- *          schema: 
+ *          schema:
  *            type: string
  *          required: true
  *          description: API to get Doctor's detail via id.
@@ -243,30 +246,30 @@ router.route('/doctorappointments').get(auth, doctorauth, doctorController.docto
  *         description: API to get Doctor's detail via id..
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 200
- *                  message: 
+ *                  message:
  *                    type: string
  *                    example: Doctor's data fetched Succesfuly!
  *       400:
  *         description: API to get Doctor's detail via id.
  *         content:
  *           application/json:
- *             schema: 
+ *             schema:
  *                type: object
  *                properties:
- *                  status: 
+ *                  status:
  *                    type: integer
  *                    example: 400
- *                  message: 
+ *                  message:
  *                    type: string
- *                    example: Doctor's Data didn't fetched succesfuly!   
- *       
+ *                    example: Doctor's Data didn't fetched succesfuly!
+ *
  */
-router.route('/doctor/:id').get(doctorController.getDoctorById);
-router.route('/unapproved').get(doctorController.getUnapprovedDoctors);
+router.route("/doctor/:id").get(doctorController.getDoctorById);
+router.route("/unapproved").get(doctorController.getUnapprovedDoctors);
 module.exports = router;
