@@ -102,40 +102,40 @@ function BookAppointment() {
     if (
       patientInfoInputs[3].max !==
       dateTime[0].tday_yy.toString() +
-        "-" +
-        dateTime[0].tday_mm.toString() +
-        "-" +
-        dateTime[0].tday_dd.toString()
+      "-" +
+      dateTime[0].tday_mm.toString() +
+      "-" +
+      dateTime[0].tday_dd.toString()
     ) {
       updateObjects(
         patientInfoInputs,
         "patientDOB",
         "max",
         dateTime[0].tday_yy.toString() +
-          "-" +
-          dateTime[0].tday_mm.toString() +
-          "-" +
-          dateTime[0].tday_dd.toString()
+        "-" +
+        dateTime[0].tday_mm.toString() +
+        "-" +
+        dateTime[0].tday_dd.toString()
       );
     }
 
     if (
       docInfoInputs[2].min !==
       dateTime[1].tm_yy.toString() +
-        "-" +
-        dateTime[1].tm_mm.toString() +
-        "-" +
-        dateTime[1].tm_dd.toString()
+      "-" +
+      dateTime[1].tm_mm.toString() +
+      "-" +
+      dateTime[1].tm_dd.toString()
     ) {
       updateObjects(
         docInfoInputs,
         "appointmentDate",
         "min",
         dateTime[1].tm_yy.toString() +
-          "-" +
-          dateTime[1].tm_mm.toString() +
-          "-" +
-          dateTime[1].tm_dd.toString()
+        "-" +
+        dateTime[1].tm_mm.toString() +
+        "-" +
+        dateTime[1].tm_dd.toString()
       );
     }
   }, [dateTime, patientInfoInputs, docInfoInputs]);
@@ -180,7 +180,7 @@ function BookAppointment() {
 
   const fetchDoctor = useCallback(async () => {
     const res = await fetch(
-      `http://localhost:3000/api/doctors/doctor/${searchParams.get("doctor")}`
+      `${process.env.REACT_APP_SERVER_URL}/api/doctors/doctor/${searchParams.get("doctor")}`
     );
     const doctorDetails = await res.json();
     const obj = {
@@ -236,7 +236,7 @@ function BookAppointment() {
       };
       console.log(obj);
       const res = await fetch(
-        `http://localhost:3000/api/bookappointment?id=${searchParams.get(
+        `${process.env.REACT_APP_SERVER_URL}/api/bookappointment?id=${searchParams.get(
           "doctor"
         )}`,
         {
@@ -380,7 +380,7 @@ function BookAppointment() {
         ];
         updateButtons(updatedButtons);
       } else {
-        const res = await fetch("http://localhost:3000/api/users/me", {
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/users/me`, {
           credentials: "include",
         });
         const userData = await res.json();

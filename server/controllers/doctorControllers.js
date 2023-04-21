@@ -55,7 +55,6 @@ class doctorController {
 
     static approveDoctor = asyncHandler(async (req, res) => {
         const { mongo_ids, user_ids } = req.body.details
-        console.log(mongo_ids, user_ids)
         const updatedDoctors = await Doctor.updateMany({ _id: { $in: mongo_ids } }, { approved: true }).populate('user')
         await User.updateMany({ _id: { $in: user_ids } }, { isDoctor: true, doctorId: mongo_ids })
         const doctors = await Doctor.find({ approved: false });
@@ -94,7 +93,7 @@ class doctorController {
             res.send(doctor)
         }
         else {
-            throw new Error('can not fetch appointments');
+            throw new Error('can not fetch docter');
         }
     })
 

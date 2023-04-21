@@ -14,13 +14,13 @@ const AdminHome = () => {
     const dispatch = useDispatch()
 
     const fetchData = useCallback(async () => {
-        const res = await fetch('http://localhost:3000/api/users/getusers', {
+        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/users/getusers`, {
             credentials: 'include'
         })
         const users = await res.json()
         dispatch(addUsers(users))
 
-        const doctorres = await fetch('http://localhost:3000/api/doctors/getdoctors', {
+        const doctorres = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/doctors/getdoctors`, {
             credentials: 'include'
         })
         const doctors = await doctorres.json()

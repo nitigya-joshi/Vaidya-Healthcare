@@ -34,7 +34,7 @@ function Doctors() {
 
 
   const fetchDoctors = async () => {
-    const response = await fetch('http://localhost:3000/api/doctors/getdoctors');
+    const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/doctors/getdoctors`);
     const data = await response.json()
     setFetchedDoctors(data);
   };

@@ -3,9 +3,8 @@ const User = require('../models/userModel')
 const auth = async (req, res, next) => {
     const token = req.cookies.jwt;
     if (token) {
-        jwt.verify(token, 'jwtsecret', async (err, decodedToken) => {
+        jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
             if (err) {
-                console.log(err.message);
                 res.status(401).send('Invalid token!');
             } else {
                 const user = await User.findById(decodedToken.id);
@@ -36,7 +35,7 @@ const doctorauth = async (req, res, next) => {
 const checkUser = (req, res, next) => {
     const token = req.cookies.jwt;
     if (token) {
-        jwt.verify(token, 'jwtsecret', async (err, decodedToken) => {
+        jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
             if (err) {
                 res.locals.user = null;
                 next();

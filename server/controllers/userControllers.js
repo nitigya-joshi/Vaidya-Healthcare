@@ -64,7 +64,7 @@ const sendVerificationEmail = async ({ _id, email }, res) => {
 }
 
 const createToken = (id) => {
-    return jwt.sign({ id }, 'jwtsecret', {
+    return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: 3 * 24 * 60 * 60
     });
 };
@@ -138,7 +138,7 @@ const updateUser = asyncHandler(async (req, res) => {
 })
 
 const uploadAvatar = asyncHandler(async (req, res) => {
-    const profilePic = 'http://localhost:3000/' + req.file.path
+    const profilePic = `${process.env.SERVER_URL}/` + req.file.path
     req.user.pic = profilePic
     await req.user.save()
     res.send({ status: true, path: profilePic })

@@ -8,7 +8,7 @@ function AppointmentTable() {
   const [appointmentData, setAppointmentData] = useState([])
 
   const fetchAppointmentData = async () => {
-    const res = await fetch('http://localhost:3000/api/getappointments', {
+    const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/getappointments`, {
       credentials: 'include'
     });
     const data = await res.json();

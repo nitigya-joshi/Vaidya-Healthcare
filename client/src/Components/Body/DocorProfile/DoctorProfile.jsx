@@ -23,7 +23,7 @@ function DoctorProfile() {
   const [searchParams] = useSearchParams();
 
   const fetchDoctorData = useCallback(async () => {
-    const res = await fetch(`http://localhost:3000/api/doctors/doctor/${searchParams.get("doctor")}`);
+    const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/doctors/doctor/${searchParams.get("doctor")}`);
     const doctorDetails = await res.json();
     const obj = {
       name: doctorDetails.name,

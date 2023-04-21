@@ -17,6 +17,7 @@
     "@zegocloud/zego-uikit-prebuilt": "^1.7.4",
     "aos": "^3.0.0-beta.6",
     "apexcharts": "^3.36.3",
+    "dotenv": "^16.0.3",
     "emailjs-com": "^3.2.0",
     "framer-motion": "^7.6.5",
     "material-ui-search-bar": "^1.0.0",

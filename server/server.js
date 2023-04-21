@@ -7,14 +7,18 @@ const cookieParser = require('cookie-parser');
 const swaggerJSDoc = require('swagger-jsdoc');
 const swaggerUI = require('swagger-ui-express');
 const cors = require('cors')
-const port = 3000;
+const port = process.env.PORT || 3000;
 const app = express();
 const path = require('path');
 const morgan = require('morgan')
 var fs = require('fs')
 
+require('dotenv').config()
+
 connectDB();
-app.use(cors({ credentials: true, origin: 'http://localhost:3001' }))
+const clientUrl = process.env.CLIENT_URL
+const serverUrl = process.env.SERVER_URL
+app.use(cors({ credentials: true, origin: clientUrl }))
 app.use(cookieParser());
 app.use(express.json({ limit: '8mb' }))
 
@@ -32,12 +36,12 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: "http://localhost:3000/api",
+                url: `${serverUrl}/api`,
             },
         ],
     },
     apis: ["./routes/*.js"],
-    url: "http://localhost:3000/",
+    url: serverUrl,
 };
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
