@@ -180,7 +180,7 @@ function BookAppointment() {
 
   const fetchDoctor = useCallback(async () => {
     const res = await fetch(
-      `${process.env.REACT_APP_SERVER_URL}/api/doctors/doctor/${searchParams.get("doctor")}`
+      `/api/doctors/doctor/${searchParams.get("doctor")}`
     );
     const doctorDetails = await res.json();
     const obj = {
@@ -236,7 +236,7 @@ function BookAppointment() {
         appointmentTime: docInfoValues.appointmentTime,
       };
       const res = await fetch(
-        `${process.env.REACT_APP_SERVER_URL}/api/bookappointment?id=${searchParams.get(
+        `/api/bookappointment?id=${searchParams.get(
           "doctor"
         )}`,
         {
@@ -250,7 +250,7 @@ function BookAppointment() {
       if (appointment.status === "ok") {
         console.log("payment");
         console.log(docInfoValues)
-        fetch(`${process.env.REACT_APP_SERVER_URL}/create-checkout-session`, {
+        fetch(`/create-checkout-session`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
@@ -406,7 +406,7 @@ function BookAppointment() {
         ];
         updateButtons(updatedButtons);
       } else {
-        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/users/me`, {
+        const res = await fetch(`/api/users/me`, {
           credentials: "include",
         });
         const userData = await res.json();

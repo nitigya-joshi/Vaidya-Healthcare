@@ -27,7 +27,7 @@ function SignUp() {
         email: formValues.email,
         password: formValues.password,
       }
-      const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/users/register`, {
+      const res = await fetch(`/api/users/register`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

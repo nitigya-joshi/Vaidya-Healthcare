@@ -9,7 +9,7 @@ function MedicalBillsTable() {
   const [appointmentData, setAppointmentData] = useState([])
 
   const fetchAppointmentData = async () => {
-    const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/doctors/doctorappointments`, {
+    const res = await fetch(`/api/doctors/doctorappointments`, {
       credentials: 'include'
     });
     const data = await res.json();

@@ -40,7 +40,7 @@ function Profile() {
     e.preventDefault()
     const formData = new FormData()
     formData.append("avatarInput", image)
-    const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/users/upload`, {
+    const res = await fetch(`/api/users/upload`, {
       credentials: 'include',
       method: "POST",
       body: formData

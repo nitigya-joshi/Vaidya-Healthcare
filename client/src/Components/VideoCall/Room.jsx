@@ -29,7 +29,7 @@ const RoomPage = () => {
             sharedLinks: [
                 {
                     name: 'Copy link',
-                    url: `${process.env.REACT_APP_SERVER_URL}/room/${roomId}`
+                    url: `/room/${roomId}`
                 },
             ],
             scenario: {

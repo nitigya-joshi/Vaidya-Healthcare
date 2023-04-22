@@ -37,7 +37,7 @@ function Navbar(props) {
 
   const logoutHandler = async () => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/users/logout`, {
+      const res = await fetch(`/api/users/logout`, {
         method: 'GET',
         headers: {
           Accept: "application/json",

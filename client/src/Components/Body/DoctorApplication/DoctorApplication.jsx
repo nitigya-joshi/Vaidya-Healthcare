@@ -37,7 +37,7 @@ function SignUp() {
         mobile: formValues.phone,
         clinicaddress: formValues.address,
       };
-      const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/doctors/register`, {
+      const res = await fetch(`/api/doctors/register`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

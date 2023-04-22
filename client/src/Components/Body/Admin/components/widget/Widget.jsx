@@ -17,7 +17,7 @@ const Widget = ({ type }) => {
 
     useEffect(() => {
         const fetchUnapprovedDoctors = async () => {
-            const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/doctors/unapproved`, {
+            const res = await fetch(`/api/doctors/unapproved`, {
                 credentials: 'include'
             })
             const doctors = await res.json()

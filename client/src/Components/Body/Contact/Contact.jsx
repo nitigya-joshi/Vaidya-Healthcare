@@ -25,7 +25,7 @@ function Contact() {
         phone: '+911234567890',
         message: formValues.msg
       };
-      const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/postContactData`, {
+      const res = await fetch(`/api/postContactData`, {
         method: "POST",
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(obj)

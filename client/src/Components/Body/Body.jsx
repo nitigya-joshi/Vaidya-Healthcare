@@ -57,7 +57,7 @@ function Body() {
 
   const getUserdata = async () => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/users/me`, {
+      const res = await fetch(`/api/users/me`, {
         method: 'GET',
         headers: {
           Accept: "application/json",

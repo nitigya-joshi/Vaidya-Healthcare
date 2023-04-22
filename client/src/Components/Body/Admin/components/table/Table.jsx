@@ -16,21 +16,21 @@ const Table = ({ listtype }) => {
 
   const fetchData = useCallback(async () => {
     if (listtype === "users") {
-      const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/users/getusers`, {
+      const res = await fetch(`/api/users/getusers`, {
         credentials: 'include'
       })
       setUsers(await res.json())
     }
 
     if (listtype === "doctors") {
-      const doctorres = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/doctors/getdoctors`, {
+      const doctorres = await fetch(`/api/doctors/getdoctors`, {
         credentials: 'include'
       })
       setDoctors(await doctorres.json())
     }
 
     if (listtype === "approve") {
-      const doctorres = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/doctors/unapproved`, {
+      const doctorres = await fetch(`/api/doctors/unapproved`, {
         credentials: 'include'
       })
       setUnapprovedDoctors(await doctorres.json())
@@ -200,7 +200,7 @@ const Table = ({ listtype }) => {
   const deleteUsers = async (mongo_ids) => {
     try {
       if (listtype === "users") {
-        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/users/deleteUser`, {
+        const res = await fetch(`/api/users/deleteUser`, {
           method: 'POST',
           credentials: 'include',
           headers: { "Content-Type": "application/json" },
@@ -215,7 +215,7 @@ const Table = ({ listtype }) => {
         }
       }
       if (listtype === "doctors") {
-        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/doctors/deleteDoctor`, {
+        const res = await fetch(`/api/doctors/deleteDoctor`, {
           method: 'POST',
           credentials: 'include',
           headers: { "Content-Type": "application/json" },
@@ -237,7 +237,7 @@ const Table = ({ listtype }) => {
   const approveUsers = async (details) => {
     try {
       if (listtype === "approve") {
-        const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/doctors/approve`, {
+        const res = await fetch(`/api/doctors/approve`, {
           method: 'POST',
           credentials: 'include',
           headers: { "Content-Type": "application/json" },
