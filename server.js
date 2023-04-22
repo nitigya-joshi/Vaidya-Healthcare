@@ -63,7 +63,7 @@ const swaggerOptions = {
     definition: {
         openapi: "3.0.0",
         info: {
-            title: "Vaidya Healthcare API endpoint",
+            title: "Vaidya Healthcare API endpoints",
             version: "1.0.0",
         },
         servers: [
