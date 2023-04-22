@@ -425,7 +425,7 @@ describe("User Controller", () => {
         console.log(error);
       }
 
-      expect(req.user.pic).to.equal(`http://localhost:3000/${req.file.path}`);
+      expect(req.user.pic).to.equal(`${process.env.SERVER_URL}/${req.file.path}`);
       expect(res.status).to.equal(true);
     });
   });
