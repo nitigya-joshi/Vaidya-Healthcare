@@ -37,7 +37,7 @@ app.post('/create-checkout-session', async (req, res) => {
     try {
         const session = await stripe.checkout.sessions.create({
             payment_method_types: ['card'],
-            mode : 'payment',
+            mode: 'payment',
             line_items: req.body.items.map(item => {
                 return {
                     price_data: {
@@ -50,11 +50,11 @@ app.post('/create-checkout-session', async (req, res) => {
                     quantity: item.quantity,
                 };
             }),
-            success_url: 'http://localhost:3001',
-            cancel_url: 'http://localhost:3001',
+            success_url: serverUrl,
+            cancel_url: serverUrl,
         });
         res.json({ url: session.url });
-    } catch (e){
+    } catch (e) {
         res.status(500).json({ error: e.message })
     }
 });
@@ -82,6 +82,18 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocs));
 app.use('/api/users', userRoutes);
 app.use('/api/doctors', doctorRoutes);
 app.use('/api', contactRoutes);
+
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "client", "build")));
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, "client", "build", "index.html"))
+    });
+    console.log("Running production");
+} else {
+    app.get('/', (req, res) => {
+        res.send("Server is working 😇")
+    });
+}
 
 app.use(function (err, req, res, next) {
     console.error(err.stack);

@@ -3,8 +3,15 @@ const exec = mongoose.Query.prototype.exec;
 const redis = require('redis');
 let redisClient;
 (async () => {
-    redisClient = redis.createClient();
+    redisClient = redis.createClient({
+        password: 'LG12DnmN2OVA2j1f8UUHMSv3She5keFe',
+        socket: {
+            host: 'redis-15699.c56.east-us.azure.cloud.redislabs.com',
+            port: 15699
+        }
+    });
     redisClient.on("error", (error) => console.error(`Error : ${error}`));
+    redisClient.on("connect", () => console.log(`Connected to redis`));
     await redisClient.connect();
 })();
 
@@ -23,7 +30,6 @@ mongoose.Query.prototype.exec = async function () {
         collection: this.mongooseCollection.name
     }))
     const cachedVal = await redisClient.HGET(this.hashKey, key)
-
     if (cachedVal) {
         const doc = JSON.parse(cachedVal)
         return Array.isArray(doc)

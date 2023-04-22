@@ -249,32 +249,32 @@ function BookAppointment() {
       const appointment = await res.json();
       if (appointment.status === "ok") {
         console.log("payment");
-        console.log( docInfoValues)
-        fetch('http://localhost:3000/create-checkout-session', {
+        console.log(docInfoValues)
+        fetch(`${process.env.REACT_APP_SERVER_URL}/create-checkout-session`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
           body: JSON.stringify({
             items: [
-              { id: 1 , name: docInfoValues?.doctorName + " consultation charges", price: docInfoValues?.appointmentFee, quantity: 1 }
+              { id: 1, name: docInfoValues?.doctorName + " consultation charges", price: docInfoValues?.appointmentFee, quantity: 1 }
             ]
           })
         })
-        .then(res => {
-          if(res.ok) return res.json()
-          return res.json().then(json => Promise.reject(json))
-        })
-        .then(({url}) => {
-          console.log(url)
-          window.location = url 
-          // notify that payment is successful
-          notifySuccess();
-        })
-        .catch(e => {
-          console.error(e.error)
-          // notify that payment is not successful
-          notifyError();
-        })
+          .then(res => {
+            if (res.ok) return res.json()
+            return res.json().then(json => Promise.reject(json))
+          })
+          .then(({ url }) => {
+            console.log(url)
+            window.location = url
+            // notify that payment is successful
+            notifySuccess();
+          })
+          .catch(e => {
+            console.error(e.error)
+            // notify that payment is not successful
+            notifyError();
+          })
       } else {
         notifyError();
       }
