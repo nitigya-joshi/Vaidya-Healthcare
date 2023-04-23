@@ -11,14 +11,14 @@ COPY . .
 ENV AUTH_EMAIL = ishikiirohasan@gmail.com
 ENV AUTH_PASS = dspachyybdjwmkwb
 ENV MONGO_URI=mongodb+srv://sudeep:fsdproject@cluster0.hohd1.mongodb.net/vaidyaHealthcare?retryWrites=true&w=majority
-ENV SERVER_URL=http://localhost:8080
-ENV CLIENT_URL=http://localhost:8080
+ENV SERVER_URL=http://localhost:80
+ENV CLIENT_URL=http://localhost:80
 ENV STRIPE_PRIVATE_KEY=sk_test_51KosdYSC8Elc1T5pCGBDB0LyhuMtzLCGlqygKVC1sIaz0bIjBQUNBN9BmuxaZAArzIAiO1yPMvc1JusRXTMUhk1e00GsHsQTiQ
 ENV STRIPE_PUB_KEY=pk_test_51KosdYSC8Elc1T5p6tRG6T1zK4yMcIRMUpNE8Q5PMfq7qO6nlR13FGSfbNMg3einjs5JIEWC1wM39RNWubd1WtJp00jNupGt6d
 ENV JWT_SECRET=superduperstrongsecret
-ENV PORT=8080
+ENV PORT=80
 ENV NODE_ENV=production
 
-EXPOSE 8080
+EXPOSE 80
 
 CMD ["npm", "run", "docker-build-webapp"]
