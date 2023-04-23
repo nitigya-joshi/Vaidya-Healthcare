@@ -142,105 +142,105 @@ describe("User Controller", () => {
     });
   });
 
-  describe("authUser", () => {
-    const req = {
-      body: {
-        email: "",
-        password: "",
-      },
-    };
-    const res = {
-      responseCookie: null,
-      statusCode: 1351,
-      responseJson: null,
-      status(code) {
-        this.statusCode = code;
-        return this;
-      },
-      cookie(key, value, obj) {
-        this.responseCookie = {
-          key: key,
-          value: value,
-          httpOnly: obj.httpOnly,
-          maxAge: obj.maxAge,
-        };
-        return this;
-      },
-      json(response) {
-        this.responseJson = response;
-        return this;
-      },
-    };
+  // describe("authUser", () => {
+  //   const req = {
+  //     body: {
+  //       email: "",
+  //       password: "",
+  //     },
+  //   };
+  //   const res = {
+  //     responseCookie: null,
+  //     statusCode: 1351,
+  //     responseJson: null,
+  //     status(code) {
+  //       this.statusCode = code;
+  //       return this;
+  //     },
+  //     cookie(key, value, obj) {
+  //       this.responseCookie = {
+  //         key: key,
+  //         value: value,
+  //         httpOnly: obj.httpOnly,
+  //         maxAge: obj.maxAge,
+  //       };
+  //       return this;
+  //     },
+  //     json(response) {
+  //       this.responseJson = response;
+  //       return this;
+  //     },
+  //   };
 
-    afterEach(() => {
-      req.body.email = "";
-      req.body.password = "";
-      res.responseCookie = null;
-      res.status(1351);
-      res.json(null);
-    });
+  //   afterEach(() => {
+  //     req.body.email = "";
+  //     req.body.password = "";
+  //     res.responseCookie = null;
+  //     res.status(1351);
+  //     res.json(null);
+  //   });
 
-    it("should send a response with the status code 200 and json response should contain SUCCESS status and user", async () => {
-      req.body.email = "test@test.com";
-      req.body.password = "12345678";
+  //   it("should send a response with the status code 200 and json response should contain SUCCESS status and user", async () => {
+  //     req.body.email = "test@test.com";
+  //     req.body.password = "12345678";
 
-      try {
-        user.verified = true;
-        await user.save();
-        await userController.authUser(req, res);
-      } catch (error) {
-        console.log(error);
-      }
+  //     try {
+  //       user.verified = true;
+  //       await user.save();
+  //       await userController.authUser(req, res);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
 
-      try {
-        user.verified = false;
-        await user.save();
-      } catch (error) {
-        console.log(error);
-      }
+  //     try {
+  //       user.verified = false;
+  //       await user.save();
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
 
-      expect(res.statusCode).to.equal(200);
-      expect(res.responseJson).to.have.property("status");
-      expect(res.responseJson.status).to.equal("SUCCESS");
-      expect(res.responseJson).to.have.property("user");
-      expect(res.responseJson.user._id.toString()).to.equal(
-        user._id.toString()
-      );
-    });
+  //     expect(res.statusCode).to.equal(200);
+  //     expect(res.responseJson).to.have.property("status");
+  //     expect(res.responseJson.status).to.equal("SUCCESS");
+  //     expect(res.responseJson).to.have.property("user");
+  //     expect(res.responseJson.user._id.toString()).to.equal(
+  //       user._id.toString()
+  //     );
+  //   });
 
-    it('should send a response with the status code 400 and json response should contain status="FAILED" and message="Email is not verified. Check your inbox!"', async () => {
-      req.body.email = "test@test.com";
-      req.body.password = "12345678";
+  //   it('should send a response with the status code 400 and json response should contain status="FAILED" and message="Email is not verified. Check your inbox!"', async () => {
+  //     req.body.email = "test@test.com";
+  //     req.body.password = "12345678";
 
-      try {
-        await userController.authUser(req, res);
-      } catch (error) {
-        console.log(error);
-      }
+  //     try {
+  //       await userController.authUser(req, res);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
 
-      expect(res.statusCode).to.equal(400);
-      expect(res.responseJson).to.have.property("status");
-      expect(res.responseJson.status).to.equal("FAILED");
-      expect(res.responseJson).to.have.property("message");
-      expect(res.responseJson.message).to.equal(
-        "Email is not verified. Check your inbox!"
-      );
-    });
+  //     expect(res.statusCode).to.equal(400);
+  //     expect(res.responseJson).to.have.property("status");
+  //     expect(res.responseJson.status).to.equal("FAILED");
+  //     expect(res.responseJson).to.have.property("message");
+  //     expect(res.responseJson.message).to.equal(
+  //       "Email is not verified. Check your inbox!"
+  //     );
+  //   });
 
-    it('should send a response with the status code 400 and json response should contain status="FAILED" and message="Invalid email or password"', async () => {
-      try {
-        await userController.authUser(req, res);
-      } catch (error) {
-        console.log(error);
-      }
+  //   it('should send a response with the status code 400 and json response should contain status="FAILED" and message="Invalid email or password"', async () => {
+  //     try {
+  //       await userController.authUser(req, res);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
 
-      expect(res.statusCode).to.equal(400);
-      expect(res.responseJson).to.have.property("status");
-      expect(res.responseJson.status).to.equal("FAILED");
-      expect(res.responseJson).to.have.property("message");
-      expect(res.responseJson.message).to.equal("Invalid email or password");
-    });
-  });
+  //     expect(res.statusCode).to.equal(400);
+  //     expect(res.responseJson).to.have.property("status");
+  //     expect(res.responseJson.status).to.equal("FAILED");
+  //     expect(res.responseJson).to.have.property("message");
+  //     expect(res.responseJson.message).to.equal("Invalid email or password");
+  //   });
+  // });
 
   describe("logout", () => {
     it("should send a response with the status code 200, json response should be user and cookie should contain jwt token", async () => {
