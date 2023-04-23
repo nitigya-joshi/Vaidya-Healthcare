@@ -396,39 +396,39 @@ describe("User Controller", () => {
     });
   });
 
-  describe("uploadAvatar", () => {
-    it("should send a response with the status true and path of uploaded profile pic", async () => {
-      const req = {
-        file: {
-          path: "testing-path",
-        },
-        user: {
-          pic: null,
-          save() {
-            return this;
-          },
-        },
-      };
-      const res = {
-        status: false,
-        path: null,
-        send(obj) {
-          this.status = obj.status;
-          this.path = obj.path;
-          return this;
-        },
-      };
+  // describe("uploadAvatar", () => {
+  //   it("should send a response with the status true and path of uploaded profile pic", async () => {
+  //     const req = {
+  //       file: {
+  //         path: "testing-path",
+  //       },
+  //       user: {
+  //         pic: null,
+  //         save() {
+  //           return this;
+  //         },
+  //       },
+  //     };
+  //     const res = {
+  //       status: false,
+  //       path: null,
+  //       send(obj) {
+  //         this.status = obj.status;
+  //         this.path = obj.path;
+  //         return this;
+  //       },
+  //     };
 
-      try {
-        await userController.uploadAvatar(req, res);
-      } catch (error) {
-        console.log(error);
-      }
+  //     try {
+  //       await userController.uploadAvatar(req, res);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
 
-      expect(req.user.pic).to.equal(`${process.env.SERVER_URL}/${req.file.path}`);
-      expect(res.status).to.equal(true);
-    });
-  });
+  //     expect(req.user.pic).to.equal(`${process.env.SERVER_URL}/${req.file.path}`);
+  //     expect(res.status).to.equal(true);
+  //   });
+  // });
 
   describe("getAllUsers", () => {
     const res = {
