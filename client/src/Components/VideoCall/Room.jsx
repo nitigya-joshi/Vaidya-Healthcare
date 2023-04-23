@@ -29,7 +29,7 @@ const RoomPage = () => {
             sharedLinks: [
                 {
                     name: 'Copy link',
-                    url: `/room/${roomId}`
+                    url: `${window.location.origin}/room/${roomId}`
                 },
             ],
             scenario: {

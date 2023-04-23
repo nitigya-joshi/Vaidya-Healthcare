@@ -46,7 +46,8 @@ function Profile() {
       body: formData
     });
     const data = await res.json();
-    dispatch(setAvatar(data.path));
+    // console.log(window.location.origin + data.path)
+    dispatch(setAvatar(window.location.origin + data.path));
   }
 
   return (

@@ -162,7 +162,7 @@ const updateUser = asyncHandler(async (req, res) => {
 });
 
 const uploadAvatar = asyncHandler(async (req, res) => {
-  const profilePic = `${process.env.SERVER_URL}/` + req.file.path
+  const profilePic = `/` + req.file.path
   req.user.pic = profilePic
   await req.user.save()
   res.send({ status: true, path: profilePic })

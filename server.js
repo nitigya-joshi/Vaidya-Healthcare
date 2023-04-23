@@ -19,7 +19,7 @@ require('dotenv').config()
 
 connectDB();
 const clientUrl = process.env.CLIENT_URL
-const serverUrl = process.env.SERVER_URL
+// const serverUrl = process.env.SERVER_URL
 app.use(cors({ credentials: true, origin: clientUrl }))
 app.use(cookieParser());
 app.use(express.json({ limit: '8mb' }))
@@ -50,8 +50,8 @@ app.post('/create-checkout-session', async (req, res) => {
                     quantity: item.quantity,
                 };
             }),
-            success_url: serverUrl,
-            cancel_url: serverUrl,
+            success_url: 'https://vaidya-healthcare.azurewebsites.net/',
+            cancel_url: 'https://vaidya-healthcare.azurewebsites.net/',
         });
         res.json({ url: session.url });
     } catch (e) {
@@ -68,12 +68,12 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: `${serverUrl}/api`,
+                url: `https://vaidya-healthcare.azurewebsites.net/api`,
             },
         ],
     },
     apis: ["./routes/*.js"],
-    url: serverUrl,
+    url: 'https://vaidya-healthcare.azurewebsites.net/',
 };
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
