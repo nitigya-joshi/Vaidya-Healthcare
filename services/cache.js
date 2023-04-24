@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const exec = mongoose.Query.prototype.exec;
 const redis = require('redis');
 let redisClient;
-(async () => {
+async function config() {
     redisClient = redis.createClient({
         password: 'LG12DnmN2OVA2j1f8UUHMSv3She5keFe',
         socket: {
@@ -13,7 +13,7 @@ let redisClient;
     redisClient.on("error", (error) => console.error(`Error : ${error}`));
     redisClient.on("connect", () => console.log(`Connected to redis`));
     await redisClient.connect();
-})();
+}
 
 mongoose.Query.prototype.cache = function (options = {}) {
     this.useCache = true;
@@ -42,7 +42,8 @@ mongoose.Query.prototype.exec = async function () {
 }
 
 module.exports = {
+    config,
     async clearHash(hashKey) {
         redisClient.del(JSON.stringify(hashKey));
-    }
+    },
 };

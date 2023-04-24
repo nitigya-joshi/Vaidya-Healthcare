@@ -2,8 +2,8 @@ const asyncHandler = require('express-async-handler');
 const Doctor = require('../models/doctorModel');
 const User = require('../models/userModel');
 const appointmentModel = require('../models/appointmentModel')
-require('../services/cache')
-const { clearHash } = require('../services/cache')
+
+const redisCache = require('../services/cache')
 
 class doctorController {
     constructor() { }
@@ -18,8 +18,8 @@ class doctorController {
         const user = req.user._id
         const doctor = await Doctor.create({
             name, user, category, languages, fee, edu, experience, email, mobile, clinicaddress, rating, pic
-        });
-        clearHash('default')
+        })
+        redisCache.clearHash('default')
         if (doctor) {
             res.status(201).send({
                 _id: doctor._id,
@@ -56,8 +56,8 @@ class doctorController {
         const { mongo_ids, user_ids } = req.body.details
         const updatedDoctors = await Doctor.updateMany({ _id: { $in: mongo_ids } }, { approved: true }).populate('user')
         await User.updateMany({ _id: { $in: user_ids } }, { isDoctor: true, doctorId: mongo_ids })
-        const doctors = await Doctor.find({ approved: false });
-        clearHash('default')
+        const doctors = await Doctor.find({ approved: false }).clear()
+        redisCache.clearHash('default')
         res.status(200).send({ status: 'success', remaining: doctors })
     })
 
@@ -70,8 +70,8 @@ class doctorController {
             user_ids.push(doctor.user._id)
         });
         await User.updateMany({ _id: { $in: user_ids } }, { isDoctor: false, doctorId: null })
-        const doctors = await Doctor.find({});
-        clearHash('default')
+        const doctors = await Doctor.find({}).clear()
+        redisCache.clearHash('default')
         res.status(200).send({ status: 'success', remaining: doctors })
     })
 

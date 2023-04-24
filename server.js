@@ -14,7 +14,7 @@ const path = require('path');
 const morgan = require('morgan')
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 var fs = require('fs')
-
+require('./services/cache').config()
 require('dotenv').config()
 
 connectDB();
