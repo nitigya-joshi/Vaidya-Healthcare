@@ -473,7 +473,7 @@ function BookAppointment() {
   return (
     <div className={styles["book-appointment"]}>
       <div className={styles["appointment-form"]}>
-        <h1 className={styles["title"]}>Appointment For</h1>
+        <h1 className={styles["title"]}>Appointment Form</h1>
         <form onSubmit={submitHandler} className={styles["form"]}>
           <div className={styles["info"]}>
             <div
