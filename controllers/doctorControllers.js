@@ -56,7 +56,7 @@ class doctorController {
         const { mongo_ids, user_ids } = req.body.details
         const updatedDoctors = await Doctor.updateMany({ _id: { $in: mongo_ids } }, { approved: true }).populate('user')
         await User.updateMany({ _id: { $in: user_ids } }, { isDoctor: true, doctorId: mongo_ids })
-        const doctors = await Doctor.find({ approved: false }).clear()
+        const doctors = await Doctor.find({ approved: false })
         redisCache.clearHash('default')
         res.status(200).send({ status: 'success', remaining: doctors })
     })
@@ -70,7 +70,7 @@ class doctorController {
             user_ids.push(doctor.user._id)
         });
         await User.updateMany({ _id: { $in: user_ids } }, { isDoctor: false, doctorId: null })
-        const doctors = await Doctor.find({}).clear()
+        const doctors = await Doctor.find({})
         redisCache.clearHash('default')
         res.status(200).send({ status: 'success', remaining: doctors })
     })
