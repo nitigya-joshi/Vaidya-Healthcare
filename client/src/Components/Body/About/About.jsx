@@ -15,7 +15,7 @@ function Services() {
       <BannerProps
         img="https://i.imgur.com/1PBKN6Z.png"
         title="About Us"
-        text="Learn More about our team!"
+        text="Learn More about us"
       />
       <div className={`${styles["services-container"]}`}>{gridServicesRow}</div>
     </div>
